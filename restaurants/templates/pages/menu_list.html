@@ -6,7 +6,7 @@
 {% block content %}
 <div class="max-w-2xl mx-auto py-10">
     <a href="{% url 'home_menu' bases %}" class="text-blue-600 font-medium text-sm hover:underline">&larr; {% trans "Back" %}</a>
-    <h1 class="text-3xl font-bold text-blue-700 mt-4 mb-6">{{ restaurant.title }}</h1>
+    <h1 class="text-3xl font-bold text-blue-700 mt-4 mb-6">{% trans restaurant.title %}</h1>
 
     {# ── Meal-time tabs ──────────────────────────────────────────────────────
     State: ?meal=아침 / ?meal=점심 / etc. (GET param)
