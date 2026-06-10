@@ -141,13 +141,16 @@ def home_menu(request, bases):
 
 def menu_list(request, path, bases):
     """Display menu items for the restaurant selected on the home page."""
-    r = next(r for r in RESTAURANTS if r['path'] == path)
+    r = next((r for r in RESTAURANTS if r['path'] == path), None)
+    if not r:
+        from django.http import Http404
+        raise Http404("Restaurant not found")
     title = r['title']
     all_meals = r['mealsSemester']
     weekdays = [d for d in WEEKDAYS if d['day'] == request.GET.get('day', WEEKDAYS[0]['day'])]
     meal_tabs = [
         {
-            'id': next(meal['time'] for meal in MEALS if meal['name'] == m),
+            'id': next((meal['time'] for meal in MEALS if meal['name'] == m), None),
             'label': m,
             'meal_time': r['mealsSemesterTime'][r['mealsSemester'].index(m)]
         }
@@ -185,8 +188,12 @@ def menu_detail(request, path, meal, bases):
     """Display details for a specific menu item"""
     # menu_item = get_object_or_404(MenuItem, url=path)
     # menu_item = {'title': path, 'meal': meal, 'order': 0}
-    location = next(r for r in RESTAURANTS if r['path'] == path)['title']
-    menu_item = MenuItem.objects.filter(id=meal)[0]
+    location = next((r for r in RESTAURANTS if r['path'] == path), None)
+    if not location:
+        from django.http import Http404
+        raise Http404("Restaurant not found")
+    location = location['title']
+    menu_item = get_object_or_404(MenuItem, id=meal)
     time = f"{menu_item.date[0:4]}-{menu_item.date[4:6]}-{menu_item.date[6:8]} {menu_item.day} {menu_item.meal}"
     return render(request, 'pages/menu_detail.html', {'menu_item': menu_item, 'image_url': 'https://objectstorage.ap-chuncheon-1.oraclecloud.com/n/ax0ym4amgnfk/b/bucket-20260516-0145/o/'+menu_item.main+'.png', 'time': time, 'bases': bases, 'path': path, 'meal': meal})
 
