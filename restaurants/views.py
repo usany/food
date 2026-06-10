@@ -138,22 +138,9 @@ def root_redirect(request):
 def home_menu(request, bases):
     restaurants_items = [r for r in RESTAURANTS if r['campus'] == bases]
     return render(request, 'pages/home.html', {'items': restaurants_items, 'location': bases, 'bases': bases})
-def home(request):
-    """Home page — SE location"""
-    restaurants_items = [r for r in RESTAURANTS if r['campus'] == 'se']
-    return render(request, 'pages/home.html', {'items': restaurants_items, 'location': 'se', 'base': 'ko', 'bases': 'se'})
 
-
-def home_gl(request):
-    """Home page — GL location"""
-    restaurants_items = [r for r in RESTAURANTS if r['campus'] == 'gl']
-    return render(request, 'pages/home.html', {'items': restaurants_items, 'location': 'gl', 'base': 'ko', 'bases': 'gl'})
-
-
-def menu_list(request, path, meal, bases):
+def menu_list(request, path, bases):
     """Display menu items for the restaurant selected on the home page."""
-    # Extract base and bases from URL if they're part of the path
-    location = 'gl' if request.path.startswith('/gl/') else 'se'
     r = next(r for r in RESTAURANTS if r['path'] == path)
     title = r['title']
     all_meals = r['mealsSemester']
@@ -188,22 +175,20 @@ def menu_list(request, path, meal, bases):
         'restaurant': {'title': title, 'meal_tabs': meal_tabs, 'path': path},
         'selected_meal': selected_meal,
         'selected_day': selected_day,
-        'location': location,
         'menu': filtered_dishes,
-        'base': base or 'ko',
-        'bases': bases or location,
+        'bases': bases,
         'path': path
     })
 
 
-def menu_detail(request, path, meal, base=None, bases=None):
+def menu_detail(request, path, meal, bases):
     """Display details for a specific menu item"""
     # menu_item = get_object_or_404(MenuItem, url=path)
     # menu_item = {'title': path, 'meal': meal, 'order': 0}
     location = next(r for r in RESTAURANTS if r['path'] == path)['title']
     menu_item = MenuItem.objects.filter(id=meal)[0]
     time = f"{menu_item.date[0:4]}-{menu_item.date[4:6]}-{menu_item.date[6:8]} {menu_item.day} {menu_item.meal}"
-    return render(request, 'pages/menu_detail.html', {'menu_item': menu_item, 'image_url': 'https://objectstorage.ap-chuncheon-1.oraclecloud.com/n/ax0ym4amgnfk/b/bucket-20260516-0145/o/'+menu_item.main+'.png', 'location': location, 'time': time, 'base': base or 'ko', 'bases': bases or location, 'path': path, 'meal': meal})
+    return render(request, 'pages/menu_detail.html', {'menu_item': menu_item, 'image_url': 'https://objectstorage.ap-chuncheon-1.oraclecloud.com/n/ax0ym4amgnfk/b/bucket-20260516-0145/o/'+menu_item.main+'.png', 'time': time, 'bases': bases, 'path': path, 'meal': meal})
 
 
 # @staff_member_required
