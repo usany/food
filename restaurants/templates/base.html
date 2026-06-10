@@ -88,8 +88,14 @@
             const newLang = currentLang === 'ko' ? 'en' : 'ko';
             setStorage('base', newLang);
             updateLanguageIcon(newLang);
-            // Optionally reload the page to apply language changes
-            // window.location.reload();
+            const currentBase = getStorage('bases') || 'se';
+            const path = window.location.pathname;
+            const pathSegments = path.split('/').filter(Boolean);
+            let newPath = `/${newLang}/${currentBase}/`;
+            if (pathSegments.length > 2) {
+                newPath += pathSegments.slice(2).join('/') + '/';
+            }
+            window.location.href = newPath;
         }
 
         function updateLanguageIcon(lang) {
