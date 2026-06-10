@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.admin.views.decorators import staff_member_required
 from .models import MenuItem
@@ -55,7 +55,7 @@ def menu_list(request):
 
 def menu_detail(request, pk):
     """Display details for a specific menu item"""
-    menu_item = MenuItem.objects.get(pk=pk)
+    menu_item = get_object_or_404(MenuItem, pk=pk)
     return render(request, 'pages/menu_detail.html', {'menu_item': menu_item})
 
 
