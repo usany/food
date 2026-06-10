@@ -15,11 +15,60 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: pages/views.py
+msgid "title"
+msgstr "title"
+
+msgid "main"
+msgstr "main"
+
+#: restaurants/views.py
+msgid "청운관 학생식당"
+msgstr "Chungwongwan Dining Hall"
+
+msgid "청운관 교직원식당"
+msgstr "Chungwongwan Faculty Dining Hall"
+
+msgid "푸른솔 학생식당"
+msgstr "Pureun Sol Dining Hall"
+
+msgid "푸른솔 교직원식당"
+msgstr "Pureun Sol Faculty Dining Hall"
+
+msgid "한국외대 인문관 식당"
+msgstr "HUFS Humanities Building Cafeteria"
+
+msgid "한국외대 교수회관 식당"
+msgstr "HUFS Faculty Meeting Hall Cafeteria"
+
+msgid "학생회관 학생식당"
+msgstr "Student Center Dining Hall"
+
+msgid "학생회관 교직원식당"
+msgstr "Student Center Faculty Dining Hall"
+
+msgid "제2기숙사 식당"
+msgstr "Dormitory 2 Cafeteria"
+
+#: restaurants/views.py (Fixed menu items)
+msgid "만두라면, 치즈라면"
+msgstr "Dumpling Ramen, Cheese Ramen"
+
+msgid "속풀이라면"
+msgstr "Heartburn-soothing Ramen"
+
+msgid "공깃밥"
+msgstr "Plain Rice"
+
+msgid "짜계치"
+msgstr "Spicy Dakgangjeong"
+
+msgid "콘치즈불닭면"
+msgstr "Corn Cheese Spicy Chicken Noodle"
+
 #: restaurants/templates/base.html:8
 msgid "App"
 msgstr "App"
-msgid "청운관 학생식당"
-msgstr "Chungwongwan Dining Hall"
 
 #: restaurants/templates/base.html:31
 msgid "Switch campus"
