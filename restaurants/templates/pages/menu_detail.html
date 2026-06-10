@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="max-w-2xl mx-auto py-10">
-    <a href="/{{ base }}/{{ bases }}/{{ path }}/" class="text-blue-600 font-medium text-sm hover:underline">&larr; Back</a>
+    <a href="{% url 'home_menu' bases %}" class="text-blue-600 font-medium text-sm hover:underline">&larr; Back</a>
 
     <div class="flex items-center rounded-xl border border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800 shadow overflow-hidden">
         {% if image_url %}
