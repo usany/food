@@ -58,7 +58,7 @@
                     </svg>
                     <img src="https://objectstorage.ap-chuncheon-1.oraclecloud.com/n/ax0ym4amgnfk/b/bucket-20260516-0145/o/{{ dish.main }}.png" alt="{{ dish.main }}" class="w-12 h-12 object-cover rounded-lg"/>
                     <div class="flex-1">
-                        <span class="text-gray-400 dark:text-gray-500">{{ dish.main }}</span>
+                        <span class="text-gray-400 dark:text-gray-500">{% if LANGUAGE_CODE == 'en' %}{{ dish.enmain }} {% else %}{{ dish.main }}{% endif %}</span>
                         {% if dish.extra %}
                         <span class="text-gray-400 dark:text-gray-500"> + {{ dish.extra }}</span>
                         {% endif %}
