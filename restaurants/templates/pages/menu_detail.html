@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ menu_item.main }}{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto py-10">
+    <a href="/{{ base }}/{{ bases }}/{{ path }}/" class="text-blue-600 font-medium text-sm hover:underline">&larr; Back</a>
+
+    <div class="flex items-center rounded-xl border border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800 shadow overflow-hidden">
+        {% if image_url %}
+        <img src="{{ image_url }}" alt="{{ menu_item.main }}" class="w-50 h-64 object-cover">
+        {% else %}
+        <div class="w-full h-48 bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-gray-400 dark:text-gray-500 text-sm">
+            No image available
+        </div>
+        {% endif %}
+
+        <div class="p-6">
+            {% if base == 'en' %}
+            <h1 class="text-2xl font-bold text-blue-700 dark:text-blue-400 mb-2">{{ menu_item.enmain }}</h1>
+            <h1 class="text-2xl font-bold text-blue-700 dark:text-blue-400 mb-2">{{ menu_item.main }}</h1>
+            {% else %}
+            <h1 class="text-2xl font-bold text-blue-700 dark:text-blue-400 mb-2">{{ menu_item.main }}</h1>
+            <h1 class="text-2xl font-bold text-blue-700 dark:text-blue-400 mb-2">{{ menu_item.enmain }}</h1>
+            {% endif %}
+            
+            {% if base == 'en' %}
+            <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">{{ menu_item.enside }}</p>
+            {% else %}
+            <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">{{ menu_item.side }}</p>
+            {% endif %}
+            
+            {% if location %}
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">{{ location }}</p>
+            {% endif %}
+
+            {% if time %}
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">{{ time }}</p>
+            {% endif %}
+
+            {% if menu_item.extra %}
+            <p class="text-gray-500 dark:text-gray-400 text-sm mb-4">+ {{ menu_item.extra }}</p>
+            {% endif %}
+
+            <div class="flex items-center justify-between">
+                <div>
+                    <span class="text-xl font-semibold">₩{{ menu_item.price }}</span>
+                    <!-- {% if menu_item.extra %}
+                    <span class="text-sm text-gray-400 ml-2">+₩{{ menu_item.extra }}</span>
+                    {% endif %} -->
+                </div>
+                {% if menu_item.stamp %}
+                <span class="text-green-600 dark:text-green-400 text-xs font-medium">🌿 돼지 없음</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
