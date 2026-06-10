@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, i18n_patterns
 from django.views.generic import RedirectView
 from . import views
 
@@ -36,3 +36,9 @@ urlpatterns = [
     path('<str:base>/<str:bases>/<str:path>/', views.menu_list, name='home_menu'),
     path('<str:base>/<str:bases>/<str:path>/<str:meal>/', views.menu_detail, name='home_menu'),
 ]
+urlpatterns += i18n_patterns(
+    path('<str:bases>/', views.home_menu, name='home_menu'),
+    path('<str:bases>/<str:path>/', views.menu_list, name='home_menu'),
+    path('<str:bases>/<str:path>/<str:meal>/', views.menu_detail, name='home_menu'),
+    prefix_default_language=True,
+)
