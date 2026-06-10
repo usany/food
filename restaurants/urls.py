@@ -38,7 +38,7 @@ urlpatterns = [
 ]
 urlpatterns += i18n_patterns(
     path('<str:bases>/', views.home_menu, name='home_menu'),
-    path('<str:bases>/<str:path>/', views.menu_list, name='home_menu'),
-    path('<str:bases>/<str:path>/<str:meal>/', views.menu_detail, name='home_menu'),
+    path('<str:bases>/<str:path>/', views.menu_list, name='menu_list'),
+    path('<str:bases>/<str:path>/<str:meal>/', views.menu_detail, name='menu_detail'),
     prefix_default_language=True,
 )
