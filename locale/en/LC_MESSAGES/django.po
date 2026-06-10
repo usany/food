@@ -18,6 +18,8 @@ msgstr ""
 #: restaurants/templates/base.html:8
 msgid "App"
 msgstr "App"
+msgid "청운관 학생식당"
+msgstr "Chungwongwan Dining Hall"
 
 #: restaurants/templates/base.html:31
 msgid "Switch campus"
