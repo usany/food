@@ -21,12 +21,12 @@ from . import views
 
 urlpatterns = [
     path('', views.root_redirect, name='root'),
-    path('se/', views.home, name='home'),
-    path('se/<str:path>/', views.menu_list, name='menu_list_se'),
-    path('se/<str:path>/<str:meal>/', views.menu_detail, name='menu_detail_se'),
-    path('gl/', views.home_gl, name='home_gl'),
-    path('gl/<str:path>/', views.menu_list, name='menu_list_gl'),
-    path('gl/<str:path>/<str:meal>/', views.menu_detail, name='menu_detail_gl'),
+    # path('se/', views.home, name='home'),
+    # path('se/<str:path>/', views.menu_list, name='menu_list_se'),
+    # path('se/<str:path>/<str:meal>/', views.menu_detail, name='menu_detail_se'),
+    # path('gl/', views.home_gl, name='home_gl'),
+    # path('gl/<str:path>/', views.menu_list, name='menu_list_gl'),
+    # path('gl/<str:path>/<str:meal>/', views.menu_detail, name='menu_detail_gl'),
     path('admin/', admin.site.urls),
     # path('adminpage/', views.admin_view, name='admin_view'),
     # path('pages/', include('pages.urls')),
