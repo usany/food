@@ -135,9 +135,9 @@ def root_redirect(request):
     return HttpResponse(html)
 
 
-def home_menu(request, base, bases):
+def home_menu(request, bases):
     restaurants_items = [r for r in RESTAURANTS if r['campus'] == bases]
-    return render(request, 'pages/home.html', {'items': restaurants_items, 'location': bases, 'lang': base, 'base': base, 'bases': bases})
+    return render(request, 'pages/home.html', {'items': restaurants_items, 'location': bases, 'bases': bases})
 def home(request):
     """Home page — SE location"""
     restaurants_items = [r for r in RESTAURANTS if r['campus'] == 'se']
@@ -150,7 +150,7 @@ def home_gl(request):
     return render(request, 'pages/home.html', {'items': restaurants_items, 'location': 'gl', 'base': 'ko', 'bases': 'gl'})
 
 
-def menu_list(request, path, meal=None, base=None, bases=None):
+def menu_list(request, path, meal, bases):
     """Display menu items for the restaurant selected on the home page."""
     # Extract base and bases from URL if they're part of the path
     location = 'gl' if request.path.startswith('/gl/') else 'se'
