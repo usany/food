@@ -1,17 +1,18 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block title %}{{ menu_item.main }}{% endblock %}
 
 {% block content %}
 <div class="max-w-2xl mx-auto py-10">
-    <a href="{% url 'menu_list' bases path %}" class="text-blue-600 font-medium text-sm hover:underline">&larr; Back</a>
+    <a href="{% url 'menu_list' bases path %}" class="text-blue-600 font-medium text-sm hover:underline">&larr; {% trans "Back" %}</a>
 
     <div class="flex items-center rounded-xl border border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800 shadow overflow-hidden">
         {% if image_url %}
         <img src="{{ image_url }}" alt="{{ menu_item.main }}" class="w-50 h-64 object-cover">
         {% else %}
         <div class="w-full h-48 bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-gray-400 dark:text-gray-500 text-sm">
-            No image available
+            {% trans "No image available" %}
         </div>
         {% endif %}
 
@@ -50,7 +51,7 @@
                     {% endif %} -->
                 </div>
                 {% if menu_item.stamp %}
-                <span class="text-green-600 dark:text-green-400 text-xs font-medium">🌿 돼지 없음</span>
+                <span class="text-green-600 dark:text-green-400 text-xs font-medium">🌿 {% trans "No pork" %}</span>
                 {% endif %}
             </div>
         </div>
