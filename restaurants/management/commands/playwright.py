@@ -584,6 +584,7 @@ class Command(BaseCommand):
                             day=menu.get('day', ''),
                             place=menu.get('place', ''),
                             extra=menu.get('extra', ''),
+                            enextra=menu.get('enextra', ''),
                             date=menu.get('date', ''),
                             stamp=menu.get('stamp', ''),
                         )
