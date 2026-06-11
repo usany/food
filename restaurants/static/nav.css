@@ -2,7 +2,6 @@
 .bottom-nav.expanded {
     flex-direction: column !important;
     gap: 15px !important;
-    padding: 20px 30px !important;
     align-items: center !important;
 }
 
