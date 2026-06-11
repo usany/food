@@ -74,7 +74,7 @@ FIXED_MENU = {
         "stamp": False,
     },
     {
-        'id': '짜계치',
+        'id': '짜계치-ch',
         "main": "짜계치",
         "enmain": "Jja-gye-chi",
         "side": None,
@@ -89,7 +89,7 @@ FIXED_MENU = {
         "stamp": False,
     },
     {
-        'id': '콘치즈불닭면',
+        'id': '콘치즈불닭면-ch',
         "main": "콘치즈불닭면",
         "enmain": "Corn Cheese Buldak Noodles",
         "side": None,
