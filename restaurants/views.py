@@ -178,7 +178,7 @@ def menu_list(request, path, bases):
         if selected_meal in d.get('time_category', [])
     ] if selected_meal else all_dishes
     db_qs = MenuItem.objects.filter(place=path, meal=selected_meal, day=selected_day)
-    filtered_dishes = filtered_dishes + list(db_qs)
+    filtered_dishes = list(db_qs) + filtered_dishes
 
 
     tabs = list(WEEKDAYS)
