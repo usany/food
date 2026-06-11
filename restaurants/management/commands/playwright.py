@@ -11,12 +11,12 @@ from openai import OpenAI
 
 load_dotenv()
 client = OpenAI(
-    # api_key=os.getenv("GEMINI_API_KEY"),
-    # base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
+    api_key=os.getenv("GEMINI_API_KEY"),
+    base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
     # api_key=os.getenv("NVIDIA_NIM_API_KEY"),
     # base_url="https://integrate.api.nvidia.com/v1",
-    api_key=os.getenv("VERCELKEY"),
-    base_url="https://ai-gateway.vercel.sh/v1",
+    # api_key=os.getenv("VERCELKEY"),
+    # base_url="https://ai-gateway.vercel.sh/v1",
 )
 import mimetypes
 import base64
@@ -414,7 +414,7 @@ class Command(BaseCommand):
 
 {text_items}"""
 
-        for model in ["google/gemini-3.5-flash", "anthropic/claude-opus-4.6", "gemini-3.5-flash", "gemini-3.1-flash-lite", "gemini-3-flash-preview", "gemini-2.5-flash", "gemini-2.5-flash-lite", "gemini-2.5-pro",None]:
+        for model in ["gemini-3.5-flash", "gemini-3.1-flash-lite", "gemini-3-flash-preview", "gemini-2.5-flash", "gemini-2.5-flash-lite", "gemini-2.5-pro",None]:
             if model is None:
                 self.stderr.write(self.style.ERROR("All Gemini models failed for translation."))
                 return texts
@@ -540,7 +540,7 @@ class Command(BaseCommand):
                 }
             ]
             
-            for model in ["google/gemma-4-31b-it", "gemini-3.5-flash", "gemini-3.1-flash-lite", "gemini-3-flash-preview", "gemini-2.5-flash", "gemini-2.5-flash-lite", "gemini-2.5-pro",None]:
+            for model in ["gemini-3.5-flash", "gemini-3.1-flash-lite", "gemini-3-flash-preview", "gemini-2.5-flash", "gemini-2.5-flash-lite", "gemini-2.5-pro",None]:
                 if model is None:
                     self.stderr.write(self.style.ERROR("All Gemini models failed for get_menu."))
                     break

@@ -9,6 +9,7 @@ class MenuItem(models.Model):
     enside = models.CharField(max_length=200, null=True, blank=True)
     place = models.CharField(max_length=200)
     extra = models.CharField(max_length=200, null=True, blank=True)
+    enextra = models.CharField(max_length=200, null=True, blank=True)
     date = models.CharField(max_length=200, null=True, blank=True)
     day = models.CharField(max_length=200, null=True, blank=True)
     meal = models.CharField(max_length=200, null=True, blank=True)
