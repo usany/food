@@ -29,6 +29,7 @@ RESTAURANTS = [
 FIXED_MENU = {
  'ch' : [
     {
+        'id': '만두라면,치즈라면',
         'main': '만두라면, 치즈라면', 
         'enmain': 'Dumpling Ramen, Cheese Ramen',
         'side': None, 
@@ -43,6 +44,7 @@ FIXED_MENU = {
         'stamp': False,
     },
     {
+        "id": "속풀이라면",
         "main": "속풀이라면",
         "enmain": "Sokpul Ramen",
         "side": None,
@@ -57,6 +59,7 @@ FIXED_MENU = {
         "stamp": False,
     },
     {
+        "id": '공깃밥',
         "main": "공깃밥",
         "enmain": "Rice",
         "side": None,
@@ -71,6 +74,7 @@ FIXED_MENU = {
         "stamp": False,
     },
     {
+        'id': '짜계치',
         "main": "짜계치",
         "enmain": "Jja-gye-chi",
         "side": None,
@@ -85,6 +89,7 @@ FIXED_MENU = {
         "stamp": False,
     },
     {
+        'id': '콘치즈불닭면',
         "main": "콘치즈불닭면",
         "enmain": "Corn Cheese Buldak Noodles",
         "side": None,
