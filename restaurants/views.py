@@ -157,7 +157,12 @@ def menu_list(request, path, bases):
         raise Http404("Restaurant not found")
     title = r['title']
     all_meals = r['mealsSemester']
-    weekdays = [d for d in WEEKDAYS if d['day'] == request.GET.get('day', WEEKDAYS[0]['day'])]
+    default_day = request.GET.get('day', WEEKDAYS[0]['day'])
+    default_meal = request.GET.get('meal', next((meal['time'] for meal in MEALS if meal['name'] == all_meals[0]), None))
+    if 'day' not in request.GET or 'meal' not in request.GET:
+        from django.shortcuts import redirect
+        return redirect(request.path + f'?day={default_day}&meal={default_meal}')
+    weekdays = [d for d in WEEKDAYS if d['day'] == default_day]
     meal_tabs = [
         {
             'id': next((meal['time'] for meal in MEALS if meal['name'] == m), None),
