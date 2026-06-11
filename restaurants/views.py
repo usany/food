@@ -172,7 +172,7 @@ def menu_list(request, path, bases):
         d for d in all_dishes
         if selected_meal in d.get('time_category', [])
     ] if selected_meal else all_dishes
-    db_qs = MenuItem.objects.filter(place=path, meal=selected_meal, day=selected_day)
+    db_qs = get_object_or_404(MenuItem, place=path, meal=selected_meal, day=selected_day)
     filtered_dishes = filtered_dishes + list(db_qs)
 
 
