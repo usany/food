@@ -121,8 +121,8 @@ msgid "Menus"
 msgstr "Menus"
 
 #: restaurants/templates/pages/home.html:7
-msgid "Welcome to restaurants"
-msgstr "Welcome to restaurants"
+msgid "환영합니다"
+msgstr "Welcome"
 
 #: restaurants/templates/pages/home.html:22
 msgid "This is the main page."
