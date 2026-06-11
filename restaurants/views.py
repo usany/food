@@ -30,20 +30,23 @@ FIXED_MENU = {
  'ch' : [
     {
         'main': '만두라면, 치즈라면', 
+        'enmain': 'Dumpling Ramen, Cheese Ramen',
         'side': None, 
+        'enside': None,
         'price': 3000, 
         'day': None, 
         'time_category': ['아침', '간식'], 
         'time_detail': {'아침': ['09:00', '10:00'], '간식': ['15:00', '16:00']}, 
         'place': 'ch', 
-        'extra_menu': None,
-        'extra_price': None,
-        'non_pork': False,
-        'storage_url': ''
+        'extra': None,
+        'enextra': None,
+        'stamp': False,
     },
     {
         "main": "속풀이라면",
+        "enmain": "Sokpul Ramen",
         "side": None,
+        "enside": None,
         "price": 3500,
         "day": None,
         "time_category": ["아침"],
@@ -56,7 +59,9 @@ FIXED_MENU = {
     },
     {
         "main": "공깃밥",
+        "enmain": "Rice",
         "side": None,
+        "enside": None,
         "price": 800,
         "day": None,
         "time_category": ["아침", "간식"],
@@ -69,29 +74,31 @@ FIXED_MENU = {
     },
     {
         "main": "짜계치",
+        "enmain": "Jja-gye-chi",
         "side": None,
+        "enside": None,
         "price": 3800,
         "day": None,
         "time_category": ["간식"],
         "time_detail": {"간식": ["15:00", "16:00"]},
         "place": "ch",
-        "extra_menu": None,
-        "extra_price": None,
-        "non_pork": False,
-        "storage_url": ''
+        "extra": None,
+        "enextra": None,
+        "stamp": False,
     },
     {
         "main": "콘치즈불닭면",
+        "enmain": "Corn Cheese Buldak Noodles",
         "side": None,
+        "enside": None,
         "price": 3800,
         "day": None,
         "time_category": ["간식"],
         "time_detail": {"간식": ["15:00", "16:00"]},
         "place": "ch",
-        "extra_menu": None,
-        "extra_price": None,
-        "non_pork": False,
-        "storage_url": ''
+        "extra": None,
+        "enextra": None,
+        "stamp": False,
     }
  ]
 }
