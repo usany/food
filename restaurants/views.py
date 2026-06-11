@@ -29,7 +29,7 @@ RESTAURANTS = [
 FIXED_MENU = {
  'ch' : [
     {
-        'id': '만두라면,치즈라면',
+        'id': '만두라면,치즈라면-ch',
         'main': '만두라면, 치즈라면', 
         'enmain': 'Dumpling Ramen, Cheese Ramen',
         'side': None, 
@@ -44,7 +44,7 @@ FIXED_MENU = {
         'stamp': False,
     },
     {
-        "id": "속풀이라면",
+        "id": "속풀이라면-ch",
         "main": "속풀이라면",
         "enmain": "Sokpul Ramen",
         "side": None,
@@ -59,7 +59,7 @@ FIXED_MENU = {
         "stamp": False,
     },
     {
-        "id": '공깃밥',
+        "id": '공깃밥-ch',
         "main": "공깃밥",
         "enmain": "Rice",
         "side": None,
