@@ -52,10 +52,9 @@ FIXED_MENU = {
         "time_category": ["아침"],
         "time_detail": {"아침": ["09:00", "10:00"]},
         "place": "ch",
-        "extra_menu": None,
-        "extra_price": None,
-        "non_pork": False,
-        "storage_url": ''
+        "extra": None,
+        "enextra": None,
+        "stamp": False,
     },
     {
         "main": "공깃밥",
