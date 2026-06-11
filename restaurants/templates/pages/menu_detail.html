@@ -39,8 +39,14 @@
             <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">{{ time }}</p>
             {% endif %}
 
+            {% if LANGUAGE_CODE == 'en' %}
+            {% if menu_item.enextra %}
+            <p class="text-gray-500 dark:text-gray-400 text-sm mb-4">+ {{ menu_item.enextra }}</p>
+            {% endif %}
+            {% else %}
             {% if menu_item.extra %}
             <p class="text-gray-500 dark:text-gray-400 text-sm mb-4">+ {{ menu_item.extra }}</p>
+            {% endif %}
             {% endif %}
 
             <div class="flex items-center justify-between">
