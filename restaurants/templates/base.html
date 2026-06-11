@@ -42,7 +42,7 @@
                 <!-- Dark Mode Toggle (hidden by default, shown when expanded) -->
                 <button class="flex gap-1 cursor-pointer text-xl bg-transparent border-none text-slate-400 dark:text-slate-500 hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-300 p-0" id="dark-mode-toggle" onclick="toggleDarkMode()" title="{% trans 'Toggle dark mode' %}">
                     <div>테마: </div>
-                    <span id="theme-icon">🌙 {% trans "theme" %}</span>
+                    <span id="theme-icon">🌙</span>
                 </button>
             </div>
         </div>
@@ -122,7 +122,7 @@
 
         function updateThemeIcon(isDark) {
             const themeIcon = document.getElementById('theme-icon');
-            themeIcon.textContent = isDark ? '☀️ {% trans "theme" %}' : '🌙 {% trans "theme" %}';
+            themeIcon.textContent = isDark ? '☀️' : '🌙';
         }
 
         // Toggle base/campus between 'se' and 'gl'
