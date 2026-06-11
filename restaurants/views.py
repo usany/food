@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.admin.views.decorators import staff_member_required
@@ -157,7 +158,9 @@ def menu_list(request, path, bases):
         raise Http404("Restaurant not found")
     title = r['title']
     all_meals = r['mealsSemester']
-    default_day = request.GET.get('day', WEEKDAYS[0]['day'])
+    weekday_names = ['mon', 'tue', 'wed', 'thu', 'fri']
+    today_idx = datetime.today().weekday()
+    default_day = request.GET.get('day', weekday_names[today_idx] if today_idx < 5 else 'mon')
     default_meal = request.GET.get('meal', next((meal['time'] for meal in MEALS if meal['name'] == all_meals[0]), None))
     if 'day' not in request.GET or 'meal' not in request.GET:
         from django.shortcuts import redirect
