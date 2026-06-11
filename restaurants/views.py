@@ -161,7 +161,10 @@ def menu_list(request, path, bases):
     weekday_names = ['mon', 'tue', 'wed', 'thu', 'fri']
     today_idx = datetime.today().weekday()
     default_day = request.GET.get('day', weekday_names[today_idx] if today_idx < 5 else 'mon')
-    default_meal = request.GET.get('meal', next((meal['time'] for meal in MEALS if meal['name'] == all_meals[0]), None))
+    hour = datetime.now().hour
+    time_to_meal = {'breakfast': [6, 7, 8, 9, 10], 'lunch': [11, 12, 13, 14], 'snack': [15, 16], 'dinner': [17, 18, 19]}
+    default_meal_name = next((m for m, hours in time_to_meal.items() if hour in hours), 'breakfast')
+    default_meal = request.GET.get('meal', default_meal_name)
     if 'day' not in request.GET or 'meal' not in request.GET:
         from django.shortcuts import redirect
         return redirect(request.path + f'?day={default_day}&meal={default_meal}')
