@@ -52,9 +52,15 @@
             <div class="flex items-center justify-between">
                 <div>
                     <span class="text-xl font-semibold">₩{{ menu_item.price }}</span>
-                    <!-- {% if menu_item.extra %}
-                    <span class="text-sm text-gray-400 ml-2">+₩{{ menu_item.extra }}</span>
-                    {% endif %} -->
+                    {% if LANGUAGE_CODE == 'en' %}
+                    {% if menu_item.enextra %}
+                    <p class="text-gray-500 dark:text-gray-400 text-sm mb-4">+ {{ menu_item.enextra }}</p>
+                    {% endif %}
+                    {% else %}
+                    {% if menu_item.extra %}
+                    <p class="text-gray-500 dark:text-gray-400 text-sm mb-4">+ {{ menu_item.extra }}</p>
+                    {% endif %}
+                    {% endif %}
                 </div>
                 {% if menu_item.stamp %}
                 <span class="text-green-600 dark:text-green-400 text-xs font-medium">🌿 {% trans "No pork" %}</span>
