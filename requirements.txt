@@ -1,0 +1,8 @@
+Django>=6.0,<6.1
+django-browser-reload
+apscheduler
+playwright
+python-dotenv
+requests
+openai
+oci
