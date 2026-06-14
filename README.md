@@ -82,13 +82,82 @@ place,
 extra,
 stamp,
 
-ph
-main: 주먹밥1EA price: 1300
-main: 주먹밥2EA price: 2500
-main: 공기밥 price: 800
-main: 씨리얼&우유 price: 2000
-main: 우유 price: 900
-main: 탄산음료(콜라,사이다) price: 1700 extra: 토핑 대파쏭쏭 500 왕계란 500
-main: 진라면매운/안성탕면(셀프조리) side: 김치/무맛김치/단무지/깍두기 price: 2000 extra: 토핑 대파쏭쏭 500 왕계란 500
-main: 신라면(셀프조리) side: 김치/무맛김치/단무지/깍두기 price: 2200 extra: 토핑 대파쏭쏭 500 왕계란 500
-main: 너구리/짜파게티(셀프조리) side: 김치/무맛김치/단무지/깍두기 price: 2300 extra: 토핑 대파쏭쏭 500 왕계란 500
+FIXED_MENU = {
+ 'ch' : [
+    {
+        'id': '만두라면,치즈라면-ch',
+        'main': '만두라면, 치즈라면',
+        'enmain': 'Dumpling Ramen, Cheese Ramen',
+        'side': None,
+        'enside': None,
+        'price': 3000,
+        'day': None,
+        'time_category': ['breakfast', 'snack'],
+        'time_detail': {'breakfast': ['09:00', '10:00'], 'snack': ['15:00', '16:00']},
+        'place': 'ch',
+        'extra': None,
+        'enextra': None,
+        'stamp': False,
+    },
+    {
+        "id": "속풀이라면-ch",
+        "main": "속풀이라면",
+        "enmain": "Sokpul Ramen",
+        "side": None,
+        "enside": None,
+        "price": 3500,
+        "day": None,
+        "time_category": ["breakfast"],
+        "time_detail": {"breakfast": ["09:00", "10:00"]},
+        "place": "ch",
+        "extra": None,
+        "enextra": None,
+        "stamp": False,
+    },
+    {
+        "id": '공깃밥-ch',
+        "main": "공깃밥",
+        "enmain": "Rice",
+        "side": None,
+        "enside": None,
+        "price": 800,
+        "day": None,
+        "time_category": ["breakfast", "snack"],
+        "time_detail": {"breakfast": ["09:00", "10:00"], "snack": ["15:00", "16:00"]},
+        "place": "ch",
+        "extra": None,
+        "enextra": None,
+        "stamp": False,
+    },
+    {
+        'id': '짜계치-ch',
+        "main": "짜계치",
+        "enmain": "Jja-gye-chi",
+        "side": None,
+        "enside": None,
+        "price": 3800,
+        "day": None,
+        "time_category": ["snack"],
+        "time_detail": {"snack": ["15:00", "16:00"]},
+        "place": "ch",
+        "extra": None,
+        "enextra": None,
+        "stamp": False,
+    },
+    {
+        'id': '콘치즈불닭면-ch',
+        "main": "콘치즈불닭면",
+        "enmain": "Corn Cheese Buldak Noodles",
+        "side": None,
+        "enside": None,
+        "price": 3800,
+        "day": None,
+        "time_category": ["snack"],
+        "time_detail": {"snack": ["15:00", "16:00"]},
+        "place": "ch",
+        "extra": None,
+        "enextra": None,
+        "stamp": False,
+    }
+ ]
+}
