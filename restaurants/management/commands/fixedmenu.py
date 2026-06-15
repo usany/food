@@ -63,7 +63,7 @@ MENU_ITEMS = {
             "stamp": False,
         },
         {
-            'id': '우유/딸기우유/초코우유-ch',
+            'id': '우유_딸기우유_초코우유-ch',
             "main": "우유/딸기우유/초코우유",
             "enmain": "Milk / Strawberry Milk / Choco Milk",
             "side": None,
@@ -100,7 +100,7 @@ MENU_ITEMS = {
             'enmain': 'Cereal & Milk',
         },
         {
-            'id': '우유/딸기우유/초코우유-ph',
+            'id': '우유_딸기우유_초코우유-ph',
             'main': '우유/딸기우유/초코우유',
             'enmain': 'Milk / Strawberry Milk / Choco Milk',
         },
@@ -110,7 +110,7 @@ MENU_ITEMS = {
             'enmain': 'Soda (Cola, Sprite)',
         },
         {
-            'id': '진라면매운/안성탕면(셀프조리)-ph',
+            'id': '진라면매운_안성탕면(셀프조리)-ph',
             'main': '진라면매운/안성탕면(셀프조리)',
             'enmain': 'Jin Ramen Spicy / Ansung Tangmyun (Self-cook)',
         },
@@ -120,7 +120,7 @@ MENU_ITEMS = {
             'enmain': 'Shin Ramen (Self-cook)',
         },
         {
-            'id': '너구리/짜파게티(셀프조리)-ph',
+            'id': '너구리_짜파게티(셀프조리)-ph',
             'main': '너구리/짜파게티(셀프조리)',
             'enmain': 'Neoguri / Jjapaghetti (Self-cook)',
         },
@@ -147,7 +147,7 @@ MENU_ITEMS = {
             'enmain': "Today's Salad & Dressing",
         },
         {
-            'id': '신라면/진라면매운맛/진라면순한맛/너구리/짜파게티/안성탕면/오징어짬뽕(셀프&토핑2종)-jj',
+            'id': '신라면_진라면매운맛_진라면순한맛_너구리_짜파게티_안성탕면_오징어짬뽕(셀프&토핑2종)-jj',
             'main': '신라면/진라면매운맛/진라면순한맛/너구리/짜파게티/안성탕면/오징어짬뽕(셀프&토핑2종)',
             'enmain': 'Shin Ramen / Jin Ramen Spicy / Jin Ramen Mild / Neoguri / Jjapaghetti / Ansung Tangmyun / Squid Jjambbong (Self & 2 Toppings)',
         },
