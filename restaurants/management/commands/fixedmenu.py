@@ -102,7 +102,7 @@ MENU_ITEMS = {
         {
             'id': '우유/딸기우유/초코우유-ph',
             'main': '우유/딸기우유/초코우유',
-            'enmain': 'Milk',
+            'enmain': 'Milk / Strawberry Milk / Choco Milk',
         },
         {
             'id': '탄산음료(콜라,사이다)-ph',
