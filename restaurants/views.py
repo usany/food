@@ -27,6 +27,17 @@ RESTAURANTS = [
     {'id': 8, 'title': '학생회관 교직원식당', 'campus': 'gl', 'path': 'hg', 'mealsSemester': ['점심'], 'mealsVacation': ['점심'], 'mealsSemesterTime': ['11:30~14:00']},
     {'id': 9, 'title': '제2기숙사 식당', 'campus': 'gl', 'path': 'jg', 'mealsSemester': ['아침', '점심', '저녁'], 'mealsVacation': ['아침', '점심', '저녁'], 'mealsSemesterTime': ['08:30~10:00 (간편식: 09:00~10:00)', '11:00~14:30', '17:00~18:30']},
 ]
+LOCATIONS = {
+    'ch': '청운관 학생식당',
+    'cg': '청운관 교직원식당',
+    'ph': '푸른솔 학생식당',
+    'pg': '푸른솔 교직원식당',
+    'hi': '한국외대 인문관 식당',
+    'hg': '한국외대 교수회관 식당',
+    'hh': '학생회관 학생식당',
+    'hg': '학생회관 교직원식당',
+    'jg': '제2기숙사 식당',
+}
 FIXED_MENU = {
  'ch' : [
     {
@@ -213,10 +224,11 @@ def menu_detail(request, path, meal, bases):
     if not location:
         from django.http import Http404
         raise Http404("Restaurant not found")
-    location = location['title']
     menu_item = get_object_or_404(MenuItem, id=meal)
+    lang = 'ko' if request.LANGUAGE_CODE == 'ko' else 'en'
     time = f"{menu_item.date[0:4]}-{menu_item.date[4:6]}-{menu_item.date[6:8]} {menu_item.day} {menu_item.meal}"
-    return render(request, 'pages/menu_detail.html', {'menu_item': menu_item, 'image_url': 'https://objectstorage.ap-chuncheon-1.oraclecloud.com/n/ax0ym4amgnfk/b/bucket-20260516-0145/o/'+menu_item.main+'.png', 'time': time, 'bases': bases, 'path': path, 'meal': meal})
+    location = 
+    return render(request, 'pages/menu_detail.html', {'menu_item': menu_item, 'image_url': 'https://objectstorage.ap-chuncheon-1.oraclecloud.com/n/ax0ym4amgnfk/b/bucket-20260516-0145/o/'+menu_item.main+'.png', 'time': time, 'bases': bases, 'path': path, 'meal': meal, 'lang': lang})
 
 
 # @staff_member_required
