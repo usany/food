@@ -202,8 +202,17 @@ def menu_list(request, path, bases):
     db_qs = MenuItem.objects.filter(place=path, meal=selected_meal, day=selected_day)
     filtered_dishes = list(db_qs) + filtered_dishes
 
+    from datetime import timedelta
+    today = datetime.today()
+    start_of_week = today - timedelta(days=today_idx)
+    week = [(start_of_week + timedelta(days=i)).strftime('%Y%m%d') for i in range(5)]
 
-    tabs = list(WEEKDAYS)
+    tabs = []
+    for i, w in enumerate(WEEKDAYS):
+        t = dict(w)
+        t['date'] = week[i]
+        tabs.append(t)
+
     return render(request, 'pages/menu_list.html', {
         'tabs': tabs,
         'restaurant': {'title': title, 'meal_tabs': meal_tabs, 'path': path},
@@ -212,6 +221,7 @@ def menu_list(request, path, bases):
         'menu': filtered_dishes,
         'bases': bases,
         'path': path,
+        'week': week,
     })
 
 
