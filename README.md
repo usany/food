@@ -404,3 +404,5 @@ FIXED_MENU = {
     }
  ]
 }
+
+"text": "{'id': '낙지콩나물덮밥-ch-20260101-thu-breakfast', 'main': '낙지콩나물덮밥', 'side': '유부장국, 유린기 닭:브라질산, 중화품배추찜, 마카로니크래미샐러드, 고들빼기무침, 마시는 요구르트', 'enmain': 'Rice with octopus bean sprouts', 'enside': 'Fried Tofu Soup, Yuringi Chicken: Brazilian, Chinese Cabbage Steamed, Macaroni Crami Salad, Seasoned Godeul, Drinking Yogurt', 'price': 8000, 'date': '20260101', 'day': 'tue', 'meal': 'lunch', 'place': 'cg', 'extra': '일식돈가스 추가시 8000', 'enextra': 'additional Japanese-style pork cutlet 8000', 'stamp': False }처럼 각 메뉴를 정리해주세요. place는 청운관 학생식당: ch, 청운관 교직원식당: cg, 푸른솔 학생식당: ph, 푸른솔 교직원식당: pg, 학생회관 학생식당: hh, 학생회관 교직원식당: hg입니다. 청운관: 조식은 아침입니다. 단품, 든든, 우아, 푸짐은 모두 점심입니다. 석식은 저녁입니다. 간편식, 간식은 정리하지 않고 넘어가주세요. 푸른솔: 조식은 아침입니다. OneDishSETSelf-Bar, 한소반SETSelf-Bar, 면가득은 점심입니다. 저녁은 없습니다. 학생회관: 조식은 아침입니다. 중식은 점심입니다. 석식은 저녁입니다. 포케, 컵밥은 서로 다른 점심 메뉴입니다. TO-GO가 포함된 메뉴는 정리하지 않고 넘어가주세요. trailing comma가 없도록 해주세요. id는 main-place-date-day-meal 순서로 합쳐서 만들어주세요. main에는 띄어쓰기가 없도록 해주세요. 추가 메뉴가 없는 경우 extra와 enextra는 ''입니다. date는 표 상단의 날짜와 현재 년도를 참고해서 작성해주세요. stamp는 금지 표시가 있으면 True, 없으면 False입니다. py list로 만들고 # 메모 없이 작성해주세요."
