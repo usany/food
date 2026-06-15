@@ -9,7 +9,7 @@ MENU_ITEMS = {
     'ch': [
         {
             'id': '만두라면,치즈라면-ch',
-            'main': '만두라면, 치즈라면', 
+            'main': '만두라면,치즈라면', 
             'enmain': 'Dumpling Ramen, Cheese Ramen',
         },
         {
