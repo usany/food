@@ -1,4 +1,4 @@
-{% load static i18n %}
+{% load static i18n pwa %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
 
@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{% static 'nav.css' %}">
     {% block extra_css %}{% endblock %}
     <script src="{% static 'theme.js' %}"></script>
+    {% progressive_web_app_meta %}
 </head>
 
 <body class="m-0 p-0 font-['Inter',sans-serif] bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 pb-[90px] box-border">

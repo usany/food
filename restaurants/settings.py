@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_browser_reload',
-    'restaurants',
+    'restaurants.apps.RestaurantsConfig',
+    'pwa',
     # 'pages'
 ]
 
@@ -155,3 +156,28 @@ STATICFILES_DIRS = [
 
 # LOGIN_URL = '/django-admin/login/'
 LOGOUT_REDIRECT_URL = 'home'
+
+# PWA Settings
+PWA_APP_NAME = 'Bob App'
+PWA_APP_DESCRIPTION = "My Bob App"
+PWA_APP_THEME_COLOR = '#0A0302'
+PWA_APP_BACKGROUND_COLOR = '#ffffff'
+PWA_APP_DISPLAY = 'standalone'
+PWA_APP_SCOPE = '/'
+PWA_APP_ORIENTATION = 'any'
+PWA_APP_START_URL = '/'
+PWA_APP_STATUS_BAR_COLOR = 'default'
+PWA_APP_ICONS = [
+    {
+        'src': '/static/icon-160x160.png',
+        'sizes': '160x160'
+    }
+]
+PWA_APP_ICONS_APPLE = [
+    {
+        'src': '/static/icon-160x160.png',
+        'sizes': '160x160'
+    }
+]
+PWA_APP_DIR = 'ltr'
+PWA_APP_LANG = 'en-US'

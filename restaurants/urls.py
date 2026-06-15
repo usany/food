@@ -22,6 +22,7 @@ from . import views
 urlpatterns = [
     path('', views.root_redirect, name='root'),
     path('admin/', admin.site.urls),
+    path('', include('pwa.urls')),
     path("__reload__/", include("django_browser_reload.urls")),
     # path('se/', views.home, name='home'),
     # path('se/<str:path>/', views.menu_list, name='menu_list_se'),
