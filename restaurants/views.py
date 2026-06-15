@@ -204,7 +204,6 @@ def menu_list(request, path, bases):
 
 
     tabs = list(WEEKDAYS)
-
     return render(request, 'pages/menu_list.html', {
         'tabs': tabs,
         'restaurant': {'title': title, 'meal_tabs': meal_tabs, 'path': path},
@@ -212,7 +211,7 @@ def menu_list(request, path, bases):
         'selected_day': selected_day,
         'menu': filtered_dishes,
         'bases': bases,
-        'path': path
+        'path': path,
     })
 
 
