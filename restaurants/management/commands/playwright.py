@@ -460,7 +460,7 @@ class Command(BaseCommand):
             "Content-Type": "application/json",
         }
 
-        image_prompt = f"Create a picture of {translated_text} dish in a fancy restaurant"
+        image_prompt = f"Create a picture of simple {translated_text} dish in a fancy restaurant"
         image_payload = {
             "prompt": image_prompt,
             "seed": random.randint(0, 1000000),
