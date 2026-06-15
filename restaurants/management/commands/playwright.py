@@ -380,7 +380,7 @@ class Command(BaseCommand):
                     if response.status == 200:
                         local_path.write_bytes(response.body())
                         self.stdout.write(self.style.SUCCESS(f'Downloaded: {image_name}'))
-                        self.get_menu(str(local_path))
+                        self.get_menu(str(local_path), title)
                 except Exception as err:
                     self.stdout.write(self.style.ERROR(f'Failed to download image {img_url}: {str(err)}'))
             
@@ -512,7 +512,7 @@ class Command(BaseCommand):
         except Exception as e:
             self.stderr.write(self.style.ERROR(f'Error uploading to storage: {str(e)}'))
     
-    def get_menu(self, img_path):
+    def get_menu(self, img_path, title=""):
         load_dotenv()
 
         
@@ -525,6 +525,17 @@ class Command(BaseCommand):
             with open(img_path, 'rb') as f:
                 base64_image = base64.b64encode(f.read()).decode('utf-8')
             
+            if '청운관' in title:
+                place_instruction = "place는 학생식당: ch, 교직원식당: cg입니다."
+            elif '푸른솔' in title:
+                place_instruction = "place는 학생식당: ph, 교직원식당: pg입니다."
+            elif '학생회관' in title:
+                place_instruction = "place는 학생식당: hh, 교직원식당: hg입니다."
+            else:
+                place_instruction = "place는 청운관 학생식당: ch, 청운관 교직원식당: cg, 푸른솔 학생식당: ph, 푸른솔 교직원식당: pg, 학생회관 학생식당: hh, 학생회관 교직원식당: hg입니다."
+            
+            prompt_text = f"{{'id': '낙지콩나물덮밥-ch-20260101-thu-breakfast', 'main': '낙지콩나물덮밥', 'side': '유부장국, 유린기 닭:브라질산, 중화품배추찜, 마카로니크래미샐러드, 고들빼기무침, 마시는 요구르트', 'enmain': 'Rice with octopus bean sprouts', 'enside': 'Fried Tofu Soup, Yuringi Chicken: Brazilian, Chinese Cabbage Steamed, Macaroni Crami Salad, Seasoned Godeul, Drinking Yogurt', 'price': 8000, 'date': '20260101', 'day': 'tue', 'meal': 'lunch', 'place': 'cg', 'extra': '일식돈가스 추가시 8000', 'enextra': 'additional Japanese-style pork cutlet 8000', 'stamp': False }}처럼 각 메뉴를 정리해주세요. {place_instruction} trailing comma가 없도록 해주세요. id는 main-place-date-day-meal 순서로 합쳐서 만들어주세요. main에는 띄어쓰기가 없도록 해주세요. 추가 메뉴가 없는 경우 extra와 enextra는 ''입니다. date는 표 상단의 날짜와 현재 년도를 참고해서 작성해주세요. stamp는 금지 표시가 있으면 True, 없으면 False입니다. py list로 만들고 # 메모 없이 작성해주세요."
+
             # Gemini API call
             messages = [
                 {
@@ -532,7 +543,7 @@ class Command(BaseCommand):
                     "content": [
                         {
                             "type": "text",
-                            "text": "{'id': '낙지콩나물덮밥-ch-20260101-thu-breakfast', 'main': '낙지콩나물덮밥', 'side': '유부장국, 유린기 닭:브라질산, 중화품배추찜, 마카로니크래미샐러드, 고들빼기무침, 마시는 요구르트', 'enmain': 'Rice with octopus bean sprouts', 'enside': 'Fried Tofu Soup, Yuringi Chicken: Brazilian, Chinese Cabbage Steamed, Macaroni Crami Salad, Seasoned Godeul, Drinking Yogurt', 'price': 8000, 'date': '20260101', 'day': 'tue', 'meal': 'lunch', 'place': 'cg', 'extra': '일식돈가스 추가시 8000', 'enextra': 'additional Japanese-style pork cutlet 8000', 'stamp': False }처럼 각 메뉴를 정리해주세요. place는 청운관 학생식당: ch, 청운관 교직원식당: cg, 푸른솔 학생식당: ph, 푸른솔 교직원식당: pg, 학생회관 학생식당: hh, 학생회관 교직원식당: hg입니다. trailing comma가 없도록 해주세요. id는 main-place-date-day-meal 순서로 합쳐서 만들어주세요. main에는 띄어쓰기가 없도록 해주세요. 추가 메뉴가 없는 경우 extra와 enextra는 ''입니다. date는 표 상단의 날짜와 현재 년도를 참고해서 작성해주세요. stamp는 금지 표시가 있으면 True, 없으면 False입니다. py list로 만들고 # 메모 없이 작성해주세요."
+                            "text": prompt_text
                         },
                         {
                             "type": "image_url",
