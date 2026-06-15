@@ -146,7 +146,7 @@ FIXED_MENU = {
         "stamp": False,
     },
     {
-        'id': '우유/딸기우유/초코우유-ch',
+        'id': '우유_딸기우유_초코우유-ch',
         "main": "우유/딸기우유/초코우유",
         "enmain": "Milk / Strawberry Milk / Choco Milk",
         "side": None,
