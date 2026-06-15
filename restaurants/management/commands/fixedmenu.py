@@ -162,7 +162,7 @@ class Command(BaseCommand):
         parser.add_argument(
             '--place',
             type=str,
-            choices=['ph', 'jj', 'all'],
+            choices=['ch', 'ph', 'jj', 'all'],
             default='all',
             help='Which place to generate images for: ph, jj, or all (default: all)',
         )
@@ -171,7 +171,7 @@ class Command(BaseCommand):
         place = options.get('place', 'all')
 
         if place == 'all':
-            places = ['ph', 'jj']
+            places = ['ch', 'ph', 'jj']
         else:
             places = [place]
 
