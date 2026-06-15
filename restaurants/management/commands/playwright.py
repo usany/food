@@ -526,11 +526,11 @@ class Command(BaseCommand):
                 base64_image = base64.b64encode(f.read()).decode('utf-8')
             
             if '청운관' in title:
-                place_instruction = "place는 학생식당: ch, 교직원식당: cg입니다."
+                place_instruction = "place는 학생식당은 ch, 교직원식당은 cg입니다. 단품, 든든, 우아, 푸짐은 모두 lunch입니다. 간편식, 간식은 정리하지 않고 넘어가주세요."
             elif '푸른솔' in title:
-                place_instruction = "place는 학생식당: ph, 교직원식당: pg입니다."
+                place_instruction = "place는 학생식당은 ph, 교직원식당은 pg입니다. OneDishSETSelf-Bar, 한소반SETSelf-Bar, 면가득은 모두 lunch입니다. dinner는 없습니다."
             elif '학생회관' in title:
-                place_instruction = "place는 학생식당: hh, 교직원식당: hg입니다."
+                place_instruction = "place는 학생식당은 hh, 교직원식당은 hg입니다. 포케, 컵밥은 서로 다른 lunch 메뉴입니다. "
             else:
                 place_instruction = "place는 청운관 학생식당: ch, 청운관 교직원식당: cg, 푸른솔 학생식당: ph, 푸른솔 교직원식당: pg, 학생회관 학생식당: hh, 학생회관 교직원식당: hg입니다."
             
