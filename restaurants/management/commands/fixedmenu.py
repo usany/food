@@ -90,18 +90,18 @@ MENU_ITEMS = {
             'enmain': 'Rice Ball 2EA',
         },
         {
-            'id': '공기밥-ph',
-            'main': '공기밥',
+            'id': '공깃밥-ph',
+            'main': '공깃밥',
             'enmain': 'Rice',
         },
         {
-            'id': '씨리얼&우유-ph',
-            'main': '씨리얼&우유',
+            'id': '컵씨리얼&우유-ph',
+            'main': '컵씨리얼&우유',
             'enmain': 'Cereal & Milk',
         },
         {
-            'id': '우유-ph',
-            'main': '우유',
+            'id': '우유/딸기우유/초코우유-ph',
+            'main': '우유/딸기우유/초코우유',
             'enmain': 'Milk',
         },
         {
