@@ -7,11 +7,7 @@
 <div class="max-w-2xl mx-auto py-10">
     <a href="{% url 'home_menu' bases %}" class="text-blue-600 font-medium text-sm hover:underline">&larr; {% trans "Back" %}</a>
     <h1 class="text-3xl font-bold text-blue-700 mt-4 mb-6">{% trans restaurant.title %}</h1>
-    <div class="text-center text-sm">{{week|slice:"0:1"|first|slice:"0:4"}}.{{week|slice:"0:1"|first|slice:"4:6"}}.{{week|slice:"0:1"|first|slice:"6:8"}}~{{week|slice:"4:5"|first|slice:"0:4"}}.{{week|slice:"4:5"|first|slice:"4:6"}}.{{week|slice:"4:5"|first|slice:"6:8"}}</div>
-    {# ── Meal-time tabs ──────────────────────────────────────────────────────
-    State: ?meal=아침 / ?meal=점심 / etc. (GET param)
-    Only the selected meal's dishes are passed from the view — nothing hidden.
-    #}
+    <div class='text-center text-gray-400 dark:text-gray-500 text-sm'>{{week|slice:"0:1"|first|slice:"0:4"}}.{{week|slice:"0:1"|first|slice:"4:6"}}.{{week|slice:"0:1"|first|slice:"6:8"}}~{{week|slice:"4:5"|first|slice:"0:4"}}.{{week|slice:"4:5"|first|slice:"4:6"}}.{{week|slice:"4:5"|first|slice:"6:8"}}</div>
     <div class="border-b border-gray-200 dark:border-gray-700 mb-6">
         <div class="flex justify-center gap-1" role="tablist" aria-label="요일 선택">
             {% for tab in tabs %}
