@@ -199,18 +199,20 @@ def menu_list(request, path, bases):
         d for d in all_dishes
         if selected_meal in d.get('time_category', [])
     ] if selected_meal else all_dishes
-    db_qs = MenuItem.objects.filter(place=path, meal=selected_meal, day=selected_day)
-    filtered_dishes = list(db_qs) + filtered_dishes
-
     from datetime import timedelta
     today = datetime.today()
     start_of_week = today - timedelta(days=today_idx)
     week = [(start_of_week + timedelta(days=i)).strftime('%Y%m%d') for i in range(5)]
+    week_without_year = [(start_of_week + timedelta(days=i)).strftime('%m.%d') for i in range(5)]
+    selected_date = week[weekday_names.index(selected_day)]
+    db_qs = MenuItem.objects.filter(place=path, meal=selected_meal, day=selected_day, date=selected_date)
+    filtered_dishes = list(db_qs) + filtered_dishes
+
 
     tabs = []
     for i, w in enumerate(WEEKDAYS):
         t = dict(w)
-        t['date'] = week[i]
+        t['date'] = week_without_year[i]
         tabs.append(t)
 
     return render(request, 'pages/menu_list.html', {
