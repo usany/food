@@ -221,9 +221,10 @@ def menu_list(request, path, bases):
     time_to_meal = {'breakfast': [8, 9, 10], 'lunch': [11, 12, 13, 14], 'snack': [15, 16], 'dinner': [17, 18, 19]}
     default_meal_name = next((m for m, hours in time_to_meal.items() if hour in hours), 'breakfast')
     default_meal = request.GET.get('meal', default_meal_name)
+    previous = request.GET.get('previous', 0)
     if 'day' not in request.GET or 'meal' not in request.GET:
         from django.shortcuts import redirect
-        return redirect(request.path + f'?day={default_day}&meal={default_meal}')
+        return redirect(request.path + f'?day={default_day}&meal={default_meal}&previous={previous}')
     weekdays = [d for d in WEEKDAYS if d['day'] == default_day]
     meal_tabs = [
         {
@@ -237,7 +238,8 @@ def menu_list(request, path, bases):
     # State: which meal tab is active — read from GET param, default to first
     selected_meal = request.GET.get('meal', meal_tabs[0]['id'] if meal_tabs else None)
     selected_day = request.GET.get('day', weekdays[0]['day'] if weekdays else None)
-
+    previous = request.GET.get('previous', 0)
+    
     # Only pass dishes for the selected meal into context
     all_dishes = FIXED_MENU.get(path, [])
     filtered_dishes = [
@@ -246,7 +248,7 @@ def menu_list(request, path, bases):
     ] if selected_meal else all_dishes
     from datetime import timedelta
     today = datetime.today()
-    start_of_week = today - timedelta(days=today_idx)
+    start_of_week = today - timedelta(days=today_idx) - timedelta(weeks=int(previous))
     week = [(start_of_week + timedelta(days=i)).strftime('%Y%m%d') for i in range(5)]
     week_without_year = [(start_of_week + timedelta(days=i)).strftime('%m.%d') for i in range(5)]
     selected_date = week[weekday_names.index(selected_day)]
@@ -269,6 +271,7 @@ def menu_list(request, path, bases):
         'bases': bases,
         'path': path,
         'week': week,
+        'previous': previous,
     })
 
 
