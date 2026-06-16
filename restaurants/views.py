@@ -433,7 +433,7 @@ def menu_list(request, path, bases):
     default_day = request.GET.get('day', weekday_names[today_idx] if today_idx < 5 else 'mon')
     hour = datetime.now().hour
     time_to_meal = {'breakfast': [8, 9, 10], 'lunch': [11, 12, 13, 14], 'snack': [15, 16], 'dinner': [17, 18, 19], 'onedish': [8, 9, 10, 11, 12, 13, 14, 15, 16], 'unmanned': [14, 15, 16]}
-    default_meal_name = next((m for m, hours in time_to_meal.items() if hour in hours and m in [meal['name'] for meal in MEALS]), 'breakfast')
+    default_meal_name = next((m for m, hours in time_to_meal.items() if hour in hours and m in [meal['time'] for meal in MEALS if meal['name'] in all_meals]), 'breakfast')
     default_meal = request.GET.get('meal', default_meal_name)
     previous = request.GET.get('previous', 0)
     if 'day' not in request.GET or 'meal' not in request.GET:
