@@ -433,7 +433,7 @@ def menu_list(request, path, bases):
     default_day = request.GET.get('day', weekday_names[today_idx] if today_idx < 5 else 'mon')
     hour = datetime.now().hour
     time_to_meal = {'breakfast': [8, 9, 10], 'lunch': [11, 12, 13, 14], 'snack': [15, 16], 'dinner': [17, 18, 19], 'onedish': [8, 9, 10, 11, 12, 13, 14, 15, 16], 'unmanned': [14, 15, 16]}
-    default_meal_name = next((m for m, hours in time_to_meal.items() if hour in hours and m in [meal['time'] for meal in MEALS if meal['name'] in all_meals]), 'breakfast')
+    default_meal_name = next((m for m, hours in time_to_meal.items() if hour in hours and m in [meal['time'] for meal in MEALS if meal['name'] in all_meals]), 'breakfast' if '아침' in all_meals else 'lunch')
     default_meal = request.GET.get('meal', default_meal_name)
     previous = request.GET.get('previous', 0)
     if 'day' not in request.GET or 'meal' not in request.GET:
@@ -493,14 +493,16 @@ def menu_detail(request, path, meal, bases):
     """Display details for a specific menu item"""
     # menu_item = get_object_or_404(MenuItem, url=path)
     # menu_item = {'title': path, 'meal': meal, 'order': 0}
-    location = next((r for r in RESTAURANTS if r['path'] == path), None)
-    if not location:
+    restaurant = next((r for r in RESTAURANTS if r['path'] == path), None)
+    title = restaurant['title']
+    meal_tabs = restaurant['mealsSemester']
+    if not restaurant:
         from django.http import Http404
         raise Http404("Restaurant not found")
     menu_item = get_object_or_404(MenuItem, id=meal)
     lang = 'ko' if request.LANGUAGE_CODE == 'ko' else 'en'
     time = f"{menu_item.date[0:4]}-{menu_item.date[4:6]}-{menu_item.date[6:8]} {menu_item.day} {menu_item.meal}"
-    return render(request, 'pages/menu_detail.html', {'menu_item': menu_item, 'image_url': 'https://objectstorage.ap-chuncheon-1.oraclecloud.com/n/ax0ym4amgnfk/b/bucket-20260516-0145/o/'+menu_item.main+'.png', 'time': time, 'bases': bases, 'path': path, 'meal': meal, 'lang': lang})
+    return render(request, 'pages/menu_detail.html', {'restaurant': {'title': title, 'meal_tabs': meal_tabs, 'path': path}, 'menu_item': menu_item, 'image_url': 'https://objectstorage.ap-chuncheon-1.oraclecloud.com/n/ax0ym4amgnfk/b/bucket-20260516-0145/o/'+menu_item.main+'.png', 'time': time, 'bases': bases, 'path': path, 'meal': meal, 'lang': lang})
 
 
 # @staff_member_required
