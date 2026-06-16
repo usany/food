@@ -169,15 +169,23 @@ PWA_APP_START_URL = '/'
 PWA_APP_STATUS_BAR_COLOR = 'default'
 PWA_APP_ICONS = [
     {
-        'src': '/static/icon-160x160.png',
-        'sizes': '160x160'
+        'src': '/static/icon-192x192.png',
+        'sizes': '192x192',
+        'type': 'image/png'
+    },
+    {
+        'src': '/static/icon-512x512.png',
+        'sizes': '512x512',
+        'type': 'image/png'
     }
 ]
 PWA_APP_ICONS_APPLE = [
     {
-        'src': '/static/icon-160x160.png',
-        'sizes': '160x160'
+        'src': '/static/icon-192x192.png',
+        'sizes': '192x192',
+        'type': 'image/png'
     }
 ]
 PWA_APP_DIR = 'ltr'
 PWA_APP_LANG = 'en-US'
+# PWA_SERVICE_WORKER_PATH = BASE_DIR / 'restaurants' / 'serviceworker.js'
