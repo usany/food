@@ -30,14 +30,34 @@ def start():
         minute=0,
         replace_existing=True
     )
+    scheduler.add_job(
+        call_command,
+        'cron',
+        args=['playwright'],
+        kwargs={'source': 'khu', 'campus': 'global'},
+        id='playwright_khu_global',
+        hour=6,
+        minute=0,
+        replace_existing=True
+    )
     
     # Run playwright scraping for HUFS every day at 6:00 AM
     scheduler.add_job(
         call_command,
         'cron',
         args=['playwright'],
-        kwargs={'source': 'hufs'},
-        id='playwright_hufs',
+        kwargs={'source': 'hufs', 'student': True},
+        id='playwright_hufs_student',
+        hour=6,
+        minute=0,
+        replace_existing=True
+    )
+    scheduler.add_job(
+        call_command,
+        'cron',
+        args=['playwright'],
+        kwargs={'source': 'hufs', 'student': False},
+        id='playwright_hufs_staff',
         hour=6,
         minute=0,
         replace_existing=True

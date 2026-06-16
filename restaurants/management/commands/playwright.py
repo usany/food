@@ -596,7 +596,7 @@ class Command(BaseCommand):
                             extra=menu.get('extra', ''),
                             enextra=menu.get('enextra', ''),
                             date=menu.get('date', ''),
-                            stamp=menu.get('stamp', ''),
+                            stamp=menu.get('stamp', False),
                         )
                         self.stdout.write(self.style.SUCCESS(f"Successfully posted item: {menu.get('main', 'Unknown Menu Item')}"))
                         self.generate_image(menu.get('main', ''), menu.get('enmain', menu.get('main', '')))
