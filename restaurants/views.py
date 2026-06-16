@@ -501,7 +501,7 @@ def menu_detail(request, path, meal, bases):
         raise Http404("Restaurant not found")
     menu_item = get_object_or_404(MenuItem, id=meal)
     lang = 'ko' if request.LANGUAGE_CODE == 'ko' else 'en'
-    time = f"{menu_item.date[0:4]}-{menu_item.date[4:6]}-{menu_item.date[6:8]} {menu_item.day} {menu_item.meal}"
+    time = f"{menu_item.date[0:4]}.{menu_item.date[4:6]}.{menu_item.date[6:8]} {menu_item.day} {menu_item.meal}"
     return render(request, 'pages/menu_detail.html', {'restaurant': {'title': title, 'meal_tabs': meal_tabs, 'path': path}, 'menu_item': menu_item, 'image_url': 'https://objectstorage.ap-chuncheon-1.oraclecloud.com/n/ax0ym4amgnfk/b/bucket-20260516-0145/o/'+menu_item.main+'.png', 'time': time, 'bases': bases, 'path': path, 'meal': meal, 'lang': lang})
 
 
