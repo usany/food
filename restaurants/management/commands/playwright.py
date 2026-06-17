@@ -262,7 +262,7 @@ class Command(BaseCommand):
                     continue
                 menu_parts = menu.split('\n')
                 main = menu_parts[0].strip() if menu_parts else ''
-                side = menu_parts[1:-2].strip() if len(menu_parts) > 1 else ''
+                side = '\n'.join(menu_parts[1:-4]) if len(menu_parts) > 1 else ''
                 if not main:
                     continue
                 place = 'hi' if is_student else 'hg'
@@ -441,6 +441,7 @@ class Command(BaseCommand):
 
             except Exception as e:
                 self.stderr.write(self.style.ERROR(f"Model {model} failed: {str(e)}. Trying next..."))
+                continue
 
     def generate_image(self, main, enmain):
         """Generate an image using Cloudflare AI API"""
