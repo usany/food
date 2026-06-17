@@ -246,8 +246,8 @@ class Command(BaseCommand):
                     continue
                 menu_parts = menu.split('\n')
                 main = menu_parts[0].strip() if menu_parts else ''
-                side = menu_parts[1].strip() if len(menu_parts) > 1 else ''
-                if not main or not side:
+                side = '\n'.join(menu_parts[1:-4]) if len(menu_parts) > 1 else ''
+                if not main:
                     continue
                 all_texts.append(main)
                 all_texts.append(side)
