@@ -262,13 +262,13 @@ class Command(BaseCommand):
                     continue
                 menu_parts = menu.split('\n')
                 main = menu_parts[0].strip() if menu_parts else ''
-                side = menu_parts[1].strip() if len(menu_parts) > 1 else ''
-                if not main or not side:
+                side = menu_parts[1:-2].strip() if len(menu_parts) > 1 else ''
+                if not main:
                     continue
                 place = 'hi' if is_student else 'hg'
                 meal = 'lunch' if not is_student else 'breakfast' if index < 7 else 'lunch' if index < 28 else 'dinner'
                 day = 'mon' if index % 7 == 1 else 'tue' if index % 7 == 2 else 'wed' if index % 7 == 3 else 'thu' if index % 7 == 4 else 'fri'
-                day_index = {'mon': 0, 'tue': 1, 'wed': 2, 'thu': 3, 'fri': 4, 'sat': 5, 'sun': 6}[day]
+                day_index = {'sun': 0, 'mon': 1, 'tue': 2, 'wed': 3, 'thu': 4, 'fri': 5, 'sat': 6}[day]
                 date = dates[day_index] if day_index < len(dates) else ''
                 item_id = main+'-'+place+'-'+date+'-'+day+'-'+meal
                 enmain = trans_map.get(main, main)
