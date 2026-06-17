@@ -268,7 +268,9 @@ class Command(BaseCommand):
                 place = 'hi' if is_student else 'hg'
                 meal = 'lunch' if not is_student else 'breakfast' if index < 7 else 'lunch' if index < 28 else 'dinner'
                 day = 'mon' if index % 7 == 1 else 'tue' if index % 7 == 2 else 'wed' if index % 7 == 3 else 'thu' if index % 7 == 4 else 'fri'
-                item_id = main+'-'+place+'-'+day+'-'+meal
+                day_index = {'mon': 0, 'tue': 1, 'wed': 2, 'thu': 3, 'fri': 4, 'sat': 5, 'sun': 6}[day]
+                date = dates[day_index] if day_index < len(dates) else ''
+                item_id = main+'-'+place+'-'+date+'-'+day+'-'+meal
                 enmain = trans_map.get(main, main)
                 enside = trans_map.get(side, side)
                 updated, created = MenuItem.objects.update_or_create(
@@ -281,10 +283,10 @@ class Command(BaseCommand):
                         day=day,
                         meal=meal,
                         place=place,
-                        price=int(menu_parts[-1].split('(')[0].replace(',', '').replace('원', '')),
+                        price=menu_parts[-1].split('(')[0].replace(',', '').replace('원', '').strip(),
                         extra='',
                         enextra='',
-                        date=None,
+                        date=date,
                         stamp=False,
                     ),
                 )
