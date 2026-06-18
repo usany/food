@@ -102,10 +102,10 @@ class Command(BaseCommand):
                     side = first_menu[1].split('B코너 : ', 1)[0].strip() if len(first_menu) > 1 else ''
                     all_texts.append(main)
                     all_texts.append(side)
-                    if len(first_menu) > 1:
-                        self.stdout.write(f"DEBUG entry: {repr(menu)}")
-                        self.stdout.write(f"DEBUG first_menu[1]: {repr(first_menu[1])}")
-                        self.stdout.write(f"DEBUG split result: {repr(first_menu[1].split('B코너 : ', 1))}")
+                    # if len(first_menu) > 1:
+                    #     self.stdout.write(f"DEBUG entry: {repr(menu)}")
+                    #     self.stdout.write(f"DEBUG first_menu[1]: {repr(first_menu[1])}")
+                    #     self.stdout.write(f"DEBUG split result: {repr(first_menu[1].split('B코너 : ', 1))}")
                     second_part = menu.split('B코너 : ', 1)[1].strip()
                     second_menu = second_part.split(',', 1)
                     main2 = second_menu[0].strip() if second_menu else ''
@@ -129,7 +129,7 @@ class Command(BaseCommand):
                     continue
                 if menu.startswith('A코너 : '):
                     first_part = menu.split(' : ', 1)[1]
-                    first_menu = first_part.split(',', 1)
+                    first_menu = first_part.split(',', 1) if not first_part.startswith('미운영') else ''
                     main = first_menu[0].strip() if first_menu else ''
                     side = first_menu[1].split('B코너 : ', 1)[0].strip() if len(first_menu) > 1 else ''
                     day = 'mon' if index < 3 else 'tue' if index < 6 else 'wed' if index < 9 else 'thu' if index < 12 else 'fri'
@@ -157,7 +157,7 @@ class Command(BaseCommand):
                     
                     self.generate_image(main, enmain)
 
-                    second_part = first_menu[1].split('B코너 : ', 1)[1].strip() if len(first_menu) > 1 else ''
+                    second_part = menu.split('B코너 : ', 1)[1].strip()
                     second_menu = second_part.split(',', 1)
                     main = second_menu[0].strip() if second_menu else ''
                     side = second_menu[1].strip() if len(second_menu) > 1 else ''
