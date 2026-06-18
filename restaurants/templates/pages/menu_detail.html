@@ -21,10 +21,10 @@
             <h1 class="text-2xl font-bold text-blue-700 dark:text-blue-400 mb-2">{% trans day %} {% trans meal %}</h1>
             {% if LANGUAGE_CODE == 'en' %}
             <h1 class="text-2xl font-bold text-blue-700 dark:text-blue-400 mb-2">{{ menu_item.enmain }}</h1>
-            <h1 class="text-2xl font-bold text-blue-700 dark:text-blue-400 mb-2">{{ menu_item.main }}</h1>
+            <!-- <h1 class="text-2xl font-bold text-blue-700 dark:text-blue-400 mb-2">{{ menu_item.main }}</h1> -->
             {% else %}
             <h1 class="text-2xl font-bold text-blue-700 dark:text-blue-400 mb-2">{{ menu_item.main }}</h1>
-            <h1 class="text-2xl font-bold text-blue-700 dark:text-blue-400 mb-2">{{ menu_item.enmain }}</h1>
+            <!-- <h1 class="text-2xl font-bold text-blue-700 dark:text-blue-400 mb-2">{{ menu_item.enmain }}</h1> -->
             {% endif %}
             
             {% if LANGUAGE_CODE == 'en' %}
