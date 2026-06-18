@@ -140,14 +140,14 @@ MENU_ITEMS = {
             'enmain': 'Beef Inari Sushi',
         },
     ],
-    'jj': [
+    'jg': [
         {
-            'id': '오늘의샐러드&드레싱-jj',
+            'id': '오늘의샐러드&드레싱-jg',
             'main': '오늘의샐러드&드레싱',
             'enmain': "Today's Salad & Dressing",
         },
         {
-            'id': '신라면_진라면매운맛_진라면순한맛_너구리_짜파게티_안성탕면_오징어짬뽕(셀프&토핑2종)-jj',
+            'id': '신라면_진라면매운맛_진라면순한맛_너구리_짜파게티_안성탕면_오징어짬뽕(셀프&토핑2종)-jg',
             'main': '신라면/진라면매운맛/진라면순한맛/너구리/짜파게티/안성탕면/오징어짬뽕(셀프&토핑2종)',
             'enmain': 'Shin Ramen / Jin Ramen Spicy / Jin Ramen Mild / Neoguri / Jjapaghetti / Ansung Tangmyun / Squid Jjambbong (Self & 2 Toppings)',
         },
@@ -162,7 +162,7 @@ class Command(BaseCommand):
         parser.add_argument(
             '--place',
             type=str,
-            choices=['ch', 'ph', 'jj', 'all'],
+            choices=['ch', 'ph', 'jg', 'all'],
             default='all',
             help='Which place to generate images for: ph, jj, or all (default: all)',
         )
@@ -171,7 +171,7 @@ class Command(BaseCommand):
         place = options.get('place', 'all')
 
         if place == 'all':
-            places = ['ch', 'ph', 'jj']
+            places = ['ch', 'ph', 'jg']
         else:
             places = [place]
 
