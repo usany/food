@@ -533,7 +533,7 @@ class Command(BaseCommand):
             elif '푸른솔' in title:
                 place_instruction = "place는 학생식당은 ph, 교직원식당은 pg입니다. OneDishSETSelf-Bar, 한소반SETSelf-Bar, 면가득은 모두 lunch입니다. dinner는 없습니다. TO-GO가 포함된 메뉴는 정리하지 않고 넘어가주세요."
             elif '학생회관' in title:
-                place_instruction = "place는 학생식당은 hh, 교직원식당은 hg입니다. 포케, 컵밥은 서로 다른 breakfast 메뉴입니다."
+                place_instruction = "place는 학생식당은 hh, 교직원식당은 hg입니다. 포케, 컵밥은 서로 다른 breakfast 메뉴입니다. 단품, 든든, 우아, 푸짐은 모두 lunch입니다. "
             else:
                 place_instruction = "place는 jg입니다. 점심의 T/O(6,500원) 메뉴만 정리해주세요."
             prompt_text = f"{{'id': '낙지콩나물덮밥-ch-20260101-thu-breakfast', 'main': '낙지콩나물덮밥', 'side': '유부장국, 유린기 닭:브라질산, 중화품배추찜, 마카로니크래미샐러드, 고들빼기무침, 마시는 요구르트', 'enmain': 'Rice with octopus bean sprouts', 'enside': 'Fried Tofu Soup, Yuringi Chicken: Brazilian, Chinese Cabbage Steamed, Macaroni Crami Salad, Seasoned Godeul, Drinking Yogurt', 'price': 8000, 'date': '20260101', 'day': 'tue', 'meal': 'lunch', 'place': 'cg', 'extra': '일식돈가스 추가시 8000', 'enextra': 'additional Japanese-style pork cutlet 8000', 'stamp': False }}처럼 각 메뉴를 정리해주세요. {place_instruction} trailing comma가 없도록 해주세요. id는 main-place-date-day-meal 순서로 합쳐서 / 기호를 쓰지 않게 만들어주세요. main에는 띄어쓰기가 없도록 해주세요. 추가 메뉴가 없는 경우 extra와 enextra는 ''입니다. date는 표 상단의 날짜와 제목인 {title}를 참고해서 yyyymmdd 형식으로 작성해주세요. stamp는 금지 표시가 있으면 True, 없으면 False입니다. py list로 만들고 # 메모 없이 작성해주세요."
