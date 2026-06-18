@@ -155,7 +155,7 @@ class Command(BaseCommand):
                         ),
                     ) if main else None
                     
-                    self.generate_image(main, enmain)
+                    self.generate_image(main, enmain) if main else None
 
                     second_part = menu.split('B코너 : ', 1)[1].strip()
                     second_menu = second_part.split(',', 1)
@@ -180,7 +180,7 @@ class Command(BaseCommand):
                             stamp=False,
                         ),
                     ) if main else None
-                    self.generate_image(main, enmain)
+                    self.generate_image(main, enmain) if main else None
 
                 else:
                     menu_parts = menu.split(',', 1)
@@ -209,7 +209,7 @@ class Command(BaseCommand):
                             stamp=False,
                         ),
                     ) if main else None
-                    self.generate_image(main, enmain)
+                    self.generate_image(main, enmain) if main else None
 
         with ThreadPoolExecutor(max_workers=1) as executor:
             executor.submit(create_menu_items).result()
