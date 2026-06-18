@@ -80,7 +80,8 @@ class Command(BaseCommand):
         
         page.locator('a').filter(has_text='전체보기').first.click()
         page.wait_for_selector('td.te_left')
-        dates = page.locator('[id^="vDate"]').all_inner_texts()
+        raw_dates = page.locator('[id^="vDate"]').all_inner_texts()
+        dates = [date.split('년', 1)[0].strip()+('0'+date.split('월', 1)[0].strip() if len(date.split('월', 1)[0].strip()) == 1 else date.split('월', 1)[0].strip())+('0'+date.split('일', 1)[0].strip() if len(date.split('일', 1)[0].strip()) == 1 else date.split('일', 1)[0].strip()) for date in raw_dates]
         menu_texts = page.locator('td.te_left').all_inner_texts()
         self.stdout.write(str(menu_texts))
         self.stdout.write(f'Found {len(menu_texts)} items')
@@ -537,7 +538,7 @@ class Command(BaseCommand):
             elif '푸른솔' in title:
                 place_instruction = "place는 학생식당은 ph, 교직원식당은 pg입니다. OneDishSETSelf-Bar, 한소반SETSelf-Bar, 면가득은 모두 lunch입니다. dinner는 없습니다. TO-GO가 포함된 메뉴는 정리하지 않고 넘어가주세요."
             elif '학생회관' in title:
-                place_instruction = "place는 학생식당은 hh, 교직원식당은 hg입니다. 포케, 컵밥은 서로 다른 breakfast 메뉴입니다. 단품, 든든, 우아, 푸짐은 모두 lunch입니다. dinner는 학생식당, 교직원식당 같습니다."
+                place_instruction = "place는 학생식당은 hh, 교직원식당은 hg입니다. 포케, 컵밥은 서로 다른 breakfast 메뉴입니다. 단품, 든든, 우아, 푸짐은 모두 lunch입니다. dinner 메뉴는 학생식당과 교직원식당이 같은 메뉴입니다."
             else:
                 place_instruction = "place는 jg입니다. 점심의 T/O(6,500원) 메뉴만 정리해주세요."
             prompt_text = f"{{'id': '낙지콩나물덮밥-ch-20260101-thu-breakfast', 'main': '낙지콩나물덮밥', 'side': '유부장국, 유린기 닭:브라질산, 중화품배추찜, 마카로니크래미샐러드, 고들빼기무침, 마시는 요구르트', 'enmain': 'Rice with octopus bean sprouts', 'enside': 'Fried Tofu Soup, Yuringi Chicken: Brazilian, Chinese Cabbage Steamed, Macaroni Crami Salad, Seasoned Godeul, Drinking Yogurt', 'price': 8000, 'date': '20260101', 'day': 'tue', 'meal': 'lunch', 'place': 'cg', 'extra': '일식돈가스 추가시 8000', 'enextra': 'additional Japanese-style pork cutlet 8000', 'stamp': False }}처럼 각 메뉴를 정리해주세요. {place_instruction} trailing comma가 없도록 해주세요. id는 main-place-date-day-meal 순서로 합쳐서 / 기호를 쓰지 않게 만들어주세요. main에는 띄어쓰기가 없도록 해주세요. 추가 메뉴가 없는 경우 extra와 enextra는 ''입니다. date는 표 상단의 날짜와 제목인 {title}를 참고해서 yyyymmdd 형식으로 작성해주세요. stamp는 금지 표시가 있으면 True, 없으면 False입니다. py list로 만들고 # 메모 없이 작성해주세요."
@@ -590,20 +591,22 @@ class Command(BaseCommand):
 
                 def _save_items(items):
                     for menu in items:
-                        MenuItem.objects.create(
+                        MenuItem.objects.update_or_create(
                             id=menu.get('id', ''),
-                            main=menu.get('main', ''),
-                            side=menu.get('side', ''),
-                            enmain=menu.get('enmain', ''),
-                            enside=menu.get('enside', ''),
-                            price=menu.get('price', ''),
-                            meal=menu.get('meal', ''),
-                            day=menu.get('day', ''),
-                            place=menu.get('place', ''),
-                            extra=menu.get('extra', ''),
-                            enextra=menu.get('enextra', ''),
-                            date=menu.get('date', ''),
-                            stamp=menu.get('stamp', False),
+                            defaults=dict(
+                                main=menu.get('main', ''),
+                                side=menu.get('side', ''),
+                                enmain=menu.get('enmain', ''),
+                                enside=menu.get('enside', ''),
+                                price=menu.get('price', ''),
+                                meal=menu.get('meal', ''),
+                                day=menu.get('day', ''),
+                                place=menu.get('place', ''),
+                                extra=menu.get('extra', ''),
+                                enextra=menu.get('enextra', ''),
+                                date=menu.get('date', ''),
+                                stamp=menu.get('stamp', False),
+                            )
                         )
                         self.stdout.write(self.style.SUCCESS(f"Successfully posted item: {menu.get('main', 'Unknown Menu Item')}"))
                         self.generate_image(menu.get('main', ''), menu.get('enmain', menu.get('main', '')))
