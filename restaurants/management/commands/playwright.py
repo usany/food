@@ -153,7 +153,7 @@ class Command(BaseCommand):
                             date=date,
                             stamp=False,
                         ),
-                    )
+                    ) if main else None
                     
                     self.generate_image(main, enmain)
 
@@ -179,7 +179,7 @@ class Command(BaseCommand):
                             date=date,
                             stamp=False,
                         ),
-                    )
+                    ) if main else None
                     self.generate_image(main, enmain)
 
                 else:
@@ -208,7 +208,7 @@ class Command(BaseCommand):
                             date=date,
                             stamp=False,
                         ),
-                    )
+                    ) if main else None
                     self.generate_image(main, enmain)
 
         with ThreadPoolExecutor(max_workers=1) as executor:
