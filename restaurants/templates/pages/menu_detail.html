@@ -9,7 +9,7 @@
 
     <div class="flex items-center rounded-xl border border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800 shadow overflow-hidden">
         {% if image_url %}
-        <img src="{{ image_url }}" alt="{{ menu_item.main }}" class="w-50 h-64 object-cover">
+        <img src="{{ image_url| cut:' ' }}" alt="{{ menu_item.main }}" class="w-50 h-64 object-cover">
         {% else %}
         <div class="w-full h-48 bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-gray-400 dark:text-gray-500 text-sm">
             {% trans "No image available" %}
