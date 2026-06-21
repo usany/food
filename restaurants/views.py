@@ -505,7 +505,7 @@ def menu_detail(request, path, meal, bases):
     time = f"{menu_item.date[0:4]}.{menu_item.date[4:6]}.{menu_item.date[6:8]} {menu_item.day} {menu_item.meal}"
     day = next((w['name'] for w in WEEKDAYS if w['day'] == menu_item.day), None)
     meal = next((m['name'] for m in MEALS if m['time'] == menu_item.meal), None)
-    return render(request, 'pages/menu_detail.html', {'restaurant': {'title': title, 'meal_tabs': meal_tabs, 'path': path}, 'day': day, 'meal': meal, 'menu_item': menu_item, 'image_url': 'https://objectstorage.ap-chuncheon-1.oraclecloud.com/n/ax0ym4amgnfk/b/bucket-20260516-0145/o/'+menu_item.main+'.png', 'time': time, 'bases': bases, 'path': path, 'lang': lang})
+    return render(request, 'pages/menu_detail.html', {'restaurant': {'title': title, 'meal_tabs': meal_tabs, 'path': path}, 'day': day, 'meal': meal, 'menu_item': menu_item, 'image_url': 'https://objectstorage.ap-chuncheon-1.oraclecloud.com/n/ax0ym4amgnfk/b/bucket-20260516-0145/o/'+menu_item.main, 'time': time, 'bases': bases, 'path': path, 'lang': lang})
 
 
 # @staff_member_required
