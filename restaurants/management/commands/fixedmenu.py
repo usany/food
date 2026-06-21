@@ -95,9 +95,9 @@ MENU_ITEMS = {
             'enmain': 'Rice',
         },
         {
-            'id': '씨리얼&우유-ph',
-            'main': '씨리얼&우유',
-            'enmain': 'Cereal & Milk',
+            'id': '컵씨리얼&우유-ph',
+            'main': '컵씨리얼&우유',
+            'enmain': 'Cup Cereal & Milk',
         },
         {
             'id': '우유_딸기우유_초코우유-ph',

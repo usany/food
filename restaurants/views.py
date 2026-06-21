@@ -208,9 +208,9 @@ FIXED_MENU = {
             'stamp': False,
         },
         {
-            'id': '씨리얼&우유-ph',
-            'main': '씨리얼&우유',
-            'enmain': 'Cereal & Milk',
+            'id': '컵씨리얼&우유-ph',
+            'main': '컵씨리얼&우유',
+            'enmain': 'Cup Cereal & Milk',
             'side': None,
             'enside': None,
             'price': 2000,
