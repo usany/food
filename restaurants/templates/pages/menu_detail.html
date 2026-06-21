@@ -18,7 +18,11 @@
 
         <div class="p-6">
             <h1 class="text-2xl font-bold text-blue-700 dark:text-blue-400 mb-2">{% trans restaurant.title %}</h1>
+            {% if day != None and meal != None %}
             <h1 class="text-2xl font-bold text-blue-700 dark:text-blue-400 mb-2">{% trans day %} {% trans meal %}</h1>
+            {% else %}
+            <h1 class="text-2xl font-bold text-blue-700 dark:text-blue-400 mb-2">{% trans '매일' %}</h1>
+            {% endif %}
             {% if LANGUAGE_CODE == 'en' %}
             <h1 class="text-2xl font-bold text-blue-700 dark:text-blue-400 mb-2">{{ menu_item.enmain }}</h1>
             <!-- <h1 class="text-2xl font-bold text-blue-700 dark:text-blue-400 mb-2">{{ menu_item.main }}</h1> -->
@@ -28,9 +32,13 @@
             {% endif %}
             
             {% if LANGUAGE_CODE == 'en' %}
+            {% if menu_item.enside %}
             <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">{{ menu_item.enside }}</p>
+            {% endif %}
             {% else %}
+            {% if menu_item.side %}
             <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">{{ menu_item.side }}</p>
+            {% endif %}
             {% endif %}
             
             <div class="flex items-center justify-between">
