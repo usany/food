@@ -462,7 +462,7 @@ def menu_list(request, path, bases):
         if selected_meal in d.get('time_category', [])
     ] if selected_meal else all_dishes
     from datetime import timedelta
-    today = datetime.today()
+    today = datetime.today() if today_idx < 5 else datetime.today() + timedelta(days=today_idx+7)
     start_of_week = today - timedelta(days=today_idx) - timedelta(weeks=int(previous))
     week = [(start_of_week + timedelta(days=i)).strftime('%Y%m%d') for i in range(5)]
     week_without_year = [(start_of_week + timedelta(days=i)).strftime('%m.%d') for i in range(5)]
