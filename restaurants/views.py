@@ -503,7 +503,7 @@ def menu_detail(request, path, meal, bases):
     fixed_menu = next((fixed for fixed in FIXED_MENU.get(path, []) if fixed['id'] == meal), None)
     menu_item = get_object_or_404(MenuItem, id=meal) if fixed_menu == None else fixed_menu
     lang = 'ko' if request.LANGUAGE_CODE == 'ko' else 'en'
-    time = f"{menu_item.date[0:4]}.{menu_item.date[4:6]}.{menu_item.date[6:8]} {menu_item.day} {menu_item.meal}" if fixed_menu == None else None
+    time = f"{menu_item.date[0:4]}.{menu_item.date[4:6]}.{menu_item.date[6:8]} {menu_item.day} {menu_item.meal}" if fixed_menu == None else ", ".join(m['name'] for tc in fixed_menu.get('time_category', []) for m in MEALS if m['time'] == tc)
     day = next((w['name'] for w in WEEKDAYS if w['day'] == menu_item.day), None) if fixed_menu == None else None
     meal = next((m['name'] for m in MEALS if m['time'] == menu_item.meal), None) if fixed_menu == None else None
     item_main = menu_item.main if fixed_menu is None else menu_item['main']
