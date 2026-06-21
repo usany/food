@@ -248,8 +248,8 @@ FIXED_MENU = {
             'time_category': ['onedish'],
             'time_detail': {'onedish': ['08:30', '16:00']},
             'place': 'ph',
-            'extra': '토핑 대파쏭쏭 500 왕계란 500',
-            'enextra': 'Topping Green Onion 500 King Egg 500',
+            'extra': None,
+            'enextra': None,
             'stamp': False,
         },
         {
