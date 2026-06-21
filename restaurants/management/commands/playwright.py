@@ -484,7 +484,7 @@ class Command(BaseCommand):
                 with open(f"{safe_main}.png", "wb") as f:
                     f.write(image_response.content)
                 self.stdout.write(self.style.SUCCESS(f"Image saved as {safe_main}.png"))
-                self.upload_to_storage(f"{safe_main}.png", f"{main}")
+                self.upload_to_storage(f"{safe_main}.png", f"{safe_main}")
             else:
                 self.stderr.write(self.style.ERROR(f"Image generation API error: {image_response.status_code} {image_response.text}"))
         except Exception as e:
