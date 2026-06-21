@@ -233,7 +233,7 @@ class Command(BaseCommand):
         """Upload image to storage using PUT with PAR token"""
         load_dotenv()
 
-        url = f"https://objectstorage.ap-chuncheon-1.oraclecloud.com/p/_jTGcQoC5j9SBp5Q9iVJ4U7y0oilMttgFhVFrPo90gFeMwUn2JQVeAjTQetS6HNh/n/ax0ym4amgnfk/b/bucket-20260516-0145/o/{object_name}"
+        url = f"https://objectstorage.ap-chuncheon-1.oraclecloud.com/p/59C4p0AMvKfRvrQBb7rNihtYDwcP2TCNlf_Hq6pMRPbgcQUV0EZBrCKlsQthjJK5/n/ax0ym4amgnfk/b/bucket-20260516-0145/o/{object_name}"
         if not os.path.exists(file_path):
             self.stderr.write(self.style.ERROR(f'File not found: {file_path}'))
             return
