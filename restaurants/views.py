@@ -503,9 +503,9 @@ def menu_detail(request, path, meal, bases):
     fixed_menu = next((fixed for fixed in FIXED_MENU.get(path, []) if fixed['id'] == meal), None)
     menu_item = get_object_or_404(MenuItem, id=meal) if fixed_menu == None else fixed_menu
     lang = 'ko' if request.LANGUAGE_CODE == 'ko' else 'en'
-    time = f"{menu_item.date[0:4]}.{menu_item.date[4:6]}.{menu_item.date[6:8]} {menu_item.day} {menu_item.meal}" if fixed_menu == None else '매일'
-    day = next((w['name'] for w in WEEKDAYS if w['day'] == menu_item.day), None) if fixed_menu == None else '매일'
-    meal = next((m['name'] for m in MEALS if m['time'] == menu_item.meal), None) if fixed_menu == None else '매일'
+    time = f"{menu_item.date[0:4]}.{menu_item.date[4:6]}.{menu_item.date[6:8]} {menu_item.day} {menu_item.meal}" if fixed_menu == None else None
+    day = next((w['name'] for w in WEEKDAYS if w['day'] == menu_item.day), None) if fixed_menu == None else None
+    meal = next((m['name'] for m in MEALS if m['time'] == menu_item.meal), None) if fixed_menu == None else None
     item_main = menu_item.main if fixed_menu is None else menu_item['main']
     return render(request, 'pages/menu_detail.html', {'restaurant': {'title': title, 'meal_tabs': meal_tabs, 'path': path}, 'day': day, 'meal': meal, 'menu_item': menu_item, 'image_url': 'https://objectstorage.ap-chuncheon-1.oraclecloud.com/n/ax0ym4amgnfk/b/bucket-20260516-0145/o/'+item_main, 'time': time, 'bases': bases, 'path': path, 'lang': lang})
 
