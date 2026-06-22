@@ -84,17 +84,24 @@ WSGI_APPLICATION = 'restaurants.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
-# Turso (libSQL) — set TURSO_DB_URL and TURSO_AUTH_TOKEN env vars for remote mode.
-# Falls back to local SQLite if TURSO_DB_URL is not set.
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django_cf.db.backends.d1_api',
-        'CLOUDFLARE_DATABASE_ID': os.environ.get('CFDATABASEID'),
-        'CLOUDFLARE_ACCOUNT_ID': os.environ.get('CFACCOUNTID'),
-        'CLOUDFLARE_TOKEN': os.environ.get('CFAPITOKEN'),
+# Cloudflare D1 can be enabled with USE_D1=true.
+# Local development falls back to SQLite so runserver doesn't require remote D1.
+if os.environ.get('USE_D1', '').lower() == 'true':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'restaurants.backends.d1_rest',
+            'CLOUDFLARE_DATABASE_ID': os.environ.get('CFDATABASEID'),
+            'CLOUDFLARE_ACCOUNT_ID': os.environ.get('CFACCOUNTID'),
+            'CLOUDFLARE_TOKEN': os.environ.get('CFTOKEN'),
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 # Oracle Cloud Object Storage
 ORACLE_NAMESPACE = 'ax0ym4amgnfk'

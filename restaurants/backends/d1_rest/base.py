@@ -1,11 +1,4 @@
-import os
-import json
-import base64
-import hashlib
-import hmac
-import time
 import requests
-from urllib.parse import urljoin
 
 from django.db.backends.sqlite3.base import DatabaseWrapper as SQLiteDatabaseWrapper
 from django.db.backends.sqlite3.creation import DatabaseCreation as SQLiteDatabaseCreation
@@ -14,7 +7,7 @@ from django.db.backends.sqlite3.operations import DatabaseOperations as SQLiteDa
 from django.db.backends.sqlite3.schema import DatabaseSchemaEditor as SQLiteDatabaseSchemaEditor
 from django.db.backends.sqlite3.features import DatabaseFeatures as SQLiteDatabaseFeatures
 from django.db.backends.utils import CursorWrapper
-from django.db.utils import OperationalError, IntegrityError, DatabaseError
+from django.db.utils import OperationalError
 from django.core.exceptions import ImproperlyConfigured
 
 
@@ -28,7 +21,8 @@ class D1RestIntrospection(SQLiteDatabaseIntrospection):
 
 
 class D1RestOperations(SQLiteDatabaseOperations):
-    compiler_module = "django.db.backends.sqlite3.compiler"
+    def last_executed_query(self, cursor, sql, params):
+        return sql
 
 
 class D1RestSchemaEditor(SQLiteDatabaseSchemaEditor):
@@ -48,16 +42,15 @@ class D1RestFeatures(SQLiteDatabaseFeatures):
 
 class D1RestCursorWrapper(CursorWrapper):
     def __init__(self, cursor, connection):
-        self.cursor = cursor
-        self.connection = connection
+        super().__init__(cursor, connection)
 
 
 class D1RestConnection:
     def __init__(self, settings_dict):
         self.settings_dict = settings_dict
-        self.account_id = settings_dict.get('CLOUDFLARE_ACCOUNT_ID')
-        self.database_id = settings_dict.get('CLOUDFLARE_DATABASE_ID')
-        self.token = settings_dict.get('CLOUDFLARE_TOKEN')
+        self.account_id = settings_dict.get('CLOUDFLARE_ACCOUNT_ID', '').strip()
+        self.database_id = settings_dict.get('CLOUDFLARE_DATABASE_ID', '').strip()
+        self.token = settings_dict.get('CLOUDFLARE_TOKEN', '').strip()
         self.base_url = f"https://api.cloudflare.com/client/v4/accounts/{self.account_id}/d1/database/{self.database_id}"
         self.headers = {
             "Authorization": f"Bearer {self.token}",
@@ -72,14 +65,18 @@ class D1RestConnection:
         if params:
             sql = self._format_sql(sql, params)
         
-        response = requests.post(
-            f"{self.base_url}/query",
-            headers=self.headers,
-            json={"sql": sql}
-        )
+        try:
+            response = requests.post(
+                f"{self.base_url}/query",
+                headers=self.headers,
+                json={"sql": sql},
+                timeout=30,
+            )
+        except requests.RequestException as exc:
+            raise OperationalError(f"D1 API request failed: {exc}") from exc
         
         if response.status_code != 200:
-            raise OperationalError(f"D1 API error: {response.text}")
+            raise OperationalError(self._format_d1_error(response))
         
         data = response.json()
         if not data.get("success"):
@@ -90,6 +87,23 @@ class D1RestConnection:
         
         results = data.get("result", [])
         return results
+
+    def _format_d1_error(self, response):
+        try:
+            data = response.json()
+        except ValueError:
+            return f"D1 API error ({response.status_code}): {response.text}"
+
+        errors = data.get("errors") or []
+        error_codes = {error.get("code") for error in errors if isinstance(error, dict)}
+        if response.status_code == 403 and 7403 in error_codes:
+            return (
+                "D1 API authorization failed (Cloudflare error 7403). "
+                "Check that CFACCOUNTID is the account that owns CFDATABASEID and "
+                "that CFAPITOKEN has Cloudflare D1 edit/read access for that account."
+            )
+
+        return f"D1 API error ({response.status_code}): {data}"
 
     def _format_sql(self, sql, params):
         if not params:
@@ -210,7 +224,7 @@ class DatabaseWrapper(SQLiteDatabaseWrapper):
         settings_dict = self.settings_dict
         required = ['CLOUDFLARE_ACCOUNT_ID', 'CLOUDFLARE_DATABASE_ID', 'CLOUDFLARE_TOKEN']
         for key in required:
-            if not settings_dict.get(key):
+            if not settings_dict.get(key, '').strip():
                 raise ImproperlyConfigured(f"settings.DATABASES['default']['{key}'] is required")
         return settings_dict
 
