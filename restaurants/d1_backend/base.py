@@ -48,11 +48,85 @@ class DatabaseWrapper(CFDatabaseWrapper):
         self.api_token = conn_params["api_token"]
         return super().get_new_connection(conn_params)
 
+    def _extract_select_columns(self, query):
+        """Extract column names from a SELECT query in order."""
+        if not query.strip().upper().startswith("SELECT"):
+            return None
+        # Find everything between SELECT and FROM (or other keywords)
+        rest = query.strip()
+        if rest.upper().startswith("SELECT"):
+            rest = rest[6:].strip()
+        # Find the end of the select list
+        # Match parentheses to handle subqueries and function calls
+        depth = 0
+        end = 0
+        in_string = False
+        string_char = None
+        for i, c in enumerate(rest):
+            if in_string:
+                if c == string_char:
+                    in_string = False
+            elif c in ("'", '"'):
+                in_string = True
+                string_char = c
+            elif c == "(":
+                depth += 1
+            elif c == ")":
+                depth -= 1
+            elif depth == 0 and c == ",":
+                continue
+            elif depth == 0 and rest[i:i+5].upper() in ("FROM ", "INTO ", "WHERE"):
+                end = i
+                break
+        select_clause = rest[:end].strip()
+
+        # Split by top-level commas (not inside parentheses)
+        columns = []
+        depth = 0
+        current = ""
+        for c in select_clause:
+            if c == "(":
+                depth += 1
+                current += c
+            elif c == ")":
+                depth -= 1
+                current += c
+            elif c == "," and depth == 0:
+                columns.append(current.strip())
+                current = ""
+            else:
+                current += c
+        if current.strip():
+            columns.append(current.strip())
+
+        result = []
+        for col in columns:
+            # If the column has an alias (AS), use the alias name as the key
+            if " AS " in col.upper():
+                # Extract the part after AS (handling quoted identifiers)
+                alias_part = col.split(" AS ")[-1].strip()
+                col_name = alias_part.replace('"', "").replace("'", "").replace("`", "")
+            else:
+                # Extract the last identifier (after the last dot)
+                # Remove quotes first, then split by dot
+                unquoted = col.replace('"', "").replace("'", "").replace("`", "")
+                if "." in unquoted:
+                    parts = unquoted.rsplit(".", 1)
+                    col_name = parts[-1].strip()
+                else:
+                    col_name = unquoted
+            result.append(col_name)
+
+        return result
+
     def run_query(self, query, params=None) -> CFResult:
         query = replace_date_trunc_in_sql(query)
 
         if params:
             query = query.replace("%s", "?")
+
+        # Extract expected column names for ORDER BY SELECT queries
+        expected_cols = self._extract_select_columns(query)
 
         url = (
             "https://api.cloudflare.com/client/v4/accounts/"
@@ -105,7 +179,13 @@ class DatabaseWrapper(CFDatabaseWrapper):
                 last_row_id = meta["last_row_id"]
 
             for row in stmt_rows:
-                row_items = tuple(row.values())
+                if expected_cols and isinstance(row, dict):
+                    # D1 returns row as dict. When JOINed tables have duplicate
+                    # column names (e.g. multiple "id" columns), the second+
+                    # occurrences are dropped. Reorder values to match SELECT.
+                    row_items = tuple(row.get(col) for col in expected_cols)
+                else:
+                    row_items = tuple(row.values())
                 rows.append(row_items)
 
         result = CFResult(rows)
