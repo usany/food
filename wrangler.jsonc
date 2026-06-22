@@ -1,0 +1,13 @@
+{
+  "name": "bob-food-worker",
+  "main": "src/index.py",
+  "compatibility_date": "2024-04-01",
+  "compatibility_flags": ["python_workers"],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "bob-food-db",
+      "database_id": "YOUR_D1_DATABASE_ID"
+    }
+  ]
+}

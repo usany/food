@@ -89,9 +89,8 @@ WSGI_APPLICATION = 'restaurants.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django_libsql',
-        'NAME': os.environ.get('TURSO_DB_URL', str(BASE_DIR / 'db.sqlite3')),
-        'AUTH_TOKEN': os.environ.get('TURSO_AUTH_TOKEN', ''),
+        'ENGINE': 'django_cf.db.backends.d1',
+        'CLOUDFLARE_BINDING': 'DB',
     }
 }
 

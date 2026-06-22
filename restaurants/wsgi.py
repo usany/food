@@ -16,5 +16,6 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'restaurants.settings')
 application = get_wsgi_application()
 
 # Start the scheduler
-from restaurants.scheduler import start
-start()
+# Scheduler has been removed since background threads cannot run in Cloudflare Workers
+# from restaurants.scheduler import start
+# start()
