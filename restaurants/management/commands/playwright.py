@@ -81,7 +81,7 @@ class Command(BaseCommand):
         page.locator('a').filter(has_text='전체보기').first.click()
         page.wait_for_selector('td.te_left')
         raw_dates = page.locator('[id^="vDate"]').all_inner_texts()
-        dates = [date.split('년', 1)[0].strip()+('0'+date.split('월', 1)[0].strip() if len(date.split('월', 1)[0].strip()) == 1 else date.split('월', 1)[0].strip())+('0'+date.split('일', 1)[0].strip() if len(date.split('일', 1)[0].strip()) == 1 else date.split('일', 1)[0].strip()) for date in raw_dates]
+        dates = [date.split('년', 1)[0].strip()+('0'+date.split('년', 1)[1].split('월', 1)[0].strip() if len(date.split('년', 1)[1].split('월', 1)[0].strip()) == 1 else date.split('년', 1)[1].split('월', 1)[0].strip())+('0'+date.split('월', 1)[1].split('일', 1)[0].strip() if len(date.split('월', 1)[1].split('일', 1)[0].strip()) == 1 else date.split('월', 1)[1].split('일', 1)[0].strip()) for date in raw_dates]
         menu_texts = page.locator('td.te_left').all_inner_texts()
         self.stdout.write(str(menu_texts))
         self.stdout.write(f'Found {len(menu_texts)} items')
