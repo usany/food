@@ -90,9 +90,9 @@ WSGI_APPLICATION = 'restaurants.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django_cf.db.backends.d1_api',
-        'CLOUDFLARE_DATABASE_ID': os.environ.get('CLOUDFLARE_DATABASE_ID'),
-        'CLOUDFLARE_ACCOUNT_ID': os.environ.get('CLOUDFLARE_ACCOUNT_ID'),
-        'CLOUDFLARE_TOKEN': os.environ.get('CLOUDFLARE_TOKEN'),
+        'CLOUDFLARE_DATABASE_ID': os.environ.get('CFDATABASEID'),
+        'CLOUDFLARE_ACCOUNT_ID': os.environ.get('CFACCOUNTID'),
+        'CLOUDFLARE_TOKEN': os.environ.get('CFAPITOKEN'),
     }
 }
 
