@@ -10,7 +10,14 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
+import os
 from pathlib import Path
+
+try:
+    import dotenv
+    dotenv.load_dotenv()
+except ImportError:
+    pass
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +32,7 @@ SECRET_KEY = 'django-insecure-h=*wyi-pqo-i2$%15#yx(!1mruj0)5y0m^nj-jve0j*_kk#i@f
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['134.185.111.151','127.0.0.1', 'kie.khusan.co.kr']
+ALLOWED_HOSTS = ['134.185.111.151', '127.0.0.1', 'localhost', 'kie.khusan.co.kr']
 
 # Application definition
 
@@ -77,11 +84,14 @@ WSGI_APPLICATION = 'restaurants.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
+# Turso (libSQL) — set TURSO_DB_URL and TURSO_AUTH_TOKEN env vars for remote mode.
+# Falls back to local SQLite if TURSO_DB_URL is not set.
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django_libsql',
+        'NAME': os.environ.get('TURSO_DB_URL', str(BASE_DIR / 'db.sqlite3')),
+        'AUTH_TOKEN': os.environ.get('TURSO_AUTH_TOKEN', ''),
     }
 }
 
@@ -188,3 +198,6 @@ PWA_APP_ICONS_APPLE = [
 PWA_APP_DIR = 'ltr'
 PWA_APP_LANG = 'en-US'
 # PWA_SERVICE_WORKER_PATH = BASE_DIR / 'restaurants' / 'serviceworker.js'
+
+# Use signed cookie-based sessions to prevent SessionInterrupted errors on Turso database due to concurrent requests (e.g. django-browser-reload pings during login session rotation).
+SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
