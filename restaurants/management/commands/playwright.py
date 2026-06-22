@@ -269,7 +269,7 @@ class Command(BaseCommand):
 
             # Second pass: create/update menu items using cached translations
             for index, menu in enumerate(menu_texts):
-                if menu.startswith('등록된') or index % 7 < 1 or index % 7 > 5:
+                if menu.startswith('등록된') or menu.startswith('방학중에는') or index % 7 < 1 or index % 7 > 5:
                     continue
                 menu_parts = menu.split('\n')
                 main = menu_parts[0].strip() if menu_parts else ''
