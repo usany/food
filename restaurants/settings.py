@@ -84,14 +84,20 @@ WSGI_APPLICATION = 'restaurants.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
-# Turso (libSQL) — set TURSO_DB_URL and TURSO_AUTH_TOKEN env vars for remote mode.
-# Falls back to local SQLite if TURSO_DB_URL is not set.
+# Cloudflare D1 uses SQLite under the hood. For local D1 development, point
+# D1_DATABASE_PATH or CF_D1_DATABASE_PATH at Wrangler's local D1 .sqlite file.
+# Falls back to the project's local SQLite file when no D1 path is configured.
+
+D1_DATABASE_PATH = (
+    os.environ.get('D1_DATABASE_PATH')
+    or os.environ.get('CF_D1_DATABASE_PATH')
+    or str(BASE_DIR / 'db.sqlite3')
+)
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django_libsql',
-        'NAME': os.environ.get('TURSO_DB_URL', str(BASE_DIR / 'db.sqlite3')),
-        'AUTH_TOKEN': os.environ.get('TURSO_AUTH_TOKEN', ''),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': D1_DATABASE_PATH,
     }
 }
 
