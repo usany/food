@@ -105,6 +105,18 @@ DATABASES = {
     }
 }
 
+CLOUDFLARE_ACCOUNT_ID = os.environ.get('CFACCOUNTID', '')
+CLOUDFLARE_D1_DATABASE_ID = (
+    os.environ.get('CFDBID')
+    or os.environ.get('CFDATABASEID')
+    or ''
+)
+CLOUDFLARE_API_TOKEN = (
+    os.environ.get('CFTOKEN')
+    or os.environ.get('CFAPITOKEN')
+    or ''
+)
+
 # Oracle Cloud Object Storage
 ORACLE_NAMESPACE = 'ax0ym4amgnfk'
 ORACLE_BUCKET = 'bucket-20260516-0145'
