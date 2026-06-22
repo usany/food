@@ -22,9 +22,9 @@ jobs:
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v0.1.10
         with:
-          # host: ${{ secrets.SERVER_IP }}
-          # username: ${{ secrets.SERVER_USER }}
-          # key: ${{ secrets.SERVER_SSH_KEY }}
+          host: ${{ secrets.SERVERIP }}
+          username: ${{ secrets.SERVERUSER }}
+          key: ${{ secrets.SERVERSSHKEY }}
           script: |
             cd /home/ubuntu/dir/food
             git pull origin bravo
