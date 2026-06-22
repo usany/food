@@ -105,7 +105,7 @@ DATABASES = {
     }
 }
 
-CLOUDFLARE_ACCOUNT_ID = os.environ.get('CFACCOUNTID', '')
+CLOUDFLARE_ACCOUNT_ID = os.environ.get('CFACCOUNTID')
 CLOUDFLARE_D1_DATABASE_ID = (
     os.environ.get('CFDATABASEID')
 )
