@@ -84,26 +84,7 @@ WSGI_APPLICATION = 'restaurants.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
-# Cloudflare D1 uses SQLite under the hood. For local D1 development, point
-# D1_DATABASE_PATH or CF_D1_DATABASE_PATH at Wrangler's local D1 .sqlite file.
-# Falls back to the project's local SQLite file when no D1 path is configured.
-
-LOCAL_SQLITE_PATH = BASE_DIR / 'db.sqlite3'
-D1_DATABASE_PATH = Path(
-    os.environ.get('D1_DATABASE_PATH')
-    or os.environ.get('CF_D1_DATABASE_PATH')
-    or LOCAL_SQLITE_PATH
-).expanduser()
-
-if not D1_DATABASE_PATH.parent.exists():
-    D1_DATABASE_PATH = LOCAL_SQLITE_PATH
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': str(D1_DATABASE_PATH),
-    }
-}
+# Uses Cloudflare D1 via HTTP API.
 
 CLOUDFLARE_ACCOUNT_ID = os.environ.get('CFACCOUNTID')
 CLOUDFLARE_D1_DATABASE_ID = (
@@ -112,6 +93,15 @@ CLOUDFLARE_D1_DATABASE_ID = (
 CLOUDFLARE_API_TOKEN = (
     os.environ.get('CFTOKEN')
 )
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'restaurants.d1_backend',
+        'CLOUDFLARE_ACCOUNT_ID': CLOUDFLARE_ACCOUNT_ID,
+        'CLOUDFLARE_DATABASE_ID': CLOUDFLARE_D1_DATABASE_ID,
+        'CLOUDFLARE_API_TOKEN': CLOUDFLARE_API_TOKEN,
+    }
+}
 
 # Oracle Cloud Object Storage
 ORACLE_NAMESPACE = 'ax0ym4amgnfk'
