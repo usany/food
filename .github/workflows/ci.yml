@@ -1,0 +1,65 @@
+name: CI
+
+on:
+  push:
+    branches: [main, bravo]
+  pull_request:
+    branches: [main, bravo]
+
+jobs:
+  test:
+    name: Django Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Django system checks
+        env:
+          SECRET_KEY: ${{ secrets.SECRET_KEY || 'ci-dummy-secret-key-not-for-production' }}
+          DEBUG: 'True'
+        run: python manage.py check
+
+      - name: Run migrations (dry-run)
+        env:
+          SECRET_KEY: ${{ secrets.SECRET_KEY || 'ci-dummy-secret-key-not-for-production' }}
+          DEBUG: 'True'
+        run: python manage.py migrate --run-syncdb
+
+      - name: Run Django tests
+        env:
+          SECRET_KEY: ${{ secrets.SECRET_KEY || 'ci-dummy-secret-key-not-for-production' }}
+          DEBUG: 'True'
+        run: python manage.py test
+
+  lint:
+    name: CSS Build (Tailwind)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Node dependencies
+        run: npm ci
+
+      - name: Build Tailwind CSS
+        run: npx postcss ./pages/static/input.css -o ./pages/static/styles.css
