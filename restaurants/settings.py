@@ -88,16 +88,20 @@ WSGI_APPLICATION = 'restaurants.wsgi.application'
 # D1_DATABASE_PATH or CF_D1_DATABASE_PATH at Wrangler's local D1 .sqlite file.
 # Falls back to the project's local SQLite file when no D1 path is configured.
 
-D1_DATABASE_PATH = (
+LOCAL_SQLITE_PATH = BASE_DIR / 'db.sqlite3'
+D1_DATABASE_PATH = Path(
     os.environ.get('D1_DATABASE_PATH')
     or os.environ.get('CF_D1_DATABASE_PATH')
-    or str(BASE_DIR / 'db.sqlite3')
-)
+    or LOCAL_SQLITE_PATH
+).expanduser()
+
+if not D1_DATABASE_PATH.parent.exists():
+    D1_DATABASE_PATH = LOCAL_SQLITE_PATH
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': D1_DATABASE_PATH,
+        'NAME': str(D1_DATABASE_PATH),
     }
 }
 
