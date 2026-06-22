@@ -138,23 +138,25 @@ class Command(BaseCommand):
                     date = dates[day_index]
                     enmain = trans_map.get(main, main)
                     enside = trans_map.get(side, side)
-                    MenuItem.objects.update_or_create(
-                        id=main+'-'+place+'-'+date+'-'+day+'-lunch',
-                        defaults=dict(
-                            main=main,
-                            side=side,
-                            enmain=enmain,
-                            enside=enside,
-                            day=day,
-                            meal='lunch',
-                            place=place,
-                            price='6500',
-                            extra='',
-                            enextra='',
-                            date=date,
-                            stamp=False,
-                        ),
-                    ) if main else None
+                    item_id = main+'-'+place+'-'+date+'-'+day+'-lunch'
+                    defaults_dict = dict(
+                        main=main,
+                        side=side,
+                        enmain=enmain,
+                        enside=enside,
+                        day=day,
+                        meal='lunch',
+                        place=place,
+                        price='5500',
+                        extra='',
+                        enextra='',
+                        date=date,
+                        stamp=False,
+                    )
+                    if main:
+                        obj, created = MenuItem.objects.get_or_create(id=item_id, defaults=defaults_dict)
+                        if not created:
+                            MenuItem.objects.filter(id=item_id).update(**defaults_dict)
                     
                     self.generate_image(main, enmain) if main else None
 
@@ -164,52 +166,56 @@ class Command(BaseCommand):
                     side = second_menu[1].strip() if len(second_menu) > 1 else ''
                     enmain = trans_map.get(main, main)
                     enside = trans_map.get(side, side)
-                    MenuItem.objects.update_or_create(
-                        id=main+'-'+place+'-'+date+'-'+day+'-lunch',
-                        defaults=dict(
-                            main=main,
-                            side=side,
-                            enmain=enmain,
-                            enside=enside,
-                            day=day,
-                            meal='lunch',
-                            place=place,
-                            price='5500',
-                            extra='',
-                            enextra='',
-                            date=date,
-                            stamp=False,
-                        ),
-                    ) if main else None
+                    item_id2 = main+'-'+place+'-'+date+'-'+day+'-lunch'
+                    defaults_dict2 = dict(
+                        main=main,
+                        side=side,
+                        enmain=enmain,
+                        enside=enside,
+                        day=day,
+                        meal='lunch',
+                        place=place,
+                        price='5500',
+                        extra='',
+                        enextra='',
+                        date=date,
+                        stamp=False,
+                    )
+                    if main:
+                        obj, created = MenuItem.objects.get_or_create(id=item_id2, defaults=defaults_dict2)
+                        if not created:
+                            MenuItem.objects.filter(id=item_id2).update(**defaults_dict2)
                     self.generate_image(main, enmain) if main else None
 
                 else:
                     menu_parts = menu.split(',', 1)
                     main = menu_parts[0].strip() if menu_parts else ''
                     side = menu_parts[1].strip() if len(menu_parts) > 1 else ''
-                    meal = 'breakfast' if index % 3 == 0 else 'dinner'
+                    meal = 'breakfast' if index % 3 == 0 else ('lunch' if index % 3 == 1 else 'dinner')
                     day = 'mon' if index < 3 else 'tue' if index < 6 else 'wed' if index < 9 else 'thu' if index < 12 else 'fri'
                     day_index = {'mon': 0, 'tue': 1, 'wed': 2, 'thu': 3, 'fri': 4, 'sat': 5, 'sun': 7}[day]
                     date = dates[day_index]
                     enmain = trans_map.get(main, main)
                     enside = trans_map.get(side, side)
-                    MenuItem.objects.update_or_create(
-                        id=main+'-'+place+'-'+date+'-'+day+'-'+meal,
-                        defaults=dict(
-                            main=main,
-                            side=side,
-                            enmain=enmain,
-                            enside=enside,
-                            day=day,
-                            meal=meal,
-                            place=place,
-                            price='5500',
-                            extra='',
-                            enextra='',
-                            date=date,
-                            stamp=False,
-                        ),
-                    ) if main else None
+                    item_id3 = main+'-'+place+'-'+date+'-'+day+'-'+meal
+                    defaults_dict3 = dict(
+                        main=main,
+                        side=side,
+                        enmain=enmain,
+                        enside=enside,
+                        day=day,
+                        meal=meal,
+                        place=place,
+                        price='5500',
+                        extra='',
+                        enextra='',
+                        date=date,
+                        stamp=False,
+                    )
+                    if main:
+                        obj, created = MenuItem.objects.get_or_create(id=item_id3, defaults=defaults_dict3)
+                        if not created:
+                            MenuItem.objects.filter(id=item_id3).update(**defaults_dict3)
                     self.generate_image(main, enmain) if main else None
 
         with ThreadPoolExecutor(max_workers=1) as executor:
@@ -278,23 +284,23 @@ class Command(BaseCommand):
                 item_id = main+'-'+place+'-'+date+'-'+day+'-'+meal
                 enmain = trans_map.get(main, main)
                 enside = trans_map.get(side, side)
-                updated, created = MenuItem.objects.update_or_create(
-                    id=item_id,
-                    defaults=dict(
-                        main=main,
-                        side=side,
-                        enmain=enmain,
-                        enside=enside,
-                        day=day,
-                        meal=meal,
-                        place=place,
-                        price=menu_parts[-1].split('(')[0].replace(',', '').replace('원', '').strip(),
-                        extra='',
-                        enextra='',
-                        date=date,
-                        stamp=False,
-                    ),
+                defaults_dict4 = dict(
+                    main=main,
+                    side=side,
+                    enmain=enmain,
+                    enside=enside,
+                    day=day,
+                    meal=meal,
+                    place=place,
+                    price=menu_parts[-1].split('(')[0].replace(',', '').replace('원', '').strip(),
+                    extra='',
+                    enextra='',
+                    date=date,
+                    stamp=False,
                 )
+                obj, created = MenuItem.objects.get_or_create(id=item_id, defaults=defaults_dict4)
+                if not created:
+                    MenuItem.objects.filter(id=item_id).update(**defaults_dict4)
                 self.generate_image(main, enmain)
 
         with ThreadPoolExecutor(max_workers=1) as executor:
@@ -591,23 +597,24 @@ class Command(BaseCommand):
 
                 def _save_items(items):
                     for menu in items:
-                        MenuItem.objects.update_or_create(
-                            id=menu.get('id', ''),
-                            defaults=dict(
-                                main=menu.get('main', ''),
-                                side=menu.get('side', ''),
-                                enmain=menu.get('enmain', ''),
-                                enside=menu.get('enside', ''),
-                                price=menu.get('price', ''),
-                                meal=menu.get('meal', ''),
-                                day=menu.get('day', ''),
-                                place=menu.get('place', ''),
-                                extra=menu.get('extra', ''),
-                                enextra=menu.get('enextra', ''),
-                                date=menu.get('date', ''),
-                                stamp=menu.get('stamp', False),
-                            )
+                        item_id5 = menu.get('id', '')
+                        defaults_dict5 = dict(
+                            main=menu.get('main', ''),
+                            side=menu.get('side', ''),
+                            enmain=menu.get('enmain', ''),
+                            enside=menu.get('enside', ''),
+                            price=menu.get('price', ''),
+                            meal=menu.get('meal', ''),
+                            day=menu.get('day', ''),
+                            place=menu.get('place', ''),
+                            extra=menu.get('extra', ''),
+                            enextra=menu.get('enextra', ''),
+                            date=menu.get('date', ''),
+                            stamp=menu.get('stamp', False),
                         )
+                        obj, created = MenuItem.objects.get_or_create(id=item_id5, defaults=defaults_dict5)
+                        if not created:
+                            MenuItem.objects.filter(id=item_id5).update(**defaults_dict5)
                         self.stdout.write(self.style.SUCCESS(f"Successfully posted item: {menu.get('main', 'Unknown Menu Item')}"))
                         self.generate_image(menu.get('main', ''), menu.get('enmain', menu.get('main', '')))
                 with ThreadPoolExecutor(max_workers=1) as executor:
