@@ -1,0 +1,8 @@
+name = "food-d1"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "food-db"
+database_id = "84ff2c22-1738-49a7-8bdd-b2ed81efa6f6"
