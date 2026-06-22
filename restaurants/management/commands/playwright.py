@@ -481,7 +481,7 @@ class Command(BaseCommand):
         }
 
         # Sanitize filename: remove characters invalid on Windows
-        safe_main = re.sub(r'[\\/*?:"<>|]', '+', main)
+        safe_main = re.sub(r'[\\/*?"<>|]', '+', main)
 
         try:
             image_response = requests.post(imageurl, headers=headers, json=image_payload)
