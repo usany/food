@@ -30,8 +30,17 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /app
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir \
+    django \
+    python-dotenv \
+    apscheduler \
+    requests \
+    playwright \
+    openai \
+    django-cf \
+    django-browser-reload \
+    django-pwa \
+    gunicorn
 
 RUN python -m playwright install chromium \
     && python -m playwright install-deps chromium
