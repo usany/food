@@ -1,64 +1,62 @@
 {% extends 'base.html' %}
-{% load i18n %}
+{% load static i18n %}
 
 {% block title %}{{ menu_item.main }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'menu-detail.css' %}">
+{% endblock %}
 
 {% block content %}
 <div class="max-w-2xl mx-auto py-10">
     <a href="{% url 'menu_list' bases path %}" class="text-blue-600 font-medium text-sm hover:underline">&larr; {% trans "Back" %}</a>
 
-    <div class="flex items-center rounded-xl border border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800 shadow overflow-hidden">
+    <div class="detail-card">
         {% if image_url %}
-        <img src="{{ image_url| cut:' ' }}" alt="{{ menu_item.main }}" class="w-50 h-64 object-cover">
+        <img src="{{ image_url| cut:' ' }}" alt="{{ menu_item.main }}" class="detail-image">
         {% else %}
-        <div class="w-full h-48 bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-gray-400 dark:text-gray-500 text-sm">
+        <div class="detail-image-placeholder">
             {% trans "No image available" %}
         </div>
         {% endif %}
 
-        <div class="p-6">
-            <h1 class="text-2xl font-bold text-blue-700 dark:text-blue-400 mb-2">{% trans restaurant.title %}</h1>
+        <div class="detail-info">
+            <h1 class="detail-restaurant">{% trans restaurant.title %}</h1>
             
-            <h1 class="text-2xl font-bold text-blue-700 dark:text-blue-400 mb-2">{{ time }}</h1>
-            <h1 class="text-2xl font-bold text-blue-700 dark:text-blue-400 mb-2">{% trans day %} {% trans meal %}</h1>
+            <h1 class="detail-time">{{ time }}</h1>
+            <h1 class="detail-meal">{% trans day %} {% trans meal %}</h1>
             <!-- {% if day != None and meal != None %}
-            <h1 class="text-2xl font-bold text-blue-700 dark:text-blue-400 mb-2">{% trans day %} {% trans meal %}</h1>
+            <h1 class="detail-meal">{% trans day %} {% trans meal %}</h1>
             {% else %}
-            <h1 class="text-2xl font-bold text-blue-700 dark:text-blue-400 mb-2">{% trans '매일' %}</h1> -->
+            <h1 class="detail-meal">{% trans '매일' %}</h1> -->
             <!-- {% endif %} -->
-            {% if LANGUAGE_CODE == 'en' %}
-            <h1 class="text-2xl font-bold text-blue-700 dark:text-blue-400 mb-2">{{ menu_item.enmain }}</h1>
-            <!-- <h1 class="text-2xl font-bold text-blue-700 dark:text-blue-400 mb-2">{{ menu_item.main }}</h1> -->
-            {% else %}
-            <h1 class="text-2xl font-bold text-blue-700 dark:text-blue-400 mb-2">{{ menu_item.main }}</h1>
-            <!-- <h1 class="text-2xl font-bold text-blue-700 dark:text-blue-400 mb-2">{{ menu_item.enmain }}</h1> -->
-            {% endif %}
+            <h1 class="detail-title">{% if LANGUAGE_CODE == 'en' %}{{ menu_item.enmain }}{% else %}{{ menu_item.main }}{% endif %}</h1>
             
             {% if LANGUAGE_CODE == 'en' %}
             {% if menu_item.enside %}
-            <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">{{ menu_item.enside }}</p>
+            <p class="detail-side">{{ menu_item.enside }}</p>
             {% endif %}
             {% else %}
             {% if menu_item.side %}
-            <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">{{ menu_item.side }}</p>
+            <p class="detail-side">{{ menu_item.side }}</p>
             {% endif %}
             {% endif %}
             
-            <div class="flex items-center justify-between">
+            <div class="detail-footer">
                 <div>
-                    <span class="text-xl font-semibold">₩{{ menu_item.price }}</span>
+                    <span class="detail-price">₩{{ menu_item.price }}</span>
                     {% if LANGUAGE_CODE == 'en' %}
                     {% if menu_item.enextra %}
-                    <p class="text-gray-500 dark:text-gray-400 text-sm mb-4">+ {{ menu_item.enextra }}</p>
+                    <p class="detail-price-extra">+ {{ menu_item.enextra }}</p>
                     {% endif %}
                     {% else %}
                     {% if menu_item.extra %}
-                    <p class="text-gray-500 dark:text-gray-400 text-sm mb-4">+ {{ menu_item.extra }}</p>
+                    <p class="detail-price-extra">+ {{ menu_item.extra }}</p>
                     {% endif %}
                     {% endif %}
                 </div>
                 {% if menu_item.stamp %}
-                <span class="text-green-600 dark:text-green-400 text-xs font-medium">🌿 {% trans "No pork" %}</span>
+                <span class="detail-stamp">🌿 {% trans "No pork" %}</span>
                 {% endif %}
             </div>
         </div>
