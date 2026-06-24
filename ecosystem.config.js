@@ -2,15 +2,12 @@ module.exports = {
   apps: [
     {
       name: "food",
-      script: "python3",
-      args: "manage.py runserver 0.0.0.0:8000",
+      script: "gunicorn",
+      args: "-c gunicorn.conf.py",
       cwd: "/home/ubuntu/dir/food",
       interpreter: "none",
       autorestart: true,
       watch: false,
-      env: {
-        DJANGO_SETTINGS_MODULE: "restaurants.settings",
-      },
     },
   ],
 };
