@@ -47,6 +47,6 @@ RUN python -m playwright install chromium \
 
 COPY --from=builder /app .
 
+RUN python3 manage.py collectstatic --noinput
 EXPOSE 8000
-
 CMD ["gunicorn", "-c", "gunicorn.conf.py"]

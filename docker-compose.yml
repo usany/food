@@ -8,4 +8,5 @@ services:
       - .env
     volumes:
       - ./logs:/app/logs
+      - ./staticfiles:/app/staticfiles
     restart: unless-stopped
