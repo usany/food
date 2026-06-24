@@ -3,7 +3,7 @@ module.exports = {
     {
       name: "food",
       script: "gunicorn",
-      args: "-c /home/ubuntu/gunicorn.conf.py restaurants.wsgi:application",      
+      args: "-c /home/ubuntu/food/gunicorn.conf.py restaurants.wsgi:application",      
       cwd: "/home/ubuntu/food",
       interpreter: "none",
       autorestart: true,
