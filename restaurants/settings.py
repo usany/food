@@ -168,7 +168,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
-    BASE_DIR / 'pages' / 'static',
+    BASE_DIR / 'restaurants' / 'static',
 ]
 
 # LOGIN_URL = '/django-admin/login/'
