@@ -98,7 +98,8 @@ def start():
     #     replace_existing=True
     # )
     
-    scheduler.start()
+    if not scheduler.running:
+        scheduler.start()
 
 def stop():
     """Stop the scheduler"""
