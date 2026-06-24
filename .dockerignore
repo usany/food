@@ -1,0 +1,11 @@
+.git/
+.gitignore
+.env
+__pycache__/
+*.pyc
+node_modules/
+logs/
+gunicorn.pid
+.DS_Store
+.github/
+README.md
