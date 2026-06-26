@@ -9,21 +9,17 @@
 
 {% block content %}
 <div class="max-w-2xl mx-auto py-10">
-    <a href="{% url 'home_menu' bases %}" class="text-blue-600 font-medium text-sm hover:underline">&larr; {% trans
-        "Back" %}</a>
+    <a href="{% url 'home_menu' bases %}" class="text-blue-600 font-medium text-sm hover:underline">&larr; {% trans "Back" %}</a>
     <h1 class="text-3xl font-bold text-blue-700 mt-4 mb-6">{% trans restaurant.title %}</h1>
     <div class="week-nav">
-        <a href="?day={{ selected_day }}&meal={{ selected_meal }}&previous={{ previous|add:1 }}" class="week-nav-link"
-            aria-label="Previous week">
+        <a href="?day={{ selected_day }}&meal={{ selected_meal }}&previous={{ previous|add:1 }}" class="week-nav-link" aria-label="Previous week">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
             </svg>
         </a>
-        <span
-            class="week-nav-label">{{week|slice:"0:1"|first|slice:"0:4"}}.{{week|slice:"0:1"|first|slice:"4:6"}}.{{week|slice:"0:1"|first|slice:"6:8"}}~{{week|slice:"4:5"|first|slice:"0:4"}}.{{week|slice:"4:5"|first|slice:"4:6"}}.{{week|slice:"4:5"|first|slice:"6:8"}}</span>
+        <span class="week-nav-label">{{week|slice:"0:1"|first|slice:"0:4"}}.{{week|slice:"0:1"|first|slice:"4:6"}}.{{week|slice:"0:1"|first|slice:"6:8"}}~{{week|slice:"4:5"|first|slice:"0:4"}}.{{week|slice:"4:5"|first|slice:"4:6"}}.{{week|slice:"4:5"|first|slice:"6:8"}}</span>
         {% if previous != '0' %}
-        <a href="?day={{ selected_day }}&meal={{ selected_meal }}&previous={{ previous|add:'-1' }}"
-            class="week-nav-link" aria-label="Next week">
+        <a href="?day={{ selected_day }}&meal={{ selected_meal }}&previous={{ previous|add:'-1' }}" class="week-nav-link" aria-label="Next week">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
             </svg>
@@ -34,11 +30,10 @@
     <div class="tab-bar--border-bottom">
         <div class="tab-bar" role="tablist" aria-label="{% trans 'Day selection' %}">
             {% for tab in tabs %}
-            <a id="daytab-{{ tab.day }}"
-                href="?day={{ tab.day }}{% if selected_meal %}&meal={{ selected_meal }}{% endif %}&previous={{ previous }}"
-                role="tab" data-tab="{{ tab.day }}"
+            <a id="daytab-{{ tab.day }}" href="?day={{ tab.day }}{% if selected_meal %}&meal={{ selected_meal }}{% endif %}&previous={{ previous }}" role="tab" data-tab="{{ tab.day }}"
                 aria-selected="{% if selected_day == tab.day %}true{% else %}false{% endif %}"
-                aria-controls="panel-{{ tab.day }}" class="tab {% if selected_day == tab.day %}tab--active{% endif %}">
+                aria-controls="panel-{{ tab.day }}"
+                class="tab {% if selected_day == tab.day %}tab--active{% endif %}">
                 {% trans tab.name %}
                 <br />
                 {{ tab.date }}
@@ -51,10 +46,10 @@
     <nav aria-label="{% trans 'Meal time selection' %}">
         <div class="meal-tab-bar" role="tablist">
             {% for tab in restaurant.meal_tabs %}
-            <a id="tab-{{ tab.id }}"
-                href="?meal={{ tab.id }}{% if selected_day %}&day={{ selected_day }}{% endif %}&previous={{ previous }}"
-                role="tab" aria-selected="{% if selected_meal == tab.id %}true{% else %}false{% endif %}"
-                aria-controls="menu-panel" class="tab {% if selected_meal == tab.id %}tab--active{% endif %}">
+            <a id="tab-{{ tab.id }}" href="?meal={{ tab.id }}{% if selected_day %}&day={{ selected_day }}{% endif %}&previous={{ previous }}" role="tab"
+                aria-selected="{% if selected_meal == tab.id %}true{% else %}false{% endif %}"
+                aria-controls="menu-panel"
+                class="tab {% if selected_meal == tab.id %}tab--active{% endif %}">
                 {% trans tab.label %}
                 <span class="tab-subtitle">{% trans tab.meal_time %}</span>
             </a>
@@ -69,11 +64,9 @@
             {% for dish in menu %}
             <li class="dish-item {% if dish.non_pork %}dish-item--pork-free{% endif %}">
                 <a href="{% url 'menu_detail' bases=bases path=path meal=dish.id %}" class="dish-link">
-                    <img src="https://objectstorage.ap-chuncheon-1.oraclecloud.com/n/ax0ym4amgnfk/b/bucket-20260516-0145/o/{{ dish.main| cut:' '  }}"
-                        alt="{{ dish.main }}" class="dish-image" />
+                    <img src="https://objectstorage.ap-chuncheon-1.oraclecloud.com/n/ax0ym4amgnfk/b/bucket-20260516-0145/o/{{ dish.main| cut:' '  }}" alt="{{ dish.main }}" class="dish-image"/>
                     <div class="dish-info">
-                        <span class="dish-name">{% if LANGUAGE_CODE == 'en' %}{{ dish.enmain }} {% else %}{{ dish.main
-                            }}{% endif %}</span>
+                        <span class="dish-name">{% if LANGUAGE_CODE == 'en' %}{{ dish.enmain }} {% else %}{{ dish.main }}{% endif %}</span>
                         {% if dish.extra %}
                         <span class="dish-extra"> + {{ dish.extra }}</span>
                         {% endif %}

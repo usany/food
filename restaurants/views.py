@@ -418,7 +418,7 @@ def root_redirect(request):
 
 def home_menu(request, bases):
     restaurants_items = [r for r in RESTAURANTS if r['campus'] == bases]
-    return render(request, 'restaurants/home.html', {'items': restaurants_items, 'location': bases, 'bases': bases})
+    return render(request, 'pages/home.html', {'items': restaurants_items, 'location': bases, 'bases': bases})
 
 def menu_list(request, path, bases):
     """Display menu items for the restaurant selected on the home page."""
@@ -477,7 +477,7 @@ def menu_list(request, path, bases):
         t['date'] = week_without_year[i]
         tabs.append(t)
 
-    return render(request, 'restaurants/menu_list.html', {
+    return render(request, 'pages/menu_list.html', {
         'tabs': tabs,
         'restaurant': {'title': title, 'meal_tabs': meal_tabs, 'path': path},
         'selected_meal': selected_meal,
@@ -507,11 +507,11 @@ def menu_detail(request, path, meal, bases):
     day = next((w['name'] for w in WEEKDAYS if w['day'] == menu_item.day), None) if fixed_menu == None else ('월~목' if path == 'ph' else '매일')
     meal = next((m['name'] for m in MEALS if m['time'] == menu_item.meal), None) if fixed_menu == None else ", ".join(m['name']+':'+fixed_menu.get('time_detail', {})[tc][0]+'~'+fixed_menu.get('time_detail', {})[tc][1] for tc in fixed_menu.get('time_category', []) for m in MEALS if m['time'] == tc)
     item_main = menu_item.main if fixed_menu is None else menu_item['main']
-    return render(request, 'restaurants/menu_detail.html', {'restaurant': {'title': title, 'meal_tabs': meal_tabs, 'path': path}, 'day': day, 'meal': meal, 'menu_item': menu_item, 'image_url': 'https://objectstorage.ap-chuncheon-1.oraclecloud.com/n/ax0ym4amgnfk/b/bucket-20260516-0145/o/'+item_main, 'time': time, 'bases': bases, 'path': path, 'lang': lang, 'fixed_menu': fixed_menu})
+    return render(request, 'pages/menu_detail.html', {'restaurant': {'title': title, 'meal_tabs': meal_tabs, 'path': path}, 'day': day, 'meal': meal, 'menu_item': menu_item, 'image_url': 'https://objectstorage.ap-chuncheon-1.oraclecloud.com/n/ax0ym4amgnfk/b/bucket-20260516-0145/o/'+item_main, 'time': time, 'bases': bases, 'path': path, 'lang': lang, 'fixed_menu': fixed_menu})
 
 
 # @staff_member_required
 def admin_view(request):
     """Custom admin view for managing menu items"""
     items = MenuItem.objects.all()
-    return render(request, 'restaurants/admin_view.html', {'items': items})
+    return render(request, 'pages/admin_view.html', {'items': items})
