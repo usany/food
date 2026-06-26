@@ -19,13 +19,58 @@ def start():
         replace_existing=True
     )
     
-    # Post items to database every day at 10 AM
+    # Run playwright scraping for KHU Seoul campus every day at 6:00 AM
     scheduler.add_job(
         call_command,
         'cron',
-        args=['post_items', '--count', '5'],
-        id='post_items',
-        hour=10,
+        args=['playwright'],
+        kwargs={'source': 'khu', 'campus': 'seoul'},
+        id='playwright_khu_seoul',
+        hour=6,
+        minute=0,
+        replace_existing=True
+    )
+    scheduler.add_job(
+        call_command,
+        'cron',
+        args=['playwright'],
+        kwargs={'source': 'khu', 'campus': 'global'},
+        id='playwright_khu_global',
+        hour=6,
+        minute=0,
+        replace_existing=True
+    )
+    
+    # Run playwright scraping for HUFS every day at 6:00 AM
+    scheduler.add_job(
+        call_command,
+        'cron',
+        args=['playwright'],
+        kwargs={'source': 'hufs', 'student': True},
+        id='playwright_hufs_student',
+        hour=6,
+        minute=0,
+        replace_existing=True
+    )
+    scheduler.add_job(
+        call_command,
+        'cron',
+        args=['playwright'],
+        kwargs={'source': 'hufs', 'student': False},
+        id='playwright_hufs_staff',
+        hour=6,
+        minute=0,
+        replace_existing=True
+    )
+    
+    # Run playwright scraping for dorm every day at 6:00 AM
+    scheduler.add_job(
+        call_command,
+        'cron',
+        args=['playwright'],
+        kwargs={'source': 'dorm'},
+        id='playwright_dorm',
+        hour=6,
         minute=0,
         replace_existing=True
     )
@@ -53,7 +98,8 @@ def start():
     #     replace_existing=True
     # )
     
-    scheduler.start()
+    if not scheduler.running:
+        scheduler.start()
 
 def stop():
     """Stop the scheduler"""

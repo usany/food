@@ -10,7 +10,14 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
+import os
 from pathlib import Path
+
+try:
+    import dotenv
+    dotenv.load_dotenv()
+except ImportError:
+    pass
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,10 +30,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-h=*wyi-pqo-i2$%15#yx(!1mruj0)5y0m^nj-jve0j*_kk#i@f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '134.185.111.151,127.0.0.1,localhost,kie.khusan.co.kr').split(',')
 
 # Application definition
 
@@ -38,7 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_browser_reload',
-    'restaurants',
+    'restaurants.apps.RestaurantsConfig',
+    'pwa',
     # 'pages'
 ]
 
@@ -77,11 +84,22 @@ WSGI_APPLICATION = 'restaurants.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
+# Uses Cloudflare D1 via HTTP API.
+
+CLOUDFLARE_ACCOUNT_ID = os.environ.get('CFACCOUNTID')
+CLOUDFLARE_D1_DATABASE_ID = (
+    os.environ.get('CFDATABASEID')
+)
+CLOUDFLARE_API_TOKEN = (
+    os.environ.get('CFTOKEN')
+)
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'restaurants.d1_backend',
+        'CLOUDFLARE_ACCOUNT_ID': CLOUDFLARE_ACCOUNT_ID,
+        'CLOUDFLARE_DATABASE_ID': CLOUDFLARE_D1_DATABASE_ID,
+        'CLOUDFLARE_API_TOKEN': CLOUDFLARE_API_TOKEN,
     }
 }
 
@@ -148,10 +166,47 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
-    BASE_DIR / 'pages' / 'static',
+    BASE_DIR / 'restaurants' / 'static',
 ]
 
 # LOGIN_URL = '/django-admin/login/'
 LOGOUT_REDIRECT_URL = 'home'
+
+# PWA Settings
+PWA_APP_NAME = 'The Bob App'
+PWA_APP_DESCRIPTION = "My Bob App"
+PWA_APP_THEME_COLOR = '#0A0302'
+PWA_APP_BACKGROUND_COLOR = '#ffffff'
+PWA_APP_DISPLAY = 'standalone'
+PWA_APP_SCOPE = '/'
+PWA_APP_ORIENTATION = 'any'
+PWA_APP_START_URL = '/'
+PWA_APP_STATUS_BAR_COLOR = 'default'
+PWA_APP_ICONS = [
+    {
+        'src': '/static/favicon.jpg',
+        'sizes': '192x192',
+        'type': 'image/jpg'
+    },
+    {
+        'src': '/static/favicon.jpg',
+        'sizes': '512x512',
+        'type': 'image/png'
+    }
+]
+PWA_APP_ICONS_APPLE = [
+    {
+        'src': '/static/favicon.jpg',
+        'sizes': '192x192',
+        'type': 'image/jpg'
+    }
+]
+PWA_APP_DIR = 'ltr'
+PWA_APP_LANG = 'en-US'
+# PWA_SERVICE_WORKER_PATH = BASE_DIR / 'restaurants' / 'serviceworker.js'
+
+# Use signed cookie-based sessions to prevent SessionInterrupted errors on Turso database due to concurrent requests (e.g. django-browser-reload pings during login session rotation).
+SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'

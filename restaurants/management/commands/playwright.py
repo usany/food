@@ -80,7 +80,8 @@ class Command(BaseCommand):
         
         page.locator('a').filter(has_text='전체보기').first.click()
         page.wait_for_selector('td.te_left')
-        dates = page.locator('[id^="vDate"]').all_inner_texts()
+        raw_dates = page.locator('[id^="vDate"]').all_inner_texts()
+        dates = [date.split('년', 1)[0].strip()+('0'+date.split('년', 1)[1].split('월', 1)[0].strip() if len(date.split('년', 1)[1].split('월', 1)[0].strip()) == 1 else date.split('년', 1)[1].split('월', 1)[0].strip())+('0'+date.split('월', 1)[1].split('일', 1)[0].strip() if len(date.split('월', 1)[1].split('일', 1)[0].strip()) == 1 else date.split('월', 1)[1].split('일', 1)[0].strip()) for date in raw_dates]
         menu_texts = page.locator('td.te_left').all_inner_texts()
         self.stdout.write(str(menu_texts))
         self.stdout.write(f'Found {len(menu_texts)} items')
@@ -97,12 +98,16 @@ class Command(BaseCommand):
                     continue
                 if menu.startswith('A코너 : '):
                     first_part = menu.split(' : ', 1)[1]
-                    first_menu = first_part.split(',', 1)
+                    first_menu = first_part.split(',', 1) if not first_part.startswith('미운영') else ''
                     main = first_menu[0].strip() if first_menu else ''
                     side = first_menu[1].split('B코너 : ', 1)[0].strip() if len(first_menu) > 1 else ''
                     all_texts.append(main)
                     all_texts.append(side)
-                    second_part = first_menu[1].split('B코너 : ', 1)[1].strip() if len(first_menu) > 1 else ''
+                    # if len(first_menu) > 1:
+                    #     self.stdout.write(f"DEBUG entry: {repr(menu)}")
+                    #     self.stdout.write(f"DEBUG first_menu[1]: {repr(first_menu[1])}")
+                    #     self.stdout.write(f"DEBUG split result: {repr(first_menu[1].split('B코너 : ', 1))}")
+                    second_part = menu.split('B코너 : ', 1)[1].strip()
                     second_menu = second_part.split(',', 1)
                     main2 = second_menu[0].strip() if second_menu else ''
                     side2 = second_menu[1].strip() if len(second_menu) > 1 else ''
@@ -125,7 +130,7 @@ class Command(BaseCommand):
                     continue
                 if menu.startswith('A코너 : '):
                     first_part = menu.split(' : ', 1)[1]
-                    first_menu = first_part.split(',', 1)
+                    first_menu = first_part.split(',', 1) if not first_part.startswith('미운영') else ''
                     main = first_menu[0].strip() if first_menu else ''
                     side = first_menu[1].split('B코너 : ', 1)[0].strip() if len(first_menu) > 1 else ''
                     day = 'mon' if index < 3 else 'tue' if index < 6 else 'wed' if index < 9 else 'thu' if index < 12 else 'fri'
@@ -133,79 +138,85 @@ class Command(BaseCommand):
                     date = dates[day_index]
                     enmain = trans_map.get(main, main)
                     enside = trans_map.get(side, side)
-                    MenuItem.objects.update_or_create(
-                        id=main+'-'+place+'-'+date+'-'+day+'-lunch',
-                        defaults=dict(
-                            main=main,
-                            side=side,
-                            enmain=enmain,
-                            enside=enside,
-                            day=day,
-                            meal='lunch',
-                            place=place,
-                            price='6500',
-                            extra='',
-                            enextra='',
-                            date=date,
-                            stamp=False,
-                        ),
+                    item_id = main+'-'+place+'-'+date+'-'+day+'-lunch'
+                    defaults_dict = dict(
+                        main=main,
+                        side=side,
+                        enmain=enmain,
+                        enside=enside,
+                        day=day,
+                        meal='lunch',
+                        place=place,
+                        price='5500',
+                        extra='',
+                        enextra='',
+                        date=date,
+                        stamp=False,
                     )
+                    if main:
+                        obj, created = MenuItem.objects.get_or_create(id=item_id, defaults=defaults_dict)
+                        if not created:
+                            MenuItem.objects.filter(id=item_id).update(**defaults_dict)
                     
-                    self.generate_image(main, enmain)
+                    self.generate_image(main, enmain) if main else None
 
-                    second_part = first_menu[1].split('B코너 : ', 1)[1].strip() if len(first_menu) > 1 else ''
+                    second_part = menu.split('B코너 : ', 1)[1].strip()
                     second_menu = second_part.split(',', 1)
                     main = second_menu[0].strip() if second_menu else ''
                     side = second_menu[1].strip() if len(second_menu) > 1 else ''
                     enmain = trans_map.get(main, main)
                     enside = trans_map.get(side, side)
-                    MenuItem.objects.update_or_create(
-                        id=main+'-'+place+'-'+date+'-'+day+'-lunch',
-                        defaults=dict(
-                            main=main,
-                            side=side,
-                            enmain=enmain,
-                            enside=enside,
-                            day=day,
-                            meal='lunch',
-                            place=place,
-                            price='5500',
-                            extra='',
-                            enextra='',
-                            date=date,
-                            stamp=False,
-                        ),
+                    item_id2 = main+'-'+place+'-'+date+'-'+day+'-lunch'
+                    defaults_dict2 = dict(
+                        main=main,
+                        side=side,
+                        enmain=enmain,
+                        enside=enside,
+                        day=day,
+                        meal='lunch',
+                        place=place,
+                        price='5500',
+                        extra='',
+                        enextra='',
+                        date=date,
+                        stamp=False,
                     )
-                    self.generate_image(main, enmain)
+                    if main:
+                        obj, created = MenuItem.objects.get_or_create(id=item_id2, defaults=defaults_dict2)
+                        if not created:
+                            MenuItem.objects.filter(id=item_id2).update(**defaults_dict2)
+                    self.generate_image(main, enmain) if main else None
 
                 else:
                     menu_parts = menu.split(',', 1)
                     main = menu_parts[0].strip() if menu_parts else ''
                     side = menu_parts[1].strip() if len(menu_parts) > 1 else ''
-                    meal = 'breakfast' if index % 3 == 0 else 'dinner'
+                    meal = 'breakfast' if index % 3 == 0 else ('lunch' if index % 3 == 1 else 'dinner')
                     day = 'mon' if index < 3 else 'tue' if index < 6 else 'wed' if index < 9 else 'thu' if index < 12 else 'fri'
                     day_index = {'mon': 0, 'tue': 1, 'wed': 2, 'thu': 3, 'fri': 4, 'sat': 5, 'sun': 7}[day]
                     date = dates[day_index]
                     enmain = trans_map.get(main, main)
                     enside = trans_map.get(side, side)
-                    MenuItem.objects.update_or_create(
-                        id=main+'-'+place+'-'+date+'-'+day+'-'+meal,
-                        defaults=dict(
-                            main=main,
-                            side=side,
-                            enmain=enmain,
-                            enside=enside,
-                            day=day,
-                            meal=meal,
-                            place=place,
-                            price='5500',
-                            extra='',
-                            enextra='',
-                            date=date,
-                            stamp=False,
-                        ),
+                    item_id3 = main+'-'+place+'-'+date+'-'+day+'-'+meal
+                    defaults_dict3 = dict(
+                        main=main,
+                        side=side,
+                        enmain=enmain,
+                        enside=enside,
+                        day=day,
+                        meal=meal,
+                        place=place,
+                        price='5500',
+                        extra='',
+                        enextra='',
+                        date=date,
+                        stamp=False,
                     )
-                    self.generate_image(main, enmain)
+                    if main:
+                        obj, created = MenuItem.objects.get_or_create(id=item_id3, defaults=defaults_dict3)
+                        if not created:
+                            MenuItem.objects.filter(id=item_id3).update(**defaults_dict3)
+                    self.generate_image(main, enmain) if main else None
 
         with ThreadPoolExecutor(max_workers=1) as executor:
             executor.submit(create_menu_items).result()
@@ -242,12 +253,12 @@ class Command(BaseCommand):
             # First pass: collect all Korean texts to translate in one batch
             all_texts = []
             for index, menu in enumerate(menu_texts):
-                if menu.startswith('등록된') or index % 7 < 1 or index % 7 > 5:
+                if menu.startswith('등록된') or menu.startswith('방학중에는') or index % 7 < 1 or index % 7 > 5:
                     continue
                 menu_parts = menu.split('\n')
                 main = menu_parts[0].strip() if menu_parts else ''
-                side = menu_parts[1].strip() if len(menu_parts) > 1 else ''
-                if not main or not side:
+                side = ' '.join(menu_parts[1:-4]) if len(menu_parts) > 1 else ''
+                if not main:
                     continue
                 all_texts.append(main)
                 all_texts.append(side)
@@ -258,36 +269,38 @@ class Command(BaseCommand):
 
             # Second pass: create/update menu items using cached translations
             for index, menu in enumerate(menu_texts):
-                if menu.startswith('등록된') or index % 7 < 1 or index % 7 > 5:
+                if menu.startswith('등록된') or menu.startswith('방학중에는') or index % 7 < 1 or index % 7 > 5:
                     continue
                 menu_parts = menu.split('\n')
                 main = menu_parts[0].strip() if menu_parts else ''
-                side = menu_parts[1].strip() if len(menu_parts) > 1 else ''
-                if not main or not side:
+                side = ' '.join(menu_parts[1:-4]) if len(menu_parts) > 1 else ''
+                if not main:
                     continue
-                place = 'hi' if is_student else 'hg'
+                place = 'his' if is_student else 'hgs'
                 meal = 'lunch' if not is_student else 'breakfast' if index < 7 else 'lunch' if index < 28 else 'dinner'
                 day = 'mon' if index % 7 == 1 else 'tue' if index % 7 == 2 else 'wed' if index % 7 == 3 else 'thu' if index % 7 == 4 else 'fri'
-                item_id = main+'-'+place+'-'+day+'-'+meal
+                day_index = {'sun': 0, 'mon': 1, 'tue': 2, 'wed': 3, 'thu': 4, 'fri': 5, 'sat': 6}[day]
+                date = dates[day_index] if day_index < len(dates) else ''
+                item_id = main+'-'+place+'-'+date+'-'+day+'-'+meal
                 enmain = trans_map.get(main, main)
                 enside = trans_map.get(side, side)
-                updated, created = MenuItem.objects.update_or_create(
-                    id=item_id,
-                    defaults=dict(
-                        main=main,
-                        side=side,
-                        enmain=enmain,
-                        enside=enside,
-                        day=day,
-                        meal=meal,
-                        place=place,
-                        price=int(menu_parts[-1].split('(')[0].replace(',', '').replace('원', '')),
-                        extra='',
-                        enextra='',
-                        date=None,
-                        stamp=False,
-                    ),
+                defaults_dict4 = dict(
+                    main=main,
+                    side=side,
+                    enmain=enmain,
+                    enside=enside,
+                    day=day,
+                    meal=meal,
+                    place=place,
+                    price=menu_parts[-1].split('(')[0].replace(',', '').replace('원', '').strip(),
+                    extra='',
+                    enextra='',
+                    date=date,
+                    stamp=False,
                 )
+                obj, created = MenuItem.objects.get_or_create(id=item_id, defaults=defaults_dict4)
+                if not created:
+                    MenuItem.objects.filter(id=item_id).update(**defaults_dict4)
                 self.generate_image(main, enmain)
 
         with ThreadPoolExecutor(max_workers=1) as executor:
@@ -380,7 +393,7 @@ class Command(BaseCommand):
                     if response.status == 200:
                         local_path.write_bytes(response.body())
                         self.stdout.write(self.style.SUCCESS(f'Downloaded: {image_name}'))
-                        self.get_menu(str(local_path))
+                        self.get_menu(str(local_path), title)
                 except Exception as err:
                     self.stdout.write(self.style.ERROR(f'Failed to download image {img_url}: {str(err)}'))
             
@@ -439,6 +452,7 @@ class Command(BaseCommand):
 
             except Exception as e:
                 self.stderr.write(self.style.ERROR(f"Model {model} failed: {str(e)}. Trying next..."))
+                continue
 
     def generate_image(self, main, enmain):
         """Generate an image using Cloudflare AI API"""
@@ -460,14 +474,14 @@ class Command(BaseCommand):
             "Content-Type": "application/json",
         }
 
-        image_prompt = f"Create a picture of {translated_text} dish in a fancy restaurant"
+        image_prompt = f"Create a picture of simple {translated_text} dish in a fancy restaurant"
         image_payload = {
             "prompt": image_prompt,
             "seed": random.randint(0, 1000000),
         }
 
         # Sanitize filename: remove characters invalid on Windows
-        safe_main = re.sub(r'[\\/*?:"<>|]', '+', main)
+        safe_main = re.sub(r'[\\/*?"<>|]', '+', main)
 
         try:
             image_response = requests.post(imageurl, headers=headers, json=image_payload)
@@ -476,7 +490,7 @@ class Command(BaseCommand):
                 with open(f"{safe_main}.png", "wb") as f:
                     f.write(image_response.content)
                 self.stdout.write(self.style.SUCCESS(f"Image saved as {safe_main}.png"))
-                self.upload_to_storage(f"{safe_main}.png", f"{main}.png")
+                self.upload_to_storage(f"{safe_main}.png", f"{safe_main}")
             else:
                 self.stderr.write(self.style.ERROR(f"Image generation API error: {image_response.status_code} {image_response.text}"))
         except Exception as e:
@@ -494,7 +508,7 @@ class Command(BaseCommand):
         #     return
 
         # url = f"https://objectstorage.ap-chuncheon-1.oraclecloud.com/p/{par_token}/n/{namespace}/b/{bucket}/o/{object_name}"
-        url = f"https://objectstorage.ap-chuncheon-1.oraclecloud.com/p/AHQzNfsY1ppOpv7VpX-C9iKAwqJJkyUun8n3L4R08J_OuNEQ8x9p1UKvJZMk2X_h/n/ax0ym4amgnfk/b/bucket-20260516-0145/o/{object_name}"
+        url = f"https://objectstorage.ap-chuncheon-1.oraclecloud.com/p/59C4p0AMvKfRvrQBb7rNihtYDwcP2TCNlf_Hq6pMRPbgcQUV0EZBrCKlsQthjJK5/n/ax0ym4amgnfk/b/bucket-20260516-0145/o/{object_name}"
 
         if not os.path.exists(file_path):
             self.stderr.write(self.style.ERROR(f'File not found: {file_path}'))
@@ -512,7 +526,7 @@ class Command(BaseCommand):
         except Exception as e:
             self.stderr.write(self.style.ERROR(f'Error uploading to storage: {str(e)}'))
     
-    def get_menu(self, img_path):
+    def get_menu(self, img_path, title=""):
         load_dotenv()
 
         
@@ -525,6 +539,16 @@ class Command(BaseCommand):
             with open(img_path, 'rb') as f:
                 base64_image = base64.b64encode(f.read()).decode('utf-8')
             
+            if '청운관' in title:
+                place_instruction = "place는 학생식당은 ch, 교직원식당은 cg입니다. 단품, 든든, 우아, 푸짐은 모두 lunch입니다. 간편식, 간식은 정리하지 않고 넘어가주세요."
+            elif '푸른솔' in title:
+                place_instruction = "place는 학생식당은 ph, 교직원식당은 pg입니다. OneDishSETSelf-Bar, 한소반SETSelf-Bar, 면가득은 모두 lunch입니다. dinner는 없습니다. TO-GO가 포함된 메뉴는 정리하지 않고 넘어가주세요."
+            elif '학생회관' in title:
+                place_instruction = "place는 학생식당은 hh, 교직원식당은 hg입니다. 포케, 컵밥은 서로 다른 breakfast 메뉴입니다. 단품, 든든, 우아, 푸짐은 모두 lunch입니다. dinner 메뉴는 학생식당과 교직원식당이 같은 메뉴입니다."
+            else:
+                place_instruction = "place는 jg입니다. 점심의 T/O(6,500원) 메뉴만 정리해주세요."
+            prompt_text = f"{{'id': '낙지콩나물덮밥-ch-20260101-thu-breakfast', 'main': '낙지콩나물덮밥', 'side': '유부장국, 유린기 닭:브라질산, 중화품배추찜, 마카로니크래미샐러드, 고들빼기무침, 마시는 요구르트', 'enmain': 'Rice with octopus bean sprouts', 'enside': 'Fried Tofu Soup, Yuringi Chicken: Brazilian, Chinese Cabbage Steamed, Macaroni Crami Salad, Seasoned Godeul, Drinking Yogurt', 'price': 8000, 'date': '20260101', 'day': 'tue', 'meal': 'lunch', 'place': 'cg', 'extra': '일식돈가스 추가시 8000', 'enextra': 'additional Japanese-style pork cutlet 8000', 'stamp': False }}처럼 각 메뉴를 정리해주세요. {place_instruction} trailing comma가 없도록 해주세요. id는 main-place-date-day-meal 순서로 합쳐서 / 기호를 쓰지 않게 만들어주세요. main에는 띄어쓰기가 없도록 해주세요. 추가 메뉴가 없는 경우 extra와 enextra는 ''입니다. date는 표 상단의 날짜와 제목인 {title}를 참고해서 yyyymmdd 형식으로 작성해주세요. stamp는 금지 표시가 있으면 True, 없으면 False입니다. py list로 만들고 # 메모 없이 작성해주세요."
+
             # Gemini API call
             messages = [
                 {
@@ -532,7 +556,7 @@ class Command(BaseCommand):
                     "content": [
                         {
                             "type": "text",
-                            "text": "{'id': '낙지콩나물덮밥-ch-20260101-thu-breakfast', 'main': '낙지콩나물덮밥', 'side': '유부장국, 유린기 닭:브라질산, 중화품배추찜, 마카로니크래미샐러드, 고들빼기무침, 마시는 요구르트', 'enmain': 'Rice with octopus bean sprouts', 'enside': 'Fried Tofu Soup, Yuringi Chicken: Brazilian, Chinese Cabbage Steamed, Macaroni Crami Salad, Seasoned Godeul, Drinking Yogurt', 'price': 8000, 'date': '20260101', 'day': 'tue', 'meal': 'lunch', 'place': 'cg', 'extra': '일식돈가스 추가시 8000', 'enextra': 'additional Japanese-style pork cutlet 8000', 'stamp': False }처럼 각 메뉴를 정리해주세요. place는 청운관 학생식당: ch, 청운관 교직원식당: cg, 푸른솔 학생식당: ph, 푸른솔 교직원식당: pg, 학생회관 학생식당: hh, 학생회관 교직원식당: hg입니다. trailing comma가 없도록 해주세요. id는 main-place-date-day-meal 순서로 합쳐서 만들어주세요. main에는 띄어쓰기가 없도록 해주세요. 추가 메뉴가 없는 경우 extra와 enextra는 ''입니다. date는 표 상단의 날짜와 현재 년도를 참고해서 작성해주세요. stamp는 금지 표시가 있으면 True, 없으면 False입니다. py list로 만들고 # 메모 없이 작성해주세요."
+                            "text": prompt_text
                         },
                         {
                             "type": "image_url",
@@ -573,8 +597,8 @@ class Command(BaseCommand):
 
                 def _save_items(items):
                     for menu in items:
-                        MenuItem.objects.create(
-                            id=menu.get('id', ''),
+                        item_id5 = menu.get('id', '')
+                        defaults_dict5 = dict(
                             main=menu.get('main', ''),
                             side=menu.get('side', ''),
                             enmain=menu.get('enmain', ''),
@@ -586,8 +610,11 @@ class Command(BaseCommand):
                             extra=menu.get('extra', ''),
                             enextra=menu.get('enextra', ''),
                             date=menu.get('date', ''),
-                            stamp=menu.get('stamp', ''),
+                            stamp=menu.get('stamp', False),
                         )
+                        obj, created = MenuItem.objects.get_or_create(id=item_id5, defaults=defaults_dict5)
+                        if not created:
+                            MenuItem.objects.filter(id=item_id5).update(**defaults_dict5)
                         self.stdout.write(self.style.SUCCESS(f"Successfully posted item: {menu.get('main', 'Unknown Menu Item')}"))
                         self.generate_image(menu.get('main', ''), menu.get('enmain', menu.get('main', '')))
                 with ThreadPoolExecutor(max_workers=1) as executor:
