@@ -1,0 +1,72 @@
+.welcome-heading {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #1d4ed8;
+  margin-bottom: 1.5rem;
+}
+
+html.dark .welcome-heading {
+  color: #60a5fa;
+}
+
+.restaurant-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 640px) {
+  .restaurant-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.restaurant-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background-color: #fff;
+  color: #1f2937;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s, background-color 0.2s;
+  border: 1px solid #f3f4f6;
+  text-decoration: none;
+}
+
+html.dark .restaurant-card {
+  background-color: #1e293b;
+  color: #f3f4f6;
+  border-color: #334155;
+}
+
+.restaurant-card:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #f9fafb;
+}
+
+html.dark .restaurant-card:hover {
+  background-color: #334155;
+}
+
+.restaurant-card-icon {
+  width: 25px;
+  height: 25px;
+  color: #2563eb;
+  flex-shrink: 0;
+}
+
+html.dark .restaurant-card-icon {
+  color: #60a5fa;
+}
+
+.restaurant-card-label {
+  text-align: right;
+}
