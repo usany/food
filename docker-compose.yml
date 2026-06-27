@@ -1,7 +1,7 @@
 services:
   web:
     build: .
-    container_name: dirfood
+    container_name: mkdirfood
     ports:
       - "8000:8000"
     env_file:
