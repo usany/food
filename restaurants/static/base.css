@@ -31,17 +31,90 @@ h1 {
     text-align: center;
 }
 
-/* Custom expanded state for nav */
-nav.expanded {
-    flex-direction: column;
-    gap: 15px;
-    align-items: center
-}
-
-nav.expanded .top-buttons-row {
+/* Nav item buttons/links */
+.nav-item {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #94a3b8;
+    font-size: 12px;
+    font-weight: 500;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 300ms;
 }
 
-nav.expanded #nav-toggle {
+.nav-item:hover {
+    color: #3b82f6;
+    transform: translateY(-2px);
+}
+
+html.dark .nav-item {
+    color: #64748b;
+}
+
+html.dark .nav-item:hover {
+    color: #60a5fa;
+}
+
+/* Toggle buttons in expanded row */
+.nav-toggle-btn {
+    display: flex;
+    gap: 4px;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    padding: 0;
+    transition: color 300ms;
+}
+
+.nav-toggle-btn:hover {
+    color: #3b82f6;
+}
+
+html.dark .nav-toggle-btn {
+    color: #64748b;
+}
+
+html.dark .nav-toggle-btn:hover {
+    color: #60a5fa;
+}
+
+/* SVG icons in nav */
+.nav-svg {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 4px;
+    fill: currentColor;
+}
+
+/* Nav items wrapper */
+.nav-items-wrapper {
+    display: flex;
+    gap: 30px;
+    justify-content: space-around;
+    width: 100%;
+}
+
+/* Nav items row inside top-buttons-row */
+.nav-items-row {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    justify-content: space-around;
+}
+
+/* Top buttons row (hidden by default) */
+.top-buttons-row {
     display: none;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+}
+
+.text-center {
+    text-align: center;
 }

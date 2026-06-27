@@ -4,8 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "postcss ./restaurants/static/input.css -o ./restaurants/static/styles.css --watch",
-    "build": "postcss ./restaurants/static/input.css -o ./restaurants/static/styles.css",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

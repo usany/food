@@ -1,15 +1,35 @@
-/* Bottom Navigation Expanded State Styles */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.1);
+    display: flex;
+    padding: 8px 16px;
+    padding-bottom: max(8px, env(safe-area-inset-bottom));
+    border-top: 1px solid rgba(255, 255, 255, 0.8);
+    z-index: 1000;
+    flex-direction: column;
+}
+
+html.dark .bottom-nav {
+    background-color: rgba(30, 41, 59, 0.95);
+    border-top-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.4);
+}
+
 .bottom-nav.expanded {
-    flex-direction: column !important;
-    gap: 15px !important;
-    align-items: center !important;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
 }
 
 .bottom-nav.expanded .top-buttons-row {
-    display: flex !important;
+    display: flex;
 }
 
-/* Hide the menu toggle button when expanded */
 .bottom-nav.expanded #nav-toggle {
-    display: none !important;
+    display: none;
 }
