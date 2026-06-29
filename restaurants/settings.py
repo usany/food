@@ -187,19 +187,19 @@ PWA_APP_START_URL = '/'
 PWA_APP_STATUS_BAR_COLOR = 'default'
 PWA_APP_ICONS = [
     {
-        'src': '/static/favicon.jpg',
+        'src': '/static/cookie.png',
         'sizes': '192x192',
         'type': 'image/jpg'
     },
     {
-        'src': '/static/favicon.jpg',
+        'src': '/static/cookie.png',
         'sizes': '512x512',
         'type': 'image/png'
     }
 ]
 PWA_APP_ICONS_APPLE = [
     {
-        'src': '/static/favicon.jpg',
+        'src': '/static/cookie.png',
         'sizes': '192x192',
         'type': 'image/jpg'
     }

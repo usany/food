@@ -154,7 +154,7 @@ class Command(BaseCommand):
         
         self.stdout.write('Navigating to the list page...')
         link = 'https://dorm2.khu.ac.kr/50/5030.do#'
-        page.goto(link)
+        page.goto(link, timeout=60000)
         
         page.locator('a').filter(has_text='전체보기').first.click()
         page.wait_for_selector('td.te_left')
@@ -300,7 +300,7 @@ class Command(BaseCommand):
         #     link = 'https://www.hufs.ac.kr/hufs/11318/subview.do#click'
         # else:
         #     link = 'https://www.hufs.ac.kr/hufs/11318/subview.do?enc=Zm5jdDF8QEB8JTJGY2FmZXRlcmlhJTJGaHVmcyUyRjElMkZ2aWV3LmRvJTNGeWVhciUzRDIwMjYlMjZtb250aCUzRDA1JTI2c2VsRGF0ZSUzRDIwMjYwNTIxJTI2c2VsQ2FmSWQlM0RoMTAyJTI2'
-        page.goto(link)
+        page.goto(link, timeout=60000)
         if not is_student:
             page.locator('a').filter(has_text='교수회관식당').click()
             # page.wait_for_selector('td.no-menu, td.menu')
@@ -384,7 +384,7 @@ class Command(BaseCommand):
         else:
             link = 'https://www.khu.ac.kr/kor/user/bbs/BMSR00040/list.do?menuNo=200283&catId=137'
         
-        page.goto(link)
+        page.goto(link, timeout=60000)
         page.wait_for_selector('tbody')
         
         # Find links in tbody - map over locations to find matching elements
@@ -411,7 +411,7 @@ class Command(BaseCommand):
                 self.stdout.write(f'Handling link: {link_data["text"]}')
                 
                 if page.url != link:
-                    page.goto(link)
+                    page.goto(link, timeout=60000)
                     page.wait_for_selector('tbody')
                 
                 try:
@@ -463,7 +463,7 @@ class Command(BaseCommand):
                     self.stdout.write(self.style.ERROR(f'Failed to download image {img_url}: {str(err)}'))
             
             # Go back to the list page for the next item
-            page.goto('https://www.khu.ac.kr/kor/user/bbs/BMSR00040/list.do?menuNo=200283')
+            page.goto('https://www.khu.ac.kr/kor/user/bbs/BMSR00040/list.do?menuNo=200283', timeout=60000)
             page.wait_for_selector('tbody')
         
         browser.close()
