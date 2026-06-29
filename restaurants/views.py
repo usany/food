@@ -18,15 +18,15 @@ from .models import MenuItem
 MEALS = [{'id': 0, 'name': '아침', 'time': 'breakfast'}, {'id': 1, 'name': '점심', 'time': 'lunch'}, {'id': 2, 'name': '간식', 'time': 'snack'}, {'id': 3, 'name': '저녁', 'time': 'dinner'}, {'id': 4, 'name': 'One-Dish', 'time': 'onedish'}, {'id': 5, 'name': '무인판매', 'time': 'unmanned'}]
 WEEKDAYS = [{'id': 0, 'name': '월', 'day': 'mon'}, {'id': 1, 'name': '화', 'day': 'tue'}, {'id': 2, 'name': '수', 'day': 'wed'}, {'id': 3, 'name': '목', 'day': 'thu'}, {'id': 4, 'name': '금', 'day': 'fri'}]
 RESTAURANTS = [
-    {'id': 1, 'title': '청운관 학생식당', 'campus': 'se', 'path': 'ch', 'mealsSemester': ['아침', '점심', '간식', '저녁'], 'mealsSemesterTime': ['08:30~10:00 (간편식: 09:00~10:00)', '11:00~14:30', '15:00~16:00', '17:00~18:30'], 'mealsVacation': ['점심']},
-    {'id': 2, 'title': '청운관 교직원식당', 'campus': 'se', 'path': 'cg', 'mealsSemester': ['점심'], 'mealsVacation': ['점심'], 'mealsSemesterTime': ['11:30~14:00']},
-    {'id': 3, 'title': '푸른솔 학생식당', 'campus': 'se', 'path': 'ph', 'mealsSemester': ['아침', '점심', 'One-Dish', '무인판매'], 'mealsVacation': ['아침', '점심'], 'mealsSemesterTime': ['08:30~10:00 (간편식: 09:00~10:00)', '11:00~14:30', '08:30~16:00', '14:30~소진시까지']},
-    {'id': 4, 'title': '푸른솔 교직원식당', 'campus': 'se', 'path': 'pg', 'mealsSemester': ['점심'], 'mealsVacation': ['점심'], 'mealsSemesterTime': ['11:30~14:00']},
-    {'id': 5, 'title': '한국외대 인문관 식당', 'campus': 'se', 'path': 'his', 'mealsSemester': ['아침', '점심', '저녁'], 'mealsVacation': ['아침', '점심', '저녁'], 'mealsSemesterTime': ['08:30~10:00 (간편식: 09:00~10:00)', '11:00~14:30', '17:00~18:30']},
-    {'id': 6, 'title': '한국외대 교수회관 식당', 'campus': 'se', 'path': 'hgs', 'mealsSemester': ['점심'], 'mealsVacation': ['점심'], 'mealsSemesterTime': ['11:30~14:00']},
-    {'id': 7, 'title': '학생회관 학생식당', 'campus': 'gl', 'path': 'hh', 'mealsSemester': ['아침', '점심', '저녁'], 'mealsVacation': ['아침', '점심', '저녁'], 'mealsSemesterTime': ['08:30~10:00 (간편식: 09:00~10:00)', '11:00~14:30', '17:00~18:30']},
-    {'id': 8, 'title': '학생회관 교직원식당', 'campus': 'gl', 'path': 'hg', 'mealsSemester': ['점심'], 'mealsVacation': ['점심'], 'mealsSemesterTime': ['11:30~14:00']},
-    {'id': 9, 'title': '제2기숙사 식당', 'campus': 'gl', 'path': 'jg', 'mealsSemester': ['아침', '점심', '저녁'], 'mealsVacation': ['아침', '점심', '저녁'], 'mealsSemesterTime': ['08:30~10:00 (간편식: 09:00~10:00)', '11:00~14:30', '17:00~18:30']},
+    {'id': 1, 'title': '청운관 학생식당', 'campus': 'se', 'path': 'ch', 'icon': 'utensils-crossed', 'color': '#2563eb', 'mealsSemester': ['아침', '점심', '간식', '저녁'], 'mealsSemesterTime': ['08:30~10:00 (간편식: 09:00~10:00)', '11:00~14:30', '15:00~16:00', '17:00~18:30'], 'mealsVacation': ['점심']},
+    {'id': 2, 'title': '청운관 교직원식당', 'campus': 'se', 'path': 'cg', 'icon': 'chef-hat', 'color': '#059669', 'mealsSemester': ['점심'], 'mealsVacation': ['점심'], 'mealsSemesterTime': ['11:30~14:00']},
+    {'id': 3, 'title': '푸른솔 학생식당', 'campus': 'se', 'path': 'ph', 'icon': 'utensils', 'color': '#d97706', 'mealsSemester': ['아침', '점심', 'One-Dish', '무인판매'], 'mealsVacation': ['아침', '점심'], 'mealsSemesterTime': ['08:30~10:00 (간편식: 09:00~10:00)', '11:00~14:30', '08:30~16:00', '14:30~소진시까지']},
+    {'id': 4, 'title': '푸른솔 교직원식당', 'campus': 'se', 'path': 'pg', 'icon': 'cooking-pot', 'color': '#dc2626', 'mealsSemester': ['점심'], 'mealsVacation': ['점심'], 'mealsSemesterTime': ['11:30~14:00']},
+    {'id': 5, 'title': '한국외대 인문관 식당', 'campus': 'se', 'path': 'his', 'icon': 'building-2', 'color': '#7c3aed', 'mealsSemester': ['아침', '점심', '저녁'], 'mealsVacation': ['아침', '점심', '저녁'], 'mealsSemesterTime': ['08:30~10:00 (간편식: 09:00~10:00)', '11:00~14:30', '17:00~18:30']},
+    {'id': 6, 'title': '한국외대 교수회관 식당', 'campus': 'se', 'path': 'hgs', 'icon': 'landmark', 'color': '#0891b2', 'mealsSemester': ['점심'], 'mealsVacation': ['점심'], 'mealsSemesterTime': ['11:30~14:00']},
+    {'id': 7, 'title': '학생회관 학생식당', 'campus': 'gl', 'path': 'hh', 'icon': 'school', 'color': '#db2777', 'mealsSemester': ['아침', '점심', '저녁'], 'mealsVacation': ['아침', '점심', '저녁'], 'mealsSemesterTime': ['08:30~10:00 (간편식: 09:00~10:00)', '11:00~14:30', '17:00~18:30']},
+    {'id': 8, 'title': '학생회관 교직원식당', 'campus': 'gl', 'path': 'hg', 'icon': 'book-open', 'color': '#ca8a04', 'mealsSemester': ['점심'], 'mealsVacation': ['점심'], 'mealsSemesterTime': ['11:30~14:00']},
+    {'id': 9, 'title': '제2기숙사 식당', 'campus': 'gl', 'path': 'jg', 'icon': 'home', 'color': '#65a30d', 'mealsSemester': ['아침', '점심', '저녁'], 'mealsVacation': ['아침', '점심', '저녁'], 'mealsSemesterTime': ['08:30~10:00 (간편식: 09:00~10:00)', '11:00~14:30', '17:00~18:30']},
 ]
 LOCATIONS = {
     'ch': '청운관 학생식당',

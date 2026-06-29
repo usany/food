@@ -14,7 +14,7 @@
         {% for item in items %}
         <a href="{% url 'menu_list' bases item.path %}"
             class="restaurant-card">
-            <i data-lucide="store" class="restaurant-card-icon"></i>
+            <i data-lucide="{{ item.icon }}" class="restaurant-card-icon" style="color: {{ item.color }}"></i>
             <span class="restaurant-card-label">{% trans item.title %}</span>
         </a>
         {% endfor %}
