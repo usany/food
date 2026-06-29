@@ -67,9 +67,9 @@
                     <img src="https://objectstorage.ap-chuncheon-1.oraclecloud.com/n/ax0ym4amgnfk/b/bucket-20260516-0145/o/{{ dish.main| cut:' '  }}" alt="{{ dish.main }}" class="dish-image"/>
                     <div class="dish-info">
                         <span class="dish-name">{% if LANGUAGE_CODE == 'en' %}{{ dish.enmain }} {% else %}{{ dish.main }}{% endif %}</span>
-                        {% if dish.extra %}
+                        <!-- {% if dish.extra %}
                         <span class="dish-extra"> + {{ dish.extra }}</span>
-                        {% endif %}
+                        {% endif %} -->
                         {% if dish.stamp %}
                         <span class="dish-stamp">🌿 {% trans "No pork" %}</span>
                         {% endif %}
@@ -77,7 +77,7 @@
                     <div class="dish-price">
                         <span class="dish-price-value">₩{{ dish.price }}</span>
                         {% if dish.extra %}
-                        <span class="dish-price-extra">+₩{{ dish.extra }}</span>
+                        <span class="dish-price-extra">+{% if LANGUAGE_CODE == 'en' %}{{ dish.enextra }} {% else %}{{ dish.extra }}{% endif %}</span>
                         {% endif %}
                     </div>
                 </a>
