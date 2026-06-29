@@ -64,7 +64,7 @@
             {% for dish in menu %}
             <li class="dish-item {% if dish.non_pork %}dish-item--pork-free{% endif %}">
                 <a href="{% url 'menu_detail' bases=bases path=path meal=dish.id %}" class="dish-link">
-                    <img src="https://objectstorage.ap-chuncheon-1.oraclecloud.com/n/ax0ym4amgnfk/b/bucket-20260516-0145/o/{{ dish.main| cut:' '  }}" alt="{{ dish.main }}" class="dish-image"/>
+                    <img src="https://objectstorage.ap-chuncheon-1.oraclecloud.com/n/ax0ym4amgnfk/b/bucket-20260516-0145/o/{{ dish.safe_main|cut:' ' }}" alt="{{ dish.main }}" class="dish-image"/>
                     <div class="dish-info">
                         <span class="dish-name">{% if LANGUAGE_CODE == 'en' %}{{ dish.enmain }} {% else %}{{ dish.main }}{% endif %}</span>
                         <!-- {% if dish.extra %}

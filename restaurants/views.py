@@ -1,3 +1,4 @@
+import re
 from datetime import datetime
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
@@ -469,6 +470,12 @@ def menu_list(request, path, bases):
     selected_date = week[weekday_names.index(selected_day)]
     db_qs = MenuItem.objects.filter(place=path, meal=selected_meal, day=selected_day, date=selected_date)
     filtered_dishes = list(db_qs) + filtered_dishes
+    # Enrich FIXED_MENU dicts with safe_main so the template can use dish.safe_main
+    filtered_dishes = [
+        {**d, 'safe_main': re.sub(r'[\\/*?"<>|]', '+', d.get('main', '') or '')}
+        if isinstance(d, dict) else d
+        for d in filtered_dishes
+    ]
 
 
     tabs = []
