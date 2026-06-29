@@ -9,7 +9,7 @@
 
 {% block content %}
 <div class="max-w-2xl mx-auto py-10">
-    <a href="{% url 'home_menu' bases %}" class="text-blue-600 font-medium text-sm hover:underline">&larr; {% trans "Back" %}</a>
+    <a href="{% url 'home_menu' bases %}" class="text-blue-600 font-medium text-sm hover:underline">&larr; {% trans "뒤로" %}</a>
     <h1 class="text-3xl font-bold text-blue-700 mt-4 mb-6">{% trans restaurant.title %}</h1>
     <div class="week-nav">
         <a href="?day={{ selected_day }}&meal={{ selected_meal }}&previous={{ previous|add:1 }}" class="week-nav-link" aria-label="Previous week">
