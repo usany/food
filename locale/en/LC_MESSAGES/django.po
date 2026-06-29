@@ -136,7 +136,7 @@ msgid "This is the main page."
 msgstr "This is the main page."
 
 #: restaurants/templates/pages/menu_list.html:7
-msgid "Back"
+msgid "뒤로"
 msgstr "Back"
 
 #: restaurants/templates/pages/menu_list.html:77
