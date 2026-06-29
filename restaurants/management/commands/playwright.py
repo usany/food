@@ -26,8 +26,8 @@ import uuid
 
 class Command(BaseCommand):
     help = 'Scrape menu data from university websites using Playwright'
-    storage_url = os.getenv('STORAGE_URL', 'https://objectstorage.ap-chuncheon-1.oraclecloud.com/n/ax0ym4amgnfk/b/bucket-20260516-0145/o/')
-    
+    # storage_url = os.getenv('STORAGE_URL', 'https://objectstorage.ap-chuncheon-1.oraclecloud.com/n/ax0ym4amgnfk/b/bucket-20260516-0145/o/')
+    storage_url = os.getenv('ORACLESTORAGE', '')
     def add_arguments(self, parser):
         parser.add_argument(
             '--source',
@@ -508,7 +508,7 @@ class Command(BaseCommand):
         #     return
 
         # url = f"https://objectstorage.ap-chuncheon-1.oraclecloud.com/p/{par_token}/n/{namespace}/b/{bucket}/o/{object_name}"
-        url = f"https://objectstorage.ap-chuncheon-1.oraclecloud.com/p/59C4p0AMvKfRvrQBb7rNihtYDwcP2TCNlf_Hq6pMRPbgcQUV0EZBrCKlsQthjJK5/n/ax0ym4amgnfk/b/bucket-20260516-0145/o/{object_name}"
+        url = f"{self.storage_url}{object_name}"
 
         if not os.path.exists(file_path):
             self.stderr.write(self.style.ERROR(f'File not found: {file_path}'))

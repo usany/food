@@ -1,6 +1,15 @@
 from apscheduler.schedulers.background import BackgroundScheduler
 from django.core.management import call_command
 import os
+import threading
+
+# Shared lock — ensures playwright jobs run one at a time even if cron fires them simultaneously
+_playwright_lock = threading.Lock()
+
+def _run_playwright(*args, **kwargs):
+    """Acquire the lock before running playwright so jobs are queued, not concurrent."""
+    with _playwright_lock:
+        call_command(*args, **kwargs)
 
 # Create scheduler
 scheduler = BackgroundScheduler()
@@ -21,57 +30,57 @@ def start():
     
     # Run playwright scraping for KHU Seoul campus every day at 6:00 AM
     scheduler.add_job(
-        call_command,
+        _run_playwright,
         'cron',
         args=['playwright'],
         kwargs={'source': 'khu', 'campus': 'seoul'},
         id='playwright_khu_seoul',
-        hour=6,
-        minute=0,
+        hour=15,
+        minute=57,
         replace_existing=True
     )
     scheduler.add_job(
-        call_command,
+        _run_playwright,
         'cron',
         args=['playwright'],
         kwargs={'source': 'khu', 'campus': 'global'},
         id='playwright_khu_global',
-        hour=6,
-        minute=0,
+        hour=15,
+        minute=45,
         replace_existing=True
     )
     
     # Run playwright scraping for HUFS every day at 6:00 AM
     scheduler.add_job(
-        call_command,
+        _run_playwright,
         'cron',
         args=['playwright'],
         kwargs={'source': 'hufs', 'student': True},
         id='playwright_hufs_student',
-        hour=6,
-        minute=0,
+        hour=15,
+        minute=45,
         replace_existing=True
     )
     scheduler.add_job(
-        call_command,
+        _run_playwright,
         'cron',
         args=['playwright'],
         kwargs={'source': 'hufs', 'student': False},
         id='playwright_hufs_staff',
-        hour=6,
-        minute=0,
+        hour=15,
+        minute=45,
         replace_existing=True
     )
     
     # Run playwright scraping for dorm every day at 6:00 AM
     scheduler.add_job(
-        call_command,
+        _run_playwright,
         'cron',
         args=['playwright'],
         kwargs={'source': 'dorm'},
         id='playwright_dorm',
-        hour=6,
-        minute=0,
+        hour=15,
+        minute=45,
         replace_existing=True
     )
     
