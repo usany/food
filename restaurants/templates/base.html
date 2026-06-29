@@ -47,7 +47,7 @@
                 </button>
             </div>
         </div>
-        <button class="nav-item flex flex-col items-center no-underline text-slate-400 dark:text-slate-500 text-xs font-medium hover:text-blue-500 dark:hover:text-blue-400 hover:-translate-y-0.5 transition-all duration-300 bg-transparent border-none cursor-pointer" id="nav-toggle" onclick="document.querySelector('.bottom-nav').classList.toggle('expanded')">
+        <button class="nav-item flex flex-col items-center no-underline text-slate-400 dark:text-slate-500 text-xs font-medium hover:text-blue-500 dark:hover:text-blue-400 hover:-translate-y-0.5 transition-all duration-300 bg-transparent border-none cursor-pointer" id="nav-toggle" onclick="toggleNavExpanded()">
             <svg class="w-6 h-6 mb-1 fill-current" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M7 14l5-5 5 5z" />
             </svg>
@@ -139,6 +139,20 @@
             setStorage('darkMode', isDark);
             updateThemeIcon(isDark);
         }
+        function toggleNavExpanded() {
+            const nav = document.querySelector('.bottom-nav');
+            nav.classList.toggle('expanded');
+            setStorage('navExpanded', nav.classList.contains('expanded'));
+        }
+
+        document.addEventListener('click', (e) => {
+            const nav = document.querySelector('.bottom-nav');
+            if (nav.classList.contains('expanded') && !nav.contains(e.target)) {
+                nav.classList.remove('expanded');
+                setStorage('navExpanded', 'false');
+            }
+        });
+
 
         // Simple script to set active state based on URL
         document.addEventListener('DOMContentLoaded', () => {
