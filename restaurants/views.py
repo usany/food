@@ -508,12 +508,13 @@ def menu_detail(request, path, meal, bases):
         from django.http import Http404
         raise Http404("Restaurant not found")
     fixed_menu = next((fixed for fixed in FIXED_MENU.get(path, []) if fixed['id'] == meal), None)
-    menu_item = get_object_or_404(MenuItem, id=meal) if fixed_menu == None else fixed_menu
+    get_menu_item = get_object_or_404(MenuItem, id=meal) if fixed_menu == None else fixed_menu
+    menu_item = get_menu_item if fixed_menu is None else fixed_menu
     lang = 'ko' if request.LANGUAGE_CODE == 'ko' else 'en'
     time = f"{menu_item.date[0:4]}.{menu_item.date[4:6]}.{menu_item.date[6:8]}" if fixed_menu == None else ", ".join(m['name'] for tc in fixed_menu.get('time_category', []) for m in MEALS if m['time'] == tc)
     day = next((w['name'] for w in WEEKDAYS if w['day'] == menu_item.day), None) if fixed_menu == None else ('월~목' if path == 'ph' else '')
     meal = next((m['name'] for m in MEALS if m['time'] == menu_item.meal), None) if fixed_menu == None else ", ".join(m['name']+':'+fixed_menu.get('time_detail', {})[tc][0]+'~'+fixed_menu.get('time_detail', {})[tc][1] for tc in fixed_menu.get('time_category', []) for m in MEALS if m['time'] == tc)
-    item_main = menu_item.main if fixed_menu is None else menu_item['main']
+    item_main = menu_item.safe_main if fixed_menu is None else menu_item['main']
     return render(request, 'pages/menu_detail.html', {'restaurant': {'title': title, 'meal_tabs': meal_tabs, 'path': path}, 'day': day, 'meal': meal, 'menu_item': menu_item, 'image_url': 'https://objectstorage.ap-chuncheon-1.oraclecloud.com/n/ax0ym4amgnfk/b/bucket-20260516-0145/o/'+item_main, 'time': time, 'bases': bases, 'path': path, 'lang': lang, 'fixed_menu': fixed_menu})
 
 
