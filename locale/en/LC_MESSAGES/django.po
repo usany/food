@@ -85,8 +85,8 @@ msgid "저녁"
 msgstr "Dinner"
 
 #: restaurants/templates/base.html:8
-msgid "내 설정"
-msgstr "My Settings"
+msgid "설정"
+msgstr "Settings"
 msgid "언어"
 msgstr "Language"
 msgid "캠퍼스"
