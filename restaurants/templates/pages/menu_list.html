@@ -8,9 +8,9 @@
 {% endblock %}
 
 {% block content %}
-<div class="max-w-2xl mx-auto py-10">
-    <a href="{% url 'home_menu' bases %}" class="text-blue-600 font-medium text-sm hover:underline">&larr; {% trans "뒤로" %}</a>
-    <h1 class="text-3xl font-bold text-blue-700 mt-4 mb-6">{% trans restaurant.title %}</h1>
+<div class="list-wrapper">
+    <a href="{% url 'home_menu' bases %}" class="list-back">&larr; {% trans "뒤로" %}</a>
+    <h1 class="list-title">{% trans restaurant.title %}</h1>
     <div class="week-nav">
         <a href="?day={{ selected_day }}&meal={{ selected_meal }}&previous={{ previous|add:1 }}" class="week-nav-link" aria-label="Previous week">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
