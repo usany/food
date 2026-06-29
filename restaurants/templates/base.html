@@ -156,11 +156,17 @@
 
         // Simple script to set active state based on URL
         document.addEventListener('DOMContentLoaded', () => {
-            const currentPath = window.location.pathname;
-            if (currentPath === '/' || currentPath.includes('/se')) {
+            const segments = window.location.pathname.split('/').filter(Boolean);
+            const bases = segments.length >= 2 ? segments[1] : null;
+            if (bases === 'se') {
                 document.getElementById('nav-home').style.color = '#3b82f6';
-            } else if (currentPath.includes('/gl')) {
+            } else if (bases === 'gl') {
                 document.getElementById('nav-menus').style.color = '#3b82f6';
+            }
+
+            // Restore nav expanded state
+            if (getStorage('navExpanded') === 'true') {
+                document.querySelector('.bottom-nav').classList.add('expanded');
             }
 
             // Initialize dark mode from localStorage
