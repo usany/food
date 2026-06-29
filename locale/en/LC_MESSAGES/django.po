@@ -24,22 +24,22 @@ msgstr "main"
 
 #: restaurants/views.py
 msgid "청운관 학생식당"
-msgstr "Chungwongwan Dining Hall"
+msgstr "Cheongwoon Dining Hall"
 
 msgid "청운관 교직원식당"
-msgstr "Chungwongwan Faculty Dining Hall"
+msgstr "Cheongwoon Faculty Dining Hall"
 
 msgid "푸른솔 학생식당"
-msgstr "Pureun Sol Dining Hall"
+msgstr "Pureunsol Dining Hall"
 
 msgid "푸른솔 교직원식당"
-msgstr "Pureun Sol Faculty Dining Hall"
+msgstr "Pureunsol Faculty Dining Hall"
 
 msgid "한국외대 인문관 식당"
-msgstr "HUFS Humanities Building Cafeteria"
+msgstr "HUFS Humanities Building Dining Hall"
 
 msgid "한국외대 교수회관 식당"
-msgstr "HUFS Faculty Meeting Hall Cafeteria"
+msgstr "HUFS Faculty Dining Hall"
 
 msgid "학생회관 학생식당"
 msgstr "Student Center Dining Hall"
@@ -48,7 +48,7 @@ msgid "학생회관 교직원식당"
 msgstr "Student Center Faculty Dining Hall"
 
 msgid "제2기숙사 식당"
-msgstr "Dormitory 2 Cafeteria"
+msgstr "Dormitory 2 Dining Hall"
 
 #: restaurants/views.py (Fixed menu items)
 msgid "만두라면, 치즈라면"
@@ -85,8 +85,14 @@ msgid "저녁"
 msgstr "Dinner"
 
 #: restaurants/templates/base.html:8
-msgid "App"
-msgstr "App"
+msgid "내 설정"
+msgstr "My Settings"
+msgid "언어"
+msgstr "Language"
+msgid "캠퍼스"
+msgstr "Campus"
+msgid "테마"
+msgstr "Theme"
 
 #: restaurants/templates/base.html:31
 msgid "Switch campus"
@@ -143,3 +149,4 @@ msgstr "No image available"
 #: restaurants/templates/pages/menu_detail.html:53
 msgid "No pork"
 msgstr "No pork"
+

@@ -23,8 +23,8 @@ def start():
         'cron',
         args=['clearsessions'],
         id='clear_sessions',
-        hour=3,
-        minute=0,
+        hour=16,
+        minute=16,
         replace_existing=True
     )
     
@@ -35,8 +35,8 @@ def start():
         args=['playwright'],
         kwargs={'source': 'khu', 'campus': 'seoul'},
         id='playwright_khu_seoul',
-        hour=15,
-        minute=57,
+        hour=16,
+        minute=16,
         replace_existing=True
     )
     scheduler.add_job(
@@ -45,8 +45,8 @@ def start():
         args=['playwright'],
         kwargs={'source': 'khu', 'campus': 'global'},
         id='playwright_khu_global',
-        hour=15,
-        minute=45,
+        hour=16,
+        minute=16,
         replace_existing=True
     )
     
@@ -57,8 +57,8 @@ def start():
         args=['playwright'],
         kwargs={'source': 'hufs', 'student': True},
         id='playwright_hufs_student',
-        hour=15,
-        minute=45,
+        hour=16,
+        minute=16,
         replace_existing=True
     )
     scheduler.add_job(
@@ -67,8 +67,8 @@ def start():
         args=['playwright'],
         kwargs={'source': 'hufs', 'student': False},
         id='playwright_hufs_staff',
-        hour=15,
-        minute=45,
+        hour=16,
+        minute=16,
         replace_existing=True
     )
     
@@ -79,8 +79,8 @@ def start():
         args=['playwright'],
         kwargs={'source': 'dorm'},
         id='playwright_dorm',
-        hour=15,
-        minute=45,
+        hour=16,
+        minute=16,
         replace_existing=True
     )
     
