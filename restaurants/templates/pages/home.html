@@ -9,7 +9,7 @@
 
 {% block content %}
 <div class="text-center py-10">
-    <h1 id="welcome-text" class="welcome-heading">{% trans "Welcome to 쿠키khukie쿠우키" %}</h1>
+    <h1 id="welcome-text" class="welcome-heading">{% trans "환영합니다" %}{% trans "쿠키khukie쿠우키" %}</h1>
     <div class="restaurant-grid">
         {% for item in items %}
         <a href="{% url 'menu_list' bases item.path %}"
