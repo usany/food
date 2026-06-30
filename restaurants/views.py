@@ -24,9 +24,9 @@ RESTAURANTS = [
     {'id': 4, 'title': '푸른솔 교직원식당', 'campus': 'se', 'path': 'pg', 'icon': 'cooking-pot', 'color': '#dc2626', 'mealsSemester': ['점심'], 'mealsVacation': ['점심'], 'mealsSemesterTime': ['11:00~14:00'], 'mealsVacationTime': ['11:00~13:30']},
     {'id': 5, 'title': '한국외대 인문관 식당', 'campus': 'se', 'path': 'his', 'icon': 'building-2', 'color': '#7c3aed', 'mealsSemester': ['아침', '점심', '저녁'], 'mealsVacation': ['아침', '점심', '저녁'], 'mealsSemesterTime': ['08:00~10:00', '11:00~14:30', '16:40~18:40'], 'mealsVacationTime': ['11:00~14:00', '16:40~18:40']},
     {'id': 6, 'title': '한국외대 교수회관 식당', 'campus': 'se', 'path': 'hgs', 'icon': 'landmark', 'color': '#0891b2', 'mealsSemester': ['점심'], 'mealsVacation': ['점심'], 'mealsSemesterTime': ['11:00~13:30'], 'mealsVacationTime': ['11:00~13:30']},
-    {'id': 7, 'title': '학생회관 학생식당', 'campus': 'gl', 'path': 'hh', 'icon': 'school', 'color': '#db2777', 'mealsSemester': ['아침', '점심', '저녁'], 'mealsVacation': ['아침', '점심', '저녁'], 'mealsSemesterTime': ['08:30~10:00 (간편식: 09:00~10:00)', '11:00~14:30', '17:00~18:30'], 'mealsVacationTime': ['11:00~14:00']},
-    {'id': 8, 'title': '학생회관 교직원식당', 'campus': 'gl', 'path': 'hg', 'icon': 'book-open', 'color': '#ca8a04', 'mealsSemester': ['점심'], 'mealsVacation': ['점심'], 'mealsSemesterTime': ['11:00~14:00'], 'mealsVacationTime': ['11:00~14:00']},
-    {'id': 9, 'title': '제2기숙사 식당', 'campus': 'gl', 'path': 'jg', 'icon': 'home', 'color': '#65a30d', 'mealsSemester': ['아침', '점심', '저녁'], 'mealsVacation': ['아침', '점심', '저녁'], 'mealsSemesterTime': ['08:30~10:00 (간편식: 09:00~10:00)', '11:00~14:30', '17:00~18:30'], 'mealsVacationTime': ['11:00~14:00']},
+    {'id': 7, 'title': '학생회관 학생식당', 'campus': 'gl', 'path': 'hh', 'icon': 'school', 'color': '#db2777', 'mealsSemester': ['아침', '점심', '저녁'], 'mealsVacation': ['점심'], 'mealsSemesterTime': ['08:20~10:00', '11:00~14:00', '17:00~18:30'], 'mealsVacationTime': ['11:30~13:30']},
+    {'id': 8, 'title': '학생회관 교직원식당', 'campus': 'gl', 'path': 'hg', 'icon': 'book-open', 'color': '#ca8a04', 'mealsSemester': ['점심', '저녁'], 'mealsVacation': ['점심'], 'mealsSemesterTime': ['11:00~14:00', '17:00~18:30'], 'mealsVacationTime': ['11:30~13:30']},
+    {'id': 9, 'title': '제2기숙사 식당', 'campus': 'gl', 'path': 'jg', 'icon': 'home', 'color': '#65a30d', 'mealsSemester': ['아침', '점심', '저녁'], 'mealsVacation': ['아침', '점심', '저녁'], 'mealsSemesterTime': ['08:00~09:00', '11:30~13:30', '17:30~19:00'], 'mealsVacationTime': ['08:00~09:00', '11:30~13:30', '17:30~19:00']},
 ]
 LOCATIONS = {
     'ch': '청운관 학생식당',
@@ -366,7 +366,7 @@ FIXED_MENU = {
             'enmain': 'Shin Ramen / Jin Ramen Spicy / Jin Ramen Mild / Neoguri / Jjapaghetti / Ansung Tangmyun / Squid Jjambbong (Self & 2 Toppings)',
             'side': None,
             'enside': None,
-            'price': None,
+            'price': 3000,
             'day': None,
             'time_category': ['breakfast', 'lunch', 'dinner'],
             'time_detail': {'breakfast': ['08:00', '10:00'], 'lunch': ['11:00', '14:00'], 'dinner': ['17:00', '18:30']},
