@@ -11,7 +11,14 @@
     <link rel="stylesheet" href="{% static 'styles.css' %}">
     <link rel="stylesheet" href="{% static 'nav.css' %}">
     {% block extra_css %}{% endblock %}
-    <script src="{% static 'theme.js' %}"></script>
+    <!-- <script src="{% static 'theme.js' %}"></script> -->
+    <script>
+        const saved = localStorage.getItem('darkMode');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (saved === 'true' || (saved === null && prefersDark)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
     {% progressive_web_app_meta %}
 </head>
 
