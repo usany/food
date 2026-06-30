@@ -252,6 +252,7 @@ class Command(BaseCommand):
         def create_menu_items():
             # First pass: collect all Korean texts to translate in one batch
             all_texts = []
+            days_count = len(menu_texts)/5 if is_student else len(menu_texts)/2
             for index, menu in enumerate(menu_texts):
                 if menu.startswith('등록된') or menu.startswith('방학중에는'):
                     continue
@@ -277,8 +278,8 @@ class Command(BaseCommand):
                 if not main:
                     continue
                 place = 'his' if is_student else 'hgs'
-                meal = 'lunch' if not is_student else 'breakfast' if index < 7 else 'lunch' if index < 28 else 'dinner'
-                day = 'mon' if index % 7 == 1 else 'tue' if index % 7 == 2 else 'wed' if index % 7 == 3 else 'thu' if index % 7 == 4 else 'fri'
+                meal = 'lunch' if not is_student else 'breakfast' if index < days_count else 'lunch' if index < 4 * days_count else 'dinner'
+                day = 'mon' if index % days_count == 1 else 'tue' if index % days_count == 2 else 'wed' if index % days_count == 3 else 'thu' if index % days_count == 4 else 'fri'
                 day_index = {'sun': 0, 'mon': 1, 'tue': 2, 'wed': 3, 'thu': 4, 'fri': 5, 'sat': 6}[day]
                 date = dates[day_index] if day_index < len(dates) else ''
                 item_id = main+'-'+place+'-'+date+'-'+day+'-'+meal
