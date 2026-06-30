@@ -156,6 +156,5 @@ msgstr "(Quick meal: 09:00~10:00)"
 msgid "무인판매"
 msgstr "Unmanned sales"
 msgid "14:00~소진시까지"
-msgstr "14:00 ~ Sold out"
-
+msgstr "14:00 ~ Until sold out"
 
