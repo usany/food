@@ -151,3 +151,7 @@ msgstr "No image available"
 msgid "No pork"
 msgstr "No pork"
 
+msgid "(간편식: 09:00~10:00)"
+msgstr "(Quick meal: 09:00~10:00)"
+
+
