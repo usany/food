@@ -1,14 +1,14 @@
 /* ── Wrapper ── */
 .list-wrapper {
     max-width: 42rem;
-    margin: 0 auto;
+    /* margin: 0 auto; */
     padding: 2.5rem 1rem;
 }
 
 /* ── Back link ── */
 .list-back {
     display: inline-block;
-    margin-bottom: 0.75rem;
+    /* margin-bottom: 0.75rem; */
     color: #1d4ed8;
     font-size: 0.875rem;
     font-weight: 500;
@@ -22,7 +22,7 @@ html.dark .list-back { color: #60a5fa; }
     font-size: 1.875rem;
     font-weight: 700;
     color: #1d4ed8;
-    margin: 1rem 0 1.5rem;
+    /* margin: 1rem 0 1.5rem; */
 }
 html.dark .list-title { color: #60a5fa; }
 
@@ -34,7 +34,7 @@ html.dark .list-title { color: #60a5fa; }
     gap: 0.5rem;
     color: #9ca3af;
     font-size: 0.875rem;
-    margin-bottom: 0.75rem;
+    /* margin-bottom: 0.75rem; */
 }
 html.dark .week-nav { color: #6b7280; }
 
@@ -59,7 +59,7 @@ html.dark .week-nav-link:hover { color: #d1d5db; }
 /* ── Tabs (shared between day tabs and meal tabs) ── */
 .tab-bar--border-bottom {
     border-bottom: 1px solid #e5e7eb;
-    margin-bottom: 1.5rem;
+    /* margin-bottom: 1.5rem; */
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
@@ -120,7 +120,7 @@ html.dark .tab--active {
     display: flex;
     gap: 0.25rem;
     border-bottom: 1px solid #e5e7eb;
-    margin-bottom: 1.5rem;
+    /* margin-bottom: 1.5rem; */
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
@@ -135,7 +135,7 @@ html.dark .meal-tab-bar { border-bottom-color: #374151; }
     gap: 0.75rem;
     list-style: none;
     padding: 0;
-    margin: 0;
+    /* margin: 0; */
 }
 
 .dish-item {
@@ -195,7 +195,7 @@ html.dark .dish-name { color: #d1d5db; }
 html.dark .dish-extra { color: #6b7280; }
 
 .dish-stamp {
-    margin-left: 0.5rem;
+    /* margin-left: 0.5rem; */
     color: #16a34a;
     font-size: 0.75rem;
     font-weight: 500;
@@ -233,7 +233,7 @@ html.dark .dish-price-extra { color: #6b7280; }
 
     .list-title {
         font-size: 1.4rem;
-        margin: 0.75rem 0 1rem;
+        /* margin: 0.75rem 0 1rem; */
     }
 
     .week-nav {
@@ -262,4 +262,4 @@ html.dark .dish-price-extra { color: #6b7280; }
     .dish-price-value {
         font-size: 0.875rem;
     }
-}
+}
