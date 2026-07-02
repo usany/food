@@ -1,4 +1,6 @@
-/* Bottom Navigation Expanded State Styles */
+body, main {
+    min-height: 100vh;
+}
 .bottom-nav.expanded {
     flex-direction: column !important;
     gap: 15px !important;

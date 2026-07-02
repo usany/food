@@ -11,8 +11,9 @@ def _run_playwright(*args, **kwargs):
     with _playwright_lock:
         call_command(*args, **kwargs)
 
-# Create scheduler
+# Create scheduler 
 scheduler = BackgroundScheduler()
+# scheduler = BackgroundScheduler(timezone='Asia/Seoul')
 
 def start():
     """Start the scheduler with scheduled jobs"""
@@ -35,8 +36,8 @@ def start():
         args=['playwright'],
         kwargs={'source': 'khu', 'campus': 'seoul'},
         id='playwright_khu_seoul',
-        hour=16,
-        minute=16,
+        hour=12,
+        minute=50,
         replace_existing=True
     )
     scheduler.add_job(
@@ -45,8 +46,8 @@ def start():
         args=['playwright'],
         kwargs={'source': 'khu', 'campus': 'global'},
         id='playwright_khu_global',
-        hour=16,
-        minute=16,
+        hour=21,
+        minute=30,
         replace_existing=True
     )
     

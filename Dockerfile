@@ -16,7 +16,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libatk1.0-0 \
     libatk-bridge2.0-0 \
     libdrm2 \
+    tzdata \
     && rm -rf /var/lib/apt/lists/*
+
+# ENV TZ=Europe/Oslo
 
 WORKDIR /app
 

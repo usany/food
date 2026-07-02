@@ -49,7 +49,6 @@ html.dark .admin-table td {
 
 .btn-admin {
     background: #10b981;
-    transition: background 0.2s ease;
 }
 
 .btn-admin:hover {

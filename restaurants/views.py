@@ -443,7 +443,7 @@ def menu_list(request, path, bases):
     week = [(start_of_week + timedelta(days=i)).strftime('%Y%m%d') for i in range(5)]
     week_without_year = [(start_of_week + timedelta(days=i)).strftime('%m.%d') for i in range(5)]
     selected_date = week[weekday_names.index(selected_day)]
-    issemester = MenuItem.objects.filter(place='ch', meal='dinner', date=selected_date).exists()
+    issemester = MenuItem.objects.filter(place='his', meal='breakfast', date=selected_date).exists() if path in ['his', 'hgs'] else MenuItem.objects.filter(place='ch', meal='dinner', date=selected_date).exists()
     all_meals = r['mealsSemester'] if issemester else r['mealsVacation']
     default_meal_name = next((m for m, hours in time_to_meal.items() if hour in hours and m in [meal['time'] for meal in MEALS if meal['name'] in all_meals]), 'breakfast' if '아침' in all_meals else 'lunch')
     default_meal = request.GET.get('meal', default_meal_name)
