@@ -1,14 +1,13 @@
 /* ── Wrapper ── */
 .detail-wrapper {
     max-width: 42rem;
-    /* margin: 0 auto; */
-    /* padding: 2.5rem 1rem; */
+    padding: 2.5rem 1rem;
 }
 
 /* ── Back link ── */
 .detail-back {
     display: inline-block;
-    /* margin-bottom: 1rem; */
+    padding-bottom: 1rem;
     color: #1d4ed8;
     font-size: 0.875rem;
     font-weight: 500;
@@ -60,16 +59,26 @@ html.dark .detail-image-placeholder {
 
 /* ── Info panel ── */
 .detail-info {
-    /* padding: 1.5rem; */
+    padding: 1.5rem;
     flex: 1;
     min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.detail-restaurant,
+.detail-time,
+.detail-meal,
+.detail-title,
+.detail-side {
+    margin: 0;
 }
 
 .detail-restaurant {
     font-size: 1.25rem;
     font-weight: 700;
     color: #1d4ed8;
-    /* margin-bottom: 0.25rem; */
 }
 html.dark .detail-restaurant { color: #60a5fa; }
 
@@ -77,7 +86,6 @@ html.dark .detail-restaurant { color: #60a5fa; }
     font-size: 1rem;
     font-weight: 700;
     color: #1d4ed8;
-    /* margin-bottom: 0.25rem; */
 }
 html.dark .detail-time { color: #60a5fa; }
 
@@ -85,7 +93,6 @@ html.dark .detail-time { color: #60a5fa; }
     font-size: 1rem;
     font-weight: 700;
     color: #1d4ed8;
-    /* margin-bottom: 0.25rem; */
 }
 html.dark .detail-meal { color: #60a5fa; }
 
@@ -93,7 +100,6 @@ html.dark .detail-meal { color: #60a5fa; }
     font-size: 1.25rem;
     font-weight: 700;
     color: #1d4ed8;
-    /* margin-bottom: 0.5rem; */
     word-break: break-word;
 }
 html.dark .detail-title { color: #60a5fa; }
@@ -101,7 +107,6 @@ html.dark .detail-title { color: #60a5fa; }
 .detail-side {
     color: #4b5563;
     font-size: 0.875rem;
-    /* margin-bottom: 1rem; */
     word-break: break-word;
 }
 html.dark .detail-side { color: #d1d5db; }
@@ -122,7 +127,8 @@ html.dark .detail-side { color: #d1d5db; }
 .detail-price-extra {
     color: #6b7280;
     font-size: 0.875rem;
-    /* margin-top: 0.25rem; */
+    padding-top: 0.25rem;
+    margin: 0;
 }
 html.dark .detail-price-extra { color: #9ca3af; }
 
@@ -135,9 +141,9 @@ html.dark .detail-stamp { color: #4ade80; }
 
 /* ── Responsive: small screens ── */
 @media (max-width: 480px) {
-    /* .detail-wrapper {
+    .detail-wrapper {
         padding: 1rem 0.75rem;
-    } */
+    }
 
     .detail-card {
         flex-direction: column;
@@ -145,7 +151,6 @@ html.dark .detail-stamp { color: #4ade80; }
 
     .detail-image {
         width: 100%;
-        /* min-width: unset; */
         min-width: auto;
         max-height: 14rem;
         object-fit: cover;
@@ -153,14 +158,13 @@ html.dark .detail-stamp { color: #4ade80; }
 
     .detail-image-placeholder {
         width: 100%;
-        /* min-width: unset; */
         min-width: auto;
         height: 8rem;
     }
 
-    /* .detail-info {
+    .detail-info {
         padding: 1rem;
-    } */
+    }
 
     .detail-restaurant {
         font-size: 1.1rem;
