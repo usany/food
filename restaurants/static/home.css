@@ -2,11 +2,22 @@
     font-size: 2rem;
     font-weight: 700;
     color: #1d4ed8;
-    margin-bottom: 1.5rem;
 }
 
 html.dark .welcome-heading {
     color: #60a5fa;
+}
+
+.campus-heading {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #4b5563;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+html.dark .campus-heading {
+    color: #9ca3af;
 }
 
 .restaurant-grid {
@@ -14,7 +25,7 @@ html.dark .welcome-heading {
     grid-template-columns: 1fr;
     gap: 1rem;
     max-width: 42rem;
-    margin: 1.5rem auto 0;
+    padding: 5rem 1rem;
 }
 
 @media (width >= 40rem) {
@@ -34,9 +45,8 @@ html.dark .welcome-heading {
     font-weight: 500;
     border-radius: 0.5rem;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    border: 1px solid #f3f4f6;
+    border: 1px solid #dbeafe;
     text-decoration: none;
-    transition: box-shadow 0.2s, background-color 0.2s;
 }
 
 .restaurant-card:hover {
@@ -47,7 +57,7 @@ html.dark .welcome-heading {
 html.dark .restaurant-card {
     background-color: #1f2937;
     color: #f3f4f6;
-    border-color: #374151;
+    border-color: #172554;
 }
 
 html.dark .restaurant-card:hover {
