@@ -6,7 +6,9 @@
 
 /* ── Back link ── */
 .detail-back {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
     padding-bottom: 1rem;
     color: #1d4ed8;
     font-size: 0.875rem;
@@ -16,20 +18,25 @@
 .detail-back:hover { text-decoration: underline; }
 html.dark .detail-back { color: #60a5fa; }
 
+.detail-back svg {
+    width: 1rem;
+    height: 1rem;
+}
+
 /* ── Card ── */
 .detail-card {
     display: flex;
     flex-direction: row;
     align-items: stretch;
     border-radius: 0.75rem;
-    border: 1px solid #f3f4f6;
+    border: 1px solid #dbeafe;
     background-color: #fff;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     overflow: hidden;
 }
 
 html.dark .detail-card {
-    border-color: #374151;
+    border-color: #172554;
     background-color: #1f2937;
 }
 
@@ -75,12 +82,33 @@ html.dark .detail-image-placeholder {
     margin: 0;
 }
 
+.detail-title-container {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
 .detail-restaurant {
     font-size: 1.25rem;
     font-weight: 700;
     color: #1d4ed8;
 }
 html.dark .detail-restaurant { color: #60a5fa; }
+
+.campus-heading {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #4b5563;
+    text-transform: uppercase;
+    margin: 0;
+}
+html.dark .campus-heading { color: #9ca3af; }
+
+.detail-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
 
 .detail-time {
     font-size: 1rem;
@@ -96,13 +124,25 @@ html.dark .detail-time { color: #60a5fa; }
 }
 html.dark .detail-meal { color: #60a5fa; }
 
+.dish-detail-container {
+    border: 2px dashed #dbeafe;
+    border-radius: 0.75rem;
+    padding: 1.25rem;
+    margin: 0.75rem 0;
+    background-color: #f8fafc;
+}
+html.dark .dish-detail-container {
+    border-color: #172554;
+    background-color: #1e293b;
+}
+
 .detail-title {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     font-weight: 700;
-    color: #1d4ed8;
+    color: #1f2937;
     word-break: break-word;
 }
-html.dark .detail-title { color: #60a5fa; }
+html.dark .detail-title { color: #f3f4f6; }
 
 .detail-side {
     color: #4b5563;
