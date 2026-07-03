@@ -54,14 +54,11 @@
         <button class="nav-item" id="nav-toggle" onclick="toggleNavExpanded()">
             <i data-lucide="chevron-up"></i>
         </button>
-        <!-- Nav Items Wrapper -->
         <div class="nav-items-wrapper">
-            <!-- Location 1: Home Link -->
             <a href="{% url 'home_menu' 'se' %}" class="nav-item" id="nav-home" title="{% trans 'Home' %}">
                 <i data-lucide="home"></i>
                 <span>seoul</span>
             </a>
-            <!-- Location 2: Menus Link -->
             <a href="{% url 'home_menu' 'gl' %}" class="nav-item" id="nav-menus" title="{% trans 'Menus' %}">
                 <i data-lucide="menu"></i>
                 <span>global</span>
