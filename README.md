@@ -2,7 +2,7 @@
 
 Welcome to graphql server for KHUBUS
 Visit https://bus.khusan.co.kr
-![khukie](./khukiestructure.png)
+![khukie](./khukiestructures.png)
 
 ## Platform Series
 1. khusan - usanapp
