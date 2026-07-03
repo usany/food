@@ -50,7 +50,6 @@ def start():
         minute=30,
         replace_existing=True
     )
-    # Run playwright scraping for HUFS every day at 6:00 AM
     scheduler.add_job(
         _run_playwright,
         'cron',
@@ -71,8 +70,6 @@ def start():
         minute=16,
         replace_existing=True
     )
-    
-    # Run playwright scraping for dorm every day at 6:00 AM
     scheduler.add_job(
         _run_playwright,
         'cron',
