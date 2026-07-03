@@ -40,6 +40,7 @@ def start():
         minute=50,
         replace_existing=True
     )
+    
     scheduler.add_job(
         _run_playwright,
         'cron',
