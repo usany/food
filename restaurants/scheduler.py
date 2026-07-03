@@ -96,7 +96,6 @@ def start():
     #     minute=0,
     #     replace_existing=True
     # )
-    
     # Example: Run backup daily at 2 AM
     # scheduler.add_job(
     #     call_command,
