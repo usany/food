@@ -1,3 +1,4 @@
+import re
 from datetime import datetime
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
@@ -17,15 +18,15 @@ from .models import MenuItem
 MEALS = [{'id': 0, 'name': '아침', 'time': 'breakfast'}, {'id': 1, 'name': '점심', 'time': 'lunch'}, {'id': 2, 'name': '간식', 'time': 'snack'}, {'id': 3, 'name': '저녁', 'time': 'dinner'}, {'id': 4, 'name': 'One-Dish', 'time': 'onedish'}, {'id': 5, 'name': '무인판매', 'time': 'unmanned'}]
 WEEKDAYS = [{'id': 0, 'name': '월', 'day': 'mon'}, {'id': 1, 'name': '화', 'day': 'tue'}, {'id': 2, 'name': '수', 'day': 'wed'}, {'id': 3, 'name': '목', 'day': 'thu'}, {'id': 4, 'name': '금', 'day': 'fri'}]
 RESTAURANTS = [
-    {'id': 1, 'title': '청운관 학생식당', 'campus': 'se', 'path': 'ch', 'mealsSemester': ['아침', '점심', '간식', '저녁'], 'mealsSemesterTime': ['08:30~10:00 (간편식: 09:00~10:00)', '11:00~14:30', '15:00~16:00', '17:00~18:30'], 'mealsVacation': ['점심']},
-    {'id': 2, 'title': '청운관 교직원식당', 'campus': 'se', 'path': 'cg', 'mealsSemester': ['점심'], 'mealsVacation': ['점심'], 'mealsSemesterTime': ['11:30~14:00']},
-    {'id': 3, 'title': '푸른솔 학생식당', 'campus': 'se', 'path': 'ph', 'mealsSemester': ['아침', '점심', 'One-Dish', '무인판매'], 'mealsVacation': ['아침', '점심'], 'mealsSemesterTime': ['08:30~10:00 (간편식: 09:00~10:00)', '11:00~14:30', '08:30~16:00', '14:30~소진시까지']},
-    {'id': 4, 'title': '푸른솔 교직원식당', 'campus': 'se', 'path': 'pg', 'mealsSemester': ['점심'], 'mealsVacation': ['점심'], 'mealsSemesterTime': ['11:30~14:00']},
-    {'id': 5, 'title': '한국외대 인문관 식당', 'campus': 'se', 'path': 'his', 'mealsSemester': ['아침', '점심', '저녁'], 'mealsVacation': ['아침', '점심', '저녁'], 'mealsSemesterTime': ['08:30~10:00 (간편식: 09:00~10:00)', '11:00~14:30', '17:00~18:30']},
-    {'id': 6, 'title': '한국외대 교수회관 식당', 'campus': 'se', 'path': 'hgs', 'mealsSemester': ['점심'], 'mealsVacation': ['점심'], 'mealsSemesterTime': ['11:30~14:00']},
-    {'id': 7, 'title': '학생회관 학생식당', 'campus': 'gl', 'path': 'hh', 'mealsSemester': ['아침', '점심', '저녁'], 'mealsVacation': ['아침', '점심', '저녁'], 'mealsSemesterTime': ['08:30~10:00 (간편식: 09:00~10:00)', '11:00~14:30', '17:00~18:30']},
-    {'id': 8, 'title': '학생회관 교직원식당', 'campus': 'gl', 'path': 'hg', 'mealsSemester': ['점심'], 'mealsVacation': ['점심'], 'mealsSemesterTime': ['11:30~14:00']},
-    {'id': 9, 'title': '제2기숙사 식당', 'campus': 'gl', 'path': 'jg', 'mealsSemester': ['아침', '점심', '저녁'], 'mealsVacation': ['아침', '점심', '저녁'], 'mealsSemesterTime': ['08:30~10:00 (간편식: 09:00~10:00)', '11:00~14:30', '17:00~18:30']},
+    {'id': 1, 'title': '청운관 학생식당', 'campus': 'se', 'path': 'ch', 'icon': 'utensils-crossed', 'color': '#2563eb', 'mealsSemester': ['아침', '점심', '간식', '저녁'], 'mealsSemesterTime': ['08:30~10:00 (간편식: 09:00~10:00)', '11:00~14:30', '15:00~16:00', '17:00~18:30'], 'mealsVacation': ['아침', '점심', '간식'], 'mealsVacationTime': ['(간편식: 09:00~10:00)', '11:00~14:00', '14:30~15:30']},
+    {'id': 2, 'title': '청운관 교직원식당', 'campus': 'se', 'path': 'cg', 'icon': 'chef-hat', 'color': '#059669', 'mealsSemester': ['점심'], 'mealsVacation': ['점심'], 'mealsSemesterTime': ['11:00~14:00'], 'mealsVacationTime': ['11:00~13:30']},
+    {'id': 3, 'title': '푸른솔 학생식당', 'campus': 'se', 'path': 'ph', 'icon': 'utensils', 'color': '#d97706', 'mealsSemester': ['아침', '점심', 'One-Dish', '무인판매'], 'mealsVacation': ['아침', '점심', 'One-Dish', '무인판매'], 'mealsSemesterTime': ['08:30~10:00 (간편식: 09:00~10:00)', '11:00~14:30', '08:30~16:00', '14:30~소진시까지'], 'mealsVacationTime': ['09:00~09:50', '11:00~14:00', '08:30~16:00', '14:00~소진시까지']},
+    {'id': 4, 'title': '푸른솔 교직원식당', 'campus': 'se', 'path': 'pg', 'icon': 'cooking-pot', 'color': '#dc2626', 'mealsSemester': ['점심'], 'mealsVacation': ['점심'], 'mealsSemesterTime': ['11:00~14:00'], 'mealsVacationTime': ['11:00~13:30']},
+    {'id': 5, 'title': '한국외대 인문관 식당', 'campus': 'se', 'path': 'his', 'icon': 'building-2', 'color': '#7c3aed', 'mealsSemester': ['아침', '점심', '저녁'], 'mealsVacation': ['점심', '저녁'], 'mealsSemesterTime': ['08:00~10:00', '11:00~14:30', '16:40~18:40'], 'mealsVacationTime': ['11:00~14:00', '16:40~18:40']},
+    {'id': 6, 'title': '한국외대 교수회관 식당', 'campus': 'se', 'path': 'hgs', 'icon': 'landmark', 'color': '#0891b2', 'mealsSemester': ['점심'], 'mealsVacation': ['점심'], 'mealsSemesterTime': ['11:00~13:30'], 'mealsVacationTime': ['11:00~13:30']},
+    {'id': 7, 'title': '학생회관 학생식당', 'campus': 'gl', 'path': 'hh', 'icon': 'school', 'color': '#db2777', 'mealsSemester': ['아침', '점심', '저녁'], 'mealsVacation': ['점심'], 'mealsSemesterTime': ['08:20~10:00', '11:00~14:00', '17:00~18:30'], 'mealsVacationTime': ['11:30~13:30']},
+    {'id': 8, 'title': '학생회관 교직원식당', 'campus': 'gl', 'path': 'hg', 'icon': 'book-open', 'color': '#ca8a04', 'mealsSemester': ['점심', '저녁'], 'mealsVacation': ['점심'], 'mealsSemesterTime': ['11:00~14:00', '17:00~18:30'], 'mealsVacationTime': ['11:30~13:30']},
+    {'id': 9, 'title': '제2기숙사 식당', 'campus': 'gl', 'path': 'jg', 'icon': 'home', 'color': '#65a30d', 'mealsSemester': ['아침', '점심', '저녁'], 'mealsVacation': ['아침', '점심', '저녁'], 'mealsSemesterTime': ['08:00~09:00', '11:30~13:30', '17:30~19:00'], 'mealsVacationTime': ['08:00~09:00', '11:30~13:30', '17:30~19:00']},
 ]
 LOCATIONS = {
     'ch': '청운관 학생식당',
@@ -365,7 +366,7 @@ FIXED_MENU = {
             'enmain': 'Shin Ramen / Jin Ramen Spicy / Jin Ramen Mild / Neoguri / Jjapaghetti / Ansung Tangmyun / Squid Jjambbong (Self & 2 Toppings)',
             'side': None,
             'enside': None,
-            'price': None,
+            'price': 3000,
             'day': None,
             'time_category': ['breakfast', 'lunch', 'dinner'],
             'time_detail': {'breakfast': ['08:00', '10:00'], 'lunch': ['11:00', '14:00'], 'dinner': ['17:00', '18:30']},
@@ -427,33 +428,42 @@ def menu_list(request, path, bases):
         from django.http import Http404
         raise Http404("Restaurant not found")
     title = r['title']
-    all_meals = r['mealsSemester']
     weekday_names = ['mon', 'tue', 'wed', 'thu', 'fri']
+    from datetime import timedelta
+    today = datetime.today()
     hour = datetime.now().hour
     today_idx = datetime.today().weekday()
     current_idx = today_idx + 1 if hour > 18 else today_idx
     default_day = request.GET.get('day', weekday_names[current_idx] if current_idx < 5 else 'mon')
     time_to_meal = {'breakfast': [8, 9, 10], 'lunch': [11, 12, 13, 14], 'snack': [15, 16], 'dinner': [17, 18, 19], 'onedish': [8, 9, 10, 11, 12, 13, 14, 15, 16], 'unmanned': [14, 15, 16]}
+    previous = request.GET.get('previous', 0)
+    weekdays = [d for d in WEEKDAYS if d['day'] == default_day]
+    selected_day = request.GET.get('day', weekdays[0]['day'] if weekdays else None)
+    start_of_week = today - timedelta(days=today_idx) - timedelta(weeks=int(previous)) if today_idx < 5 else today + timedelta(days=7-today_idx)
+    week = [(start_of_week + timedelta(days=i)).strftime('%Y%m%d') for i in range(5)]
+    week_without_year = [(start_of_week + timedelta(days=i)).strftime('%m.%d') for i in range(5)]
+    selected_date = week[weekday_names.index(selected_day)]
+    issemester = MenuItem.objects.filter(place='his', meal='breakfast', date=selected_date).exists() if path in ['his', 'hgs'] else MenuItem.objects.filter(place='ch', meal='dinner', date=selected_date).exists()
+    all_meals = r['mealsSemester'] if issemester else r['mealsVacation']
     default_meal_name = next((m for m, hours in time_to_meal.items() if hour in hours and m in [meal['time'] for meal in MEALS if meal['name'] in all_meals]), 'breakfast' if '아침' in all_meals else 'lunch')
     default_meal = request.GET.get('meal', default_meal_name)
-    previous = request.GET.get('previous', 0)
     if 'day' not in request.GET or 'meal' not in request.GET:
         from django.shortcuts import redirect
         return redirect(request.path + f'?day={default_day}&meal={default_meal}&previous={previous}')
-    weekdays = [d for d in WEEKDAYS if d['day'] == default_day]
     meal_tabs = [
         {
             'id': next((meal['time'] for meal in MEALS if meal['name'] == m), None),
             'label': m,
-            'meal_time': r['mealsSemesterTime'][r['mealsSemester'].index(m)]
+            'meal_time': r['mealsSemesterTime'][r['mealsSemester'].index(m)] if issemester else r['mealsVacationTime'][r['mealsVacation'].index(m)]
         }
         for m in all_meals
     ]
+    selected_meal = request.GET.get('meal', meal_tabs[0]['id'] if meal_tabs else None)
 
     # State: which meal tab is active — read from GET param, default to first
-    selected_meal = request.GET.get('meal', meal_tabs[0]['id'] if meal_tabs else None)
-    selected_day = request.GET.get('day', weekdays[0]['day'] if weekdays else None)
-    previous = request.GET.get('previous', 0)
+    # selected_meal = request.GET.get('meal', meal_tabs[0]['id'] if meal_tabs else None)
+    # selected_day = request.GET.get('day', weekdays[0]['day'] if weekdays else None)
+    # previous = request.GET.get('previous', 0)
     
     # Only pass dishes for the selected meal into context
     all_dishes = FIXED_MENU.get(path, [])
@@ -461,14 +471,20 @@ def menu_list(request, path, bases):
         d for d in all_dishes
         if selected_meal in d.get('time_category', [])
     ] if selected_meal else all_dishes
-    from datetime import timedelta
-    today = datetime.today()
-    start_of_week = today - timedelta(days=today_idx) - timedelta(weeks=int(previous)) if today_idx < 5 else today + timedelta(days=7-today_idx)
-    week = [(start_of_week + timedelta(days=i)).strftime('%Y%m%d') for i in range(5)]
-    week_without_year = [(start_of_week + timedelta(days=i)).strftime('%m.%d') for i in range(5)]
-    selected_date = week[weekday_names.index(selected_day)]
+    # from datetime import timedelta
+    # today = datetime.today()
+    # start_of_week = today - timedelta(days=today_idx) - timedelta(weeks=int(previous)) if today_idx < 5 else today + timedelta(days=7-today_idx)
+    # week = [(start_of_week + timedelta(days=i)).strftime('%Y%m%d') for i in range(5)]
+    # week_without_year = [(start_of_week + timedelta(days=i)).strftime('%m.%d') for i in range(5)]
+    # selected_date = week[weekday_names.index(selected_day)]
     db_qs = MenuItem.objects.filter(place=path, meal=selected_meal, day=selected_day, date=selected_date)
     filtered_dishes = list(db_qs) + filtered_dishes
+    # Enrich FIXED_MENU dicts with safe_main so the template can use dish.safe_main
+    filtered_dishes = [
+        {**d, 'safe_main': re.sub(r'[\\/*?"<>|]', '+', d.get('main', '') or '')}
+        if isinstance(d, dict) else d
+        for d in filtered_dishes
+    ]
 
 
     tabs = []
@@ -501,12 +517,13 @@ def menu_detail(request, path, meal, bases):
         from django.http import Http404
         raise Http404("Restaurant not found")
     fixed_menu = next((fixed for fixed in FIXED_MENU.get(path, []) if fixed['id'] == meal), None)
-    menu_item = get_object_or_404(MenuItem, id=meal) if fixed_menu == None else fixed_menu
+    get_menu_item = get_object_or_404(MenuItem, id=meal) if fixed_menu == None else fixed_menu
+    menu_item = get_menu_item if fixed_menu is None else fixed_menu
     lang = 'ko' if request.LANGUAGE_CODE == 'ko' else 'en'
-    time = f"{menu_item.date[0:4]}.{menu_item.date[4:6]}.{menu_item.date[6:8]}" if fixed_menu == None else ", ".join(m['name'] for tc in fixed_menu.get('time_category', []) for m in MEALS if m['time'] == tc)
-    day = next((w['name'] for w in WEEKDAYS if w['day'] == menu_item.day), None) if fixed_menu == None else ('월~목' if path == 'ph' else '매일')
-    meal = next((m['name'] for m in MEALS if m['time'] == menu_item.meal), None) if fixed_menu == None else ", ".join(m['name']+':'+fixed_menu.get('time_detail', {})[tc][0]+'~'+fixed_menu.get('time_detail', {})[tc][1] for tc in fixed_menu.get('time_category', []) for m in MEALS if m['time'] == tc)
-    item_main = menu_item.main if fixed_menu is None else menu_item['main']
+    time = f"{menu_item.date[0:4]}.{menu_item.date[4:6]}.{menu_item.date[6:8]}" if fixed_menu == None else ''
+    day = next((w['name'] for w in WEEKDAYS if w['day'] == menu_item.day), None) if fixed_menu == None else ('월~목' if path == 'ph' else '평일')
+    meal = next((m['name'] for m in MEALS if m['time'] == menu_item.meal), None) if fixed_menu == None else ", ".join(m['name'] for tc in fixed_menu.get('time_category', []) for m in MEALS if m['time'] == tc)
+    item_main = menu_item.safe_main if fixed_menu is None else menu_item['main']
     return render(request, 'pages/menu_detail.html', {'restaurant': {'title': title, 'meal_tabs': meal_tabs, 'path': path}, 'day': day, 'meal': meal, 'menu_item': menu_item, 'image_url': 'https://objectstorage.ap-chuncheon-1.oraclecloud.com/n/ax0ym4amgnfk/b/bucket-20260516-0145/o/'+item_main, 'time': time, 'bases': bases, 'path': path, 'lang': lang, 'fixed_menu': fixed_menu})
 
 

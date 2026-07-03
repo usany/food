@@ -8,39 +8,36 @@
 {% endblock %}
 
 {% block content %}
-<div class="max-w-2xl mx-auto py-10">
-    <a href="{% url 'menu_list' bases path %}" class="text-blue-600 font-medium text-sm hover:underline">&larr; {% trans "Back" %}</a>
+<div class="detail-wrapper">
+    <a href="{% url 'menu_list' bases path %}" class="detail-back"><i data-lucide="arrow-left"></i> {% trans "뒤로" %}</a>
 
     <div class="detail-card">
-        {% if image_url %}
         <img src="{{ image_url| cut:' ' }}" alt="{{ menu_item.main }}" class="detail-image">
-        {% else %}
-        <div class="detail-image-placeholder">
-            {% trans "No image available" %}
-        </div>
-        {% endif %}
 
         <div class="detail-info">
-            <h1 class="detail-restaurant">{% trans restaurant.title %}</h1>
+            <div class="detail-title-container">
+                <h1 class="detail-restaurant">{% trans restaurant.title %}</h1>
+                <h1 class="campus-heading">{% if bases == 'gl' %}global{% else %}seoul{% endif %}</h1>
+            </div>
             
-            <h1 class="detail-time">{{ time }}</h1>
-            <h1 class="detail-meal">{% trans day %} {% trans meal %}</h1>
-            <!-- {% if day != None and meal != None %}
-            <h1 class="detail-meal">{% trans day %} {% trans meal %}</h1>
-            {% else %}
-            <h1 class="detail-meal">{% trans '매일' %}</h1> -->
-            <!-- {% endif %} -->
-            <h1 class="detail-title">{% if LANGUAGE_CODE == 'en' %}{{ menu_item.enmain }}{% else %}{{ menu_item.main }}{% endif %}</h1>
-            
-            {% if LANGUAGE_CODE == 'en' %}
-            {% if menu_item.enside %}
-            <p class="detail-side">{{ menu_item.enside }}</p>
-            {% endif %}
-            {% else %}
-            {% if menu_item.side %}
-            <p class="detail-side">{{ menu_item.side }}</p>
-            {% endif %}
-            {% endif %}
+            <div class="detail-meta">
+                <span class="detail-time">{{ time }}</span>
+                <span class="detail-meal">{% trans day %}</span>
+                <span class="detail-meal">{% trans meal %}</span>
+            </div>
+            <div class="dish-detail-container">
+                <h1 class="detail-title">{% if LANGUAGE_CODE == 'en' %}{{ menu_item.enmain }}{% else %}{{ menu_item.main }}{% endif %}</h1>
+                
+                {% if LANGUAGE_CODE == 'en' %}
+                {% if menu_item.enside %}
+                <p class="detail-side">{{ menu_item.enside }}</p>
+                {% endif %}
+                {% else %}
+                {% if menu_item.side %}
+                <p class="detail-side">{{ menu_item.side }}</p>
+                {% endif %}
+                {% endif %}
+            </div>
             
             <div class="detail-footer">
                 <div>
