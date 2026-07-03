@@ -84,28 +84,7 @@ def start():
         minute=16,
         replace_existing=True
     )
-    
-    # Add more jobs here as needed
-    # Example: Run custom command every hour
-    # scheduler.add_job(
-    #     call_command,
-    #     'cron',
-    #     args=['your_hourly_task'],
-    #     id='hourly_task',
-    #     hour='*',
-    #     minute=0,
-    #     replace_existing=True
-    # )
-    # scheduler.add_job(
-    #     call_command,
-    #     'cron',
-    #     args=['backup'],
-    #     id='daily_backup',
-    #     hour=2,
-    #     minute=0,
-    #     replace_existing=True
-    # )
-    
+        
     if not scheduler.running:
         scheduler.start()
 
