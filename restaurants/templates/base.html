@@ -22,8 +22,8 @@
     {% progressive_web_app_meta %}
 </head>
 
-<body class="h-full m-0 p-0 font-['Inter',sans-serif] bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 pb-[90px] box-border">
-    <main class="p-5 max-w-3xl mx-auto">
+<body>
+    <main>
         {% block content %}{% endblock %}
     </main>
 
@@ -33,7 +33,7 @@
             <button class="nav-item" onclick="document.querySelector('.bottom-nav').classList.toggle('expanded')">
                 <i data-lucide="chevron-down"></i>
             </button>
-            <div class="text-center">{% trans "설정" %}</div>
+            <div class="settings-label">{% trans "설정" %}</div>
             <div class="nav-items-row">
                 <!-- Campus Button (hidden by default, shown when expanded) -->
                 <button id="campus-toggle" onclick="toggleBases()" title="{% trans 'Switch campus' %}">
@@ -56,7 +56,7 @@
             <i data-lucide="chevron-up"></i>
         </button>
         <!-- Nav Items Wrapper -->
-        <div class="flex">
+        <div class="nav-items-wrapper">
             <!-- Location 1: Home Link -->
             <a href="{% url 'home_menu' 'se' %}" class="nav-item" id="nav-home" title="{% trans 'Home' %}">
                 <i data-lucide="home"></i>
@@ -106,7 +106,7 @@
 
         function updateThemeIcon(isDark) {
             const themeIcon = document.getElementById('theme-icon');
-            themeIcon.innerHTML = `<i data-lucide="${isDark ? 'moon' : 'sun'}" class="w-4 h-4"></i>`;
+            themeIcon.innerHTML = `<i data-lucide="${isDark ? 'moon' : 'sun'}"></i>`;
             if (window.lucide) {
                 lucide.createIcons();
             }

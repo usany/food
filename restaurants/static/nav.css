@@ -1,5 +1,23 @@
-body, main {
-    min-height: 100vh;
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: #f8fafc;
+    color: #1e293b;
+    padding-bottom: 90px;
+    box-sizing: border-box;
+}
+
+:root.dark body {
+    background-color: #0f172a;
+    color: #e2e8f0;
+}
+
+main {
+    padding: 1.25rem;
+    max-width: 48rem;
+    margin: 0 auto;
 }
 
 .bottom-nav {
@@ -34,7 +52,7 @@ body, main {
     width: 100%;
 }
 
-.top-buttons-row .text-center {
+.top-buttons-row .settings-label {
     text-align: center;
 }
 
@@ -117,7 +135,7 @@ body, main {
     height: 1rem;
 }
 
-.bottom-nav > .flex {
+.bottom-nav > .nav-items-wrapper {
     display: flex;
     gap: 1.875rem;
     justify-content: space-around;
