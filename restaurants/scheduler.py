@@ -81,25 +81,6 @@ def start():
         replace_existing=True
     )
     
-    # scheduler.add_job(
-    #     call_command,
-    #     'cron',
-    #     args=['your_hourly_task'],
-    #     id='hourly_task',
-    #     hour='*',
-    #     minute=0,
-    #     replace_existing=True
-    # )
-    # scheduler.add_job(
-    #     call_command,
-    #     'cron',
-    #     args=['backup'],
-    #     id='daily_backup',
-    #     hour=2,
-    #     minute=0,
-    #     replace_existing=True
-    # )
-    
     if not scheduler.running:
         scheduler.start()
 
