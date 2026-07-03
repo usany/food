@@ -70,20 +70,11 @@
         </div>
     </nav>
     <script>
-        // localStorage utilities
-        function setStorage(name, value) {
-            localStorage.setItem(name, value);
-        }
-
-        function getStorage(name) {
-            return localStorage.getItem(name);
-        }
-
         // Toggle language between English and Korean (or other languages)
         function toggleBase() {
-            const currentLang = getStorage('base') || 'ko';
+            const currentLang = localStorage.getItem('base') || 'ko';
             const newLang = currentLang === 'ko' ? 'en' : 'ko';
-            setStorage('base', newLang);
+            localStorage.setItem('base', newLang);
             updateLanguageIcon(newLang);
             const path = window.location.pathname;
             const currentBase = path.slice(4, 6) === 'gl' ? 'gl' : 'se';
@@ -123,21 +114,21 @@
 
         // Toggle base/campus between 'se' and 'gl'
         function toggleBases() {
-            const currentBase = getStorage('bases') || 'se';
+            const currentBase = localStorage.getItem('bases') || 'se';
             const newBase = currentBase === 'se' ? 'gl' : 'se';
-            setStorage('bases', newBase);
+            localStorage.setItem('bases', newBase);
             updateCampusIcon(newBase);
         }
         function toggleDarkMode() {
             document.documentElement.classList.toggle('dark');
             const isDark = document.documentElement.classList.contains('dark');
-            setStorage('darkMode', isDark);
+            localStorage.setItem('darkMode', isDark);
             updateThemeIcon(isDark);
         }
         function toggleNavExpanded() {
             const nav = document.querySelector('.bottom-nav');
             nav.classList.toggle('expanded');
-            setStorage('navExpanded', nav.classList.contains('expanded'));
+            localStorage.setItem('navExpanded', nav.classList.contains('expanded'));
         }
 
         document.addEventListener('click', (e) => {
@@ -147,7 +138,7 @@
                 // treat it as inside-nav to avoid false close
                 if (!document.body.contains(e.target)) return;
                 nav.classList.remove('expanded');
-                setStorage('navExpanded', 'false');
+                localStorage.setItem('navExpanded', 'false');
             }
         });
 
@@ -163,23 +154,23 @@
             }
 
             // Restore nav expanded state
-            if (getStorage('navExpanded') === 'true') {
+            if (localStorage.getItem('navExpanded') === 'true') {
                 document.querySelector('.bottom-nav').classList.add('expanded');
             }
 
             // Initialize dark mode from localStorage
-            const isDarkMode = getStorage('darkMode') === 'true';
+            const isDarkMode = localStorage.getItem('darkMode') === 'true';
             if (isDarkMode) {
                 document.documentElement.classList.add('dark');
             }
             updateThemeIcon(isDarkMode);
 
             // Initialize language icon based on localStorage
-            const currentLang = getStorage('base') || 'ko';
+            const currentLang = localStorage.getItem('base') || 'ko';
             updateLanguageIcon(currentLang);
 
             // Initialize campus icon based on localStorage
-            const currentBase = getStorage('bases') || 'se';
+            const currentBase = localStorage.getItem('bases') || 'se';
             updateCampusIcon(currentBase);
         });
     </script>
