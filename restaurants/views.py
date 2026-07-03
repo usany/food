@@ -5,16 +5,6 @@ from django.http import HttpResponse
 from django.contrib.admin.views.decorators import staff_member_required
 from .models import MenuItem
 
-# RESTAURANT_TITLES = {
-#     'ph': '푸른솔 학생식당',
-#     'pg': '푸른솔 교직원식당',
-#     'ch': '청운관 학생식당',
-#     'cg': '청운관 교직원식당',
-#     'hi': '한국외대 인문관 식당',
-#     'hg': '한국외대 교수회관 식당',
-#     'hh': '학생회관 학생식당',
-#     'jg': '제2기숙사 식당',
-# }
 MEALS = [{'id': 0, 'name': '아침', 'time': 'breakfast'}, {'id': 1, 'name': '점심', 'time': 'lunch'}, {'id': 2, 'name': '간식', 'time': 'snack'}, {'id': 3, 'name': '저녁', 'time': 'dinner'}, {'id': 4, 'name': 'One-Dish', 'time': 'onedish'}, {'id': 5, 'name': '무인판매', 'time': 'unmanned'}]
 WEEKDAYS = [{'id': 0, 'name': '월', 'day': 'mon'}, {'id': 1, 'name': '화', 'day': 'tue'}, {'id': 2, 'name': '수', 'day': 'wed'}, {'id': 3, 'name': '목', 'day': 'thu'}, {'id': 4, 'name': '금', 'day': 'fri'}]
 RESTAURANTS = [
