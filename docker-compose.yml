@@ -1,9 +1,11 @@
 services:
   web:
     build: .
-    container_name: mkdirfood
+    container_name: food
     ports:
       - "8000:8000"
+    # environment:
+    #   - TZ=Asia/Seoul
     env_file:
       - .env
     volumes:

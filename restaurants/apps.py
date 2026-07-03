@@ -7,6 +7,6 @@ class RestaurantsConfig(AppConfig):
 
     def ready(self):
         # Prevent scheduler from running multiple times when auto-reloading
-        if os.environ.get('RUN_MAIN', None) != 'true':
-            from . import scheduler
-            scheduler.start()
+        # if os.environ.get('RUN_MAIN', None) != 'true':
+        from . import scheduler
+        scheduler.start()

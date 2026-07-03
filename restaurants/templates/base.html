@@ -115,7 +115,7 @@
 
         function updateThemeIcon(isDark) {
             const themeIcon = document.getElementById('theme-icon');
-            themeIcon.innerHTML = `<i data-lucide="${isDark ? 'moon' : 'sun'}" class="w-4 h-4"></i>`;
+            themeIcon.innerHTML = `<i data-lucide="${isDark ? 'moon' : 'sun'}"></i>`;
             if (window.lucide) {
                 lucide.createIcons();
             }
