@@ -29,7 +29,7 @@
     <nav class="bottom-nav">
         <!-- Top Buttons Wrapper (Dark Mode + Language) -->
         <div class="top-buttons-row">
-            <button class="nav-item" onclick="document.querySelector('.bottom-nav').classList.toggle('expanded')">
+            <button class="nav-item" id="nav-toggle-expanded" onclick="toggleNavExpanded()">
                 <i data-lucide="chevron-down"></i>
             </button>
             <div>{% trans "설정" %}</div>
@@ -92,10 +92,7 @@
 
         function updateCampusIcon(campus) {
             const campusIcon = document.getElementById('campus-icon');
-            if (campus === 'se') {
-                campusIcon.textContent = 'seoul';
-            } else:
-                campusIcon.textContent = 'global'
+            campusIcon.textContent = campus === 'se' ? 'seoul' : 'global';
         }
 
         function updateThemeIcon(isDark) {
