@@ -87,10 +87,7 @@
 
         function updateLanguageIcon(lang) {
             const languageIcon = document.getElementById('language-icon');
-            if (lang === 'ko') {
-                languageIcon.textContent = '한국어';
-            } else:
-                languageIcon.textContent = 'English'
+            languageIcon.textContent = lang === 'ko' ? '한국어' : 'English';
         }
 
         function updateCampusIcon(campus) {
