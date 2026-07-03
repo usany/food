@@ -1,25 +1,21 @@
 {% extends 'base.html' %}
 {% load static i18n %}
 
-{% block title %}{% trans "Welcome to cookie" %}{% endblock %}
+{% block title %}{% trans "Welcome to 쿠키khukie쿠우키" %}{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'home.css' %}">
 {% endblock %}
 
 {% block content %}
-<div class="text-center py-10">
-    <h1 id="welcome-text" class="welcome-heading">{% trans "Welcome to cookie" %}</h1>
+<div>
+    <h1 id="welcome-text" class="welcome-heading">{% trans "환영합니다" %} {% trans "쿠우키입니다" %}</h1>
+    <h1 class="campus-heading">{% if bases == 'gl' %}global campus{% else %}seoul campus{% endif %}</h1>
     <div class="restaurant-grid">
         {% for item in items %}
         <a href="{% url 'menu_list' bases item.path %}"
             class="restaurant-card">
-            <svg class="restaurant-card-icon" fill="none"
-                stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                    d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
-                </path>
-            </svg>
+            <i data-lucide="{{ item.icon }}" class="restaurant-card-icon" style="color: {{ item.color }}"></i>
             <span class="restaurant-card-label">{% trans item.title %}</span>
         </a>
         {% endfor %}

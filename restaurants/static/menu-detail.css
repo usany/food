@@ -1,27 +1,56 @@
+/* ── Wrapper ── */
+.detail-wrapper {
+    max-width: 42rem;
+    padding: 2.5rem 1rem;
+}
+
+/* ── Back link ── */
+.detail-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding-bottom: 1rem;
+    color: #1d4ed8;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-decoration: none;
+}
+.detail-back:hover { text-decoration: underline; }
+html.dark .detail-back { color: #60a5fa; }
+
+.detail-back svg {
+    width: 1rem;
+    height: 1rem;
+}
+
+/* ── Card ── */
 .detail-card {
     display: flex;
-    align-items: center;
+    flex-direction: row;
+    align-items: stretch;
     border-radius: 0.75rem;
-    border: 1px solid #f3f4f6;
+    border: 1px solid #dbeafe;
     background-color: #fff;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     overflow: hidden;
 }
 
 html.dark .detail-card {
-    border-color: #374151;
+    border-color: #172554;
     background-color: #1f2937;
 }
 
+/* ── Image ── */
 .detail-image {
     width: 12.5rem;
-    height: 16rem;
+    min-width: 12.5rem;
+    height: auto;
     object-fit: cover;
 }
 
 .detail-image-placeholder {
-    width: 100%;
-    height: 12rem;
+    width: 12.5rem;
+    min-width: 12.5rem;
     background-color: #f3f4f6;
     display: flex;
     align-items: center;
@@ -35,68 +64,99 @@ html.dark .detail-image-placeholder {
     color: #6b7280;
 }
 
+/* ── Info panel ── */
 .detail-info {
     padding: 1.5rem;
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.detail-restaurant,
+.detail-time,
+.detail-meal,
+.detail-title,
+.detail-side {
+    margin: 0;
+}
+
+.detail-title-container {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
 }
 
 .detail-restaurant {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-weight: 700;
     color: #1d4ed8;
-    margin-bottom: 0.5rem;
 }
+html.dark .detail-restaurant { color: #60a5fa; }
 
-html.dark .detail-restaurant {
-    color: #60a5fa;
+.campus-heading {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #4b5563;
+    text-transform: uppercase;
+    margin: 0;
+}
+html.dark .campus-heading { color: #9ca3af; }
+
+.detail-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .detail-time {
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-weight: 700;
     color: #1d4ed8;
-    margin-bottom: 0.5rem;
 }
-
-html.dark .detail-time {
-    color: #60a5fa;
-}
+html.dark .detail-time { color: #60a5fa; }
 
 .detail-meal {
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-weight: 700;
     color: #1d4ed8;
-    margin-bottom: 0.5rem;
 }
+html.dark .detail-meal { color: #60a5fa; }
 
-html.dark .detail-meal {
-    color: #60a5fa;
+.dish-detail-container {
+    border: 2px dashed #dbeafe;
+    border-radius: 0.75rem;
+    padding: 1.25rem;
+    margin: 0.75rem 0;
+    background-color: #f8fafc;
+}
+html.dark .dish-detail-container {
+    border-color: #172554;
+    background-color: #1e293b;
 }
 
 .detail-title {
     font-size: 1.5rem;
     font-weight: 700;
-    color: #1d4ed8;
-    margin-bottom: 0.5rem;
+    color: #1f2937;
+    word-break: break-word;
 }
-
-html.dark .detail-title {
-    color: #60a5fa;
-}
+html.dark .detail-title { color: #f3f4f6; }
 
 .detail-side {
     color: #4b5563;
     font-size: 0.875rem;
-    margin-bottom: 1rem;
+    word-break: break-word;
 }
-
-html.dark .detail-side {
-    color: #d1d5db;
-}
+html.dark .detail-side { color: #d1d5db; }
 
 .detail-footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
 }
 
 .detail-price {
@@ -107,19 +167,59 @@ html.dark .detail-side {
 .detail-price-extra {
     color: #6b7280;
     font-size: 0.875rem;
-    margin-top: 0.25rem;
+    padding-top: 0.25rem;
+    margin: 0;
 }
-
-html.dark .detail-price-extra {
-    color: #9ca3af;
-}
+html.dark .detail-price-extra { color: #9ca3af; }
 
 .detail-stamp {
     color: #16a34a;
     font-size: 0.75rem;
     font-weight: 500;
 }
+html.dark .detail-stamp { color: #4ade80; }
 
-html.dark .detail-stamp {
-    color: #4ade80;
+/* ── Responsive: small screens ── */
+@media (max-width: 480px) {
+    .detail-wrapper {
+        padding: 1rem 0.75rem;
+    }
+
+    .detail-card {
+        flex-direction: column;
+    }
+
+    .detail-image {
+        width: 100%;
+        min-width: auto;
+        max-height: 14rem;
+        object-fit: cover;
+    }
+
+    .detail-image-placeholder {
+        width: 100%;
+        min-width: auto;
+        height: 8rem;
+    }
+
+    .detail-info {
+        padding: 1rem;
+    }
+
+    .detail-restaurant {
+        font-size: 1.1rem;
+    }
+
+    .detail-time,
+    .detail-meal {
+        font-size: 0.9rem;
+    }
+
+    .detail-title {
+        font-size: 1.1rem;
+    }
+
+    .detail-price {
+        font-size: 1.1rem;
+    }
 }

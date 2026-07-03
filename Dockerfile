@@ -1,14 +1,4 @@
-FROM node:22-bookworm AS builder
-
-WORKDIR /app
-
-COPY package.json pnpm-lock.yaml ./
-RUN corepack enable && pnpm install --frozen-lockfile
-
-COPY . .
-RUN pnpm build
-
-FROM python:3.13-slim-bookworm AS runtime
+FROM python:3.13-slim-bookworm
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libgtk-3-0 \
@@ -26,7 +16,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libatk1.0-0 \
     libatk-bridge2.0-0 \
     libdrm2 \
+    tzdata \
     && rm -rf /var/lib/apt/lists/*
+
+# ENV TZ=Europe/Oslo
 
 WORKDIR /app
 
@@ -45,8 +38,9 @@ RUN pip install --no-cache-dir \
 RUN python -m playwright install chromium \
     && python -m playwright install-deps chromium
 
-COPY --from=builder /app .
+COPY . .
 
-RUN python3 manage.py collectstatic --noinput
+RUN python manage.py collectstatic --noinput
+
 EXPOSE 8000
-CMD ["gunicorn", "-c", "gunicorn.conf.py"]
+CMD ["gunicorn", "restaurants.wsgi:application", "-b", "0.0.0.0:8000"]

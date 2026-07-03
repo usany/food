@@ -8,3 +8,5 @@ node_modules/
 .env
 restaurants/management/commands/downloads/
 *.png
+!staticfiles/*.png
+!**/static/*.png
