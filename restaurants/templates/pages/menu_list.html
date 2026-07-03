@@ -27,11 +27,9 @@
     </div>
     {% if tabs %}
     <div class="tab-bar--border-bottom">
-        <div class="tab-bar" role="tablist" aria-label="{% trans 'Day selection' %}">
+        <div class="tab-bar">
             {% for tab in tabs %}
-            <a id="daytab-{{ tab.day }}" href="?day={{ tab.day }}{% if selected_meal %}&meal={{ selected_meal }}{% endif %}&previous={{ previous }}" role="tab" data-tab="{{ tab.day }}"
-                aria-selected="{% if selected_day == tab.day %}true{% else %}false{% endif %}"
-                aria-controls="panel-{{ tab.day }}"
+            <a id="daytab-{{ tab.day }}" href="?day={{ tab.day }}{% if selected_meal %}&meal={{ selected_meal }}{% endif %}&previous={{ previous }}"
                 class="tab {% if selected_day == tab.day %}tab--active{% endif %}">
                 {% trans tab.name %}
                 <br />
@@ -43,11 +41,9 @@
     {% endif %}
     {% if restaurant.meal_tabs %}
     <nav aria-label="{% trans 'Meal time selection' %}">
-        <div class="meal-tab-bar" role="tablist">
+        <div class="meal-tab-bar">
             {% for tab in restaurant.meal_tabs %}
-            <a id="tab-{{ tab.id }}" href="?meal={{ tab.id }}{% if selected_day %}&day={{ selected_day }}{% endif %}&previous={{ previous }}" role="tab"
-                aria-selected="{% if selected_meal == tab.id %}true{% else %}false{% endif %}"
-                aria-controls="menu-panel"
+            <a id="tab-{{ tab.id }}" href="?meal={{ tab.id }}{% if selected_day %}&day={{ selected_day }}{% endif %}&previous={{ previous }}"
                 class="tab {% if selected_meal == tab.id %}tab--active{% endif %}">
                 {% trans tab.label %}
                 <span class="tab-subtitle">{% trans tab.meal_time %}</span>
@@ -56,9 +52,7 @@
         </div>
     </nav>
 
-    {# Only one panel — only active meal's dishes are in the DOM #}
-    <section id="menu-panel" role="tabpanel" aria-labelledby="tab-{{ selected_meal }}"
-        aria-label="{{ selected_meal }} {% trans 'menu' %}">
+    <section id="menu-panel" aria-label="{{ selected_meal }} {% trans 'menu' %}">
         <ul class="dish-list">
             {% for dish in menu %}
             <li class="dish-item {% if dish.non_pork %}dish-item--pork-free{% endif %}">
@@ -86,25 +80,4 @@
     {% endif %}
 </div>
 
-<script>
-    // Weekday tabs — toggle HTML `hidden` attribute (accessible, screen-reader safe)
-    document.querySelectorAll('.tab').forEach((tab) => {
-        tab.addEventListener('click', () => {
-            document.querySelectorAll('.tab').forEach((t) => {
-                t.classList.remove('tab--active');
-                t.setAttribute('aria-selected', 'false');
-            });
-            tab.classList.add('tab--active');
-            tab.setAttribute('aria-selected', 'true');
-
-            document.querySelectorAll('[id^="panel-"]').forEach((panel) => {
-                if (panel.id === `panel-${tab.dataset.tab}`) {
-                    panel.removeAttribute('hidden');
-                } else {
-                    panel.setAttribute('hidden', '');
-                }
-            });
-        });
-    });
-</script>
 {% endblock %}
