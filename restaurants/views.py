@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from .models import MenuItem
 from .constants import * 
 import os
+
 def root_redirect(request):
     """Redirect to /gl or /se based on localStorage"""
     html = """<!DOCTYPE html>
