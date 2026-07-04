@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static i18n %}
 
-{% block title %}{{ restaurant.title }}{% endblock %}
+{% block title %}{{ title }}{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'menu-list.css' %}">
@@ -11,7 +11,7 @@
 <div class="list-wrapper">
     <a href="{% url 'home_menu' bases %}" class="list-back"><i data-lucide="arrow-left"></i> {% trans "뒤로" %}</a>
     <div class="list-title-container">
-        <h1 class="list-title">{% trans restaurant.title %}</h1>
+        <h1 class="list-title">{% trans title %}</h1>
         <h1 class="campus-heading">{% if bases == 'gl' %}global{% else %}seoul{% endif %}</h1>
     </div>
     <div class="week-nav">
@@ -39,10 +39,10 @@
         </div>
     </div>
     {% endif %}
-    {% if restaurant.meal_tabs %}
+    {% if meal_tabs %}
     <nav>
         <div class="meal-tab-bar">
-            {% for tab in restaurant.meal_tabs %}
+            {% for tab in meal_tabs %}
             <a id="tab-{{ tab.id }}" href="?meal={{ tab.id }}{% if selected_day %}&day={{ selected_day }}{% endif %}&previous={{ previous }}"
                 class="tab {% if selected_meal == tab.id %}tab--active{% endif %}">
                 {% trans tab.label %}
@@ -57,7 +57,7 @@
             {% for dish in menu %}
             <li class="dish-item {% if dish.non_pork %}dish-item--pork-free{% endif %}">
                 <a href="{% url 'menu_detail' bases=bases path=path meal=dish.id %}" class="dish-link">
-                    <img src="https://objectstorage.ap-chuncheon-1.oraclecloud.com/n/ax0ym4amgnfk/b/bucket-20260516-0145/o/{{ dish.safe_main|cut:' ' }}" alt="{{ dish.main }}" class="dish-image"/>
+                    <img src="{{ storage_url }}{{ dish.safe_main|cut:' ' }}" alt="{{ dish.main }}" class="dish-image"/>
                     <div class="dish-info">
                         <span class="dish-name">{% if LANGUAGE_CODE == 'en' %}{{ dish.enmain }} {% else %}{{ dish.main }}{% endif %}</span>
                         {% if dish.stamp %}

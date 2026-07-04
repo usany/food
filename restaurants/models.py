@@ -1,3 +1,5 @@
+import re
+
 from django.db import models
 
 
@@ -21,3 +23,7 @@ class MenuItem(models.Model):
     
     def __str__(self):
         return self.main
+
+    @property
+    def safe_main(self):
+        return re.sub(r'[\\/*?:"<>|]', '+', self.main or '')

@@ -1,7 +1,12 @@
+.list-wrapper {
+    padding-top: 2.55rem;
+}
+
 .welcome-heading {
     font-size: 2rem;
     font-weight: 700;
     color: #1d4ed8;
+    text-align: center;
 }
 
 html.dark .welcome-heading {
@@ -14,6 +19,7 @@ html.dark .welcome-heading {
     color: #4b5563;
     text-transform: uppercase;
     margin: 0;
+    text-align: center;
 }
 
 html.dark .campus-heading {

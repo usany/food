@@ -16,18 +16,18 @@
 
         <div class="detail-info">
             <div class="detail-title-container">
-                <h1 class="detail-restaurant">{% trans restaurant.title %}</h1>
+                <h1 class="detail-restaurant">{% trans title %}</h1>
                 <h1 class="campus-heading">{% if bases == 'gl' %}global{% else %}seoul{% endif %}</h1>
             </div>
-            
             <div class="detail-meta">
+                {% if time %}
                 <span class="detail-time">{{ time }}</span>
+                {% endif %}
                 <span class="detail-meal">{% trans day %}</span>
                 <span class="detail-meal">{% trans meal %}</span>
             </div>
             <div class="dish-detail-container">
                 <h1 class="detail-title">{% if LANGUAGE_CODE == 'en' %}{{ menu_item.enmain }}{% else %}{{ menu_item.main }}{% endif %}</h1>
-                
                 {% if LANGUAGE_CODE == 'en' %}
                 {% if menu_item.enside %}
                 <p class="detail-side">{{ menu_item.enside }}</p>
@@ -38,7 +38,6 @@
                 {% endif %}
                 {% endif %}
             </div>
-            
             <div class="detail-footer">
                 <div>
                     <span class="detail-price">₩{{ menu_item.price }}</span>
