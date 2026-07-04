@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from .models import MenuItem
 from .constants import * 
-
+import os
 def root_redirect(request):
     """Redirect to /gl or /se based on localStorage"""
     html = """<!DOCTYPE html>
@@ -110,14 +110,12 @@ def menu_list(request, path, bases):
         'path': path,
         'week': week,
         'previous': previous,
-        'storage_url': 'https://objectstorage.ap-chuncheon-1.oraclecloud.com/n/ax0ym4amgnfk/b/bucket-20260516-0145/o/'
+        'storage_url': os.getenv('STORAGE_URL')
     })
 
 
 def menu_detail(request, path, meal, bases):
     """Display details for a specific menu item"""
-    # menu_item = get_object_or_404(MenuItem, url=path)
-    # menu_item = {'title': path, 'meal': meal, 'order': 0}
     restaurant = next((r for r in RESTAURANTS if r['path'] == path), None)
     title = restaurant['title']
     meal_tabs = restaurant['mealsSemester']
@@ -130,7 +128,7 @@ def menu_detail(request, path, meal, bases):
     day = next((w['name'] for w in WEEKDAYS if w['day'] == menu_item.day), None) if fixed_menu is None else ('월~목' if path == 'ph' else '평일')
     meal = next((m['name'] for m in MEALS if m['time'] == menu_item.meal), None) if fixed_menu is None else ", ".join(m['name'] for tc in fixed_menu.get('time_category', []) for m in MEALS if m['time'] == tc)
     item_main = menu_item.safe_main if fixed_menu is None else menu_item['main']
-    return render(request, 'pages/menu_detail.html', {'title': title, 'day': day, 'meal': meal, 'menu_item': menu_item, 'image_url': 'https://objectstorage.ap-chuncheon-1.oraclecloud.com/n/ax0ym4amgnfk/b/bucket-20260516-0145/o/'+item_main, 'time': time, 'bases': bases, 'path': path})
+    return render(request, 'pages/menu_detail.html', {'title': title, 'day': day, 'meal': meal, 'menu_item': menu_item, 'image_url': os.getenv('STORAGE_URL')+item_main, 'time': time, 'bases': bases, 'path': path})
 
 
 # @staff_member_required
