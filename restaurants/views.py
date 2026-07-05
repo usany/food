@@ -77,7 +77,6 @@ def menu_list(request, path, bases):
     ]
     selected_meal = request.GET.get('meal', meal_tabs[0]['id'] if meal_tabs else None)
     
-    # Only pass dishes for the selected meal into context
     all_dishes = FIXED_MENU.get(path, [])
     filtered_dishes = [
         d for d in all_dishes
@@ -132,6 +131,7 @@ def menu_detail(request, path, meal, bases):
     return render(request, 'pages/menu_detail.html', {'title': title, 'day': day, 'meal': meal, 'menu_item': menu_item, 'image_url': os.getenv('STORAGE_URL')+item_main, 'time': time, 'bases': bases, 'path': path})
 
 
+# @staff_member_required
 def admin_view(request):
     """Custom admin view for managing menu items"""
     items = MenuItem.objects.all()
