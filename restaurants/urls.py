@@ -31,7 +31,6 @@ urlpatterns = [
     # path('gl/<str:path>/', views.menu_list, name='menu_list_gl'),
     # path('gl/<str:path>/<str:meal>/', views.menu_detail, name='menu_detail_gl'),
     # path('adminpage/', views.admin_view, name='admin_view'),
-    # path('pages/', include('pages.urls')),
     # Generic language/campus route - MUST BE LAST to avoid catching other routes
     # path('<str:base>/<str:bases>/', views.home_menu, name='home_menu'),
     # path('<str:base>/<str:bases>/<str:path>/', views.menu_list, name='home_menu'),
