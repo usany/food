@@ -24,7 +24,6 @@ urlpatterns = [
     path('', include('pwa.urls')),
     path('admin/', admin.site.urls),
     path("__reload__/", include("django_browser_reload.urls")),
-    
     # Generic language/campus route - MUST BE LAST to avoid catching other routes
     # path('<str:base>/<str:bases>/', views.home_menu, name='home_menu'),
     # path('<str:base>/<str:bases>/<str:path>/', views.menu_list, name='home_menu'),
