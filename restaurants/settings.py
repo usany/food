@@ -201,7 +201,7 @@ PWA_APP_ICONS_APPLE = [
     {
         'src': '/static/cookie.png',
         'sizes': '192x192',
-        'type': 'image/jpg'
+        'type': 'image/png'
     }
 ]
 PWA_APP_DIR = 'ltr'
