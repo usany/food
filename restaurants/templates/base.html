@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'styles.css' %}">
     <link rel="stylesheet" href="{% static 'nav.css' %}">
+    <link rel="manifest" href="{% static 'manifest.json' %}">
     {% block extra_css %}{% endblock %}
     <script>
         const saved = localStorage.getItem('darkMode');
@@ -17,6 +18,14 @@
         if (saved === 'true' || (saved === null && prefersDark)) {
             document.documentElement.classList.add('dark');
         }
+          if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker
+        .register("/restaurants/static/serviceworker.js")
+        .then((reg) => console.log("Service Worker registered:", reg))
+        .catch((err) => console.error("Registration failed:", err));
+    });
+  }
     </script>
     {% progressive_web_app_meta %}
 </head>
