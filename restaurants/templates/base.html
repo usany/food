@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="{% static 'styles.css' %}">
     <link rel="stylesheet" href="{% static 'nav.css' %}">
     <link rel="manifest" href="{% static 'manifest.json' %}">
+    {% load pwa %}
+    {% progressive_web_app_meta %}
+
     {% block extra_css %}{% endblock %}
     <script>
         const saved = localStorage.getItem('darkMode');
