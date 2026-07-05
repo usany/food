@@ -1,6 +1,6 @@
 // Cache name (update version to bust cache)
-const CACHE_NAME = "pwa-cache-v1";
- 
+const CACHE_NAME = "pwa-cache";
+
 // Assets to cache on service worker install
 self.addEventListener("install", (event) => {
   event.waitUntil(
