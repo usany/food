@@ -189,7 +189,7 @@ PWA_APP_ICONS = [
     {
         'src': '/static/cookie.png',
         'sizes': '192x192',
-        'type': 'image/jpg'
+        'type': 'image/png'
     },
     {
         'src': '/static/cookie.png',
