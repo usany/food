@@ -21,9 +21,9 @@ from . import views
 
 urlpatterns = [
     path('', views.root_redirect, name='root'),
+    path('', include('pwa.urls')),
     path('admin/', admin.site.urls),
     path("__reload__/", include("django_browser_reload.urls")),
-    path('', include('pwa.urls')),
     
     # Generic language/campus route - MUST BE LAST to avoid catching other routes
     # path('<str:base>/<str:bases>/', views.home_menu, name='home_menu'),
