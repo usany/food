@@ -1,34 +1,31 @@
-// Cache name (update version to bust cache)
-const CACHE_NAME = "pwa-cache";
+const CACHE_NAME = "khukie-pwa-v1";
 
-// Assets to cache on service worker install
+const ASSETS = [
+  "/",
+  "/static/manifest.json",
+  "/static/styles.css",
+  "/static/nav.css",
+  "/static/icon-192x192.png",
+  "/static/icon-512x512.png",
+];
+
 self.addEventListener("install", (event) => {
+  self.skipWaiting();
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll([
-        "/",
-        "/static/cookie.png",
-      ]);
-    })
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS))
   );
 });
- 
-// Fetch strategy: Serve cached assets first, fall back to network
-self.addEventListener("fetch", (event) => {
-  event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      return cachedResponse || fetch(event.request);
-    })
-  );
-});
- 
-// Clean up old caches (when service worker is activated)
+
 self.addEventListener("activate", (event) => {
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.filter((name) => name !== CACHE_NAME).map((name) => caches.delete(name))
-      );
-    })
+    caches.keys().then((keys) =>
+      Promise.all(keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k)))
+    )
+  );
+});
+
+self.addEventListener("fetch", (event) => {
+  event.respondWith(
+    caches.match(event.request).then((cached) => cached || fetch(event.request))
   );
 });
