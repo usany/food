@@ -7,11 +7,7 @@ self.addEventListener("install", (event) => {
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll([
         "/",
-        "/static/css/style.css",
-        "/static/js/main.js",
-        "/static/images/icon-192x192.png",
-        "/static/images/icon-512x512.png",
-        // Add other critical assets
+        "/static/cookie.png",
       ]);
     })
   );
