@@ -10,7 +10,12 @@ def root_redirect(request):
     """Redirect to /gl or /se based on localStorage"""
     html = """<!DOCTYPE html>
 <html>
-<head><meta charset="utf-8"></head>
+<head><meta charset="utf-8">
+<link rel="manifest" href="/static/manifest.json">
+<meta name="theme-color" content="#000000">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+</head>
 <body>
 <script>
   const lang = localStorage.getItem('base')
@@ -27,6 +32,11 @@ def root_redirect(request):
     } else {
         window.location.replace('ko/se/');
     }
+  }
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("/static/serviceworker.js");
+    });
   }
 </script>
 </body>
