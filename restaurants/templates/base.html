@@ -18,14 +18,14 @@
         if (saved === 'true' || (saved === null && prefersDark)) {
             document.documentElement.classList.add('dark');
         }
-        if ("serviceWorker" in navigator) {
-            window.addEventListener("load", () => {
-            navigator.serviceWorker
-                .register("/restaurants/static/serviceworker.js")
-                .then((reg) => console.log("Service Worker registered:", reg))
-                .catch((err) => console.error("Registration failed:", err));
-            });
-        }
+        // if ("serviceWorker" in navigator) {
+        //     window.addEventListener("load", () => {
+        //     navigator.serviceWorker
+        //         .register("/restaurants/static/serviceworker.js")
+        //         .then((reg) => console.log("Service Worker registered:", reg))
+        //         .catch((err) => console.error("Registration failed:", err));
+        //     });
+        // }
     </script>
     {% progressive_web_app_meta %}
 </head>
@@ -75,6 +75,14 @@
         </div>
     </nav>
     <script>
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+            navigator.serviceWorker
+                .register("/restaurants/static/serviceworker.js")
+                .then((reg) => console.log("Service Worker registered:", reg))
+                .catch((err) => console.error("Registration failed:", err));
+            });
+        }
         // Toggle language between English and Korean (or other languages)
         function toggleBase() {
             const currentLang = localStorage.getItem('base') || 'ko';
