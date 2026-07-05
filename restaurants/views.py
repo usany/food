@@ -132,7 +132,6 @@ def menu_detail(request, path, meal, bases):
     return render(request, 'pages/menu_detail.html', {'title': title, 'day': day, 'meal': meal, 'menu_item': menu_item, 'image_url': os.getenv('STORAGE_URL')+item_main, 'time': time, 'bases': bases, 'path': path})
 
 
-# @staff_member_required
 def admin_view(request):
     """Custom admin view for managing menu items"""
     items = MenuItem.objects.all()
