@@ -3,18 +3,18 @@
   "short_name": "KHUKIE",
   "icons": [
     {
-      "src": "/restaurants/static/cookie.png",
+      "src": "/restaurants/static/icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/restaurants/static/cookie.png",
+      "src": "/restaurants/static/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
   ],
   "start_url": "/",
   "background_color": "#ffffff",
-  "theme_color": "#000000",
+  "theme_color": "#0A0302",
   "display": "standalone"
 }
