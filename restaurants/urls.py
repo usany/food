@@ -24,12 +24,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('pwa.urls')),
     path("__reload__/", include("django_browser_reload.urls")),
-    # path('se/', views.home, name='home'),
-    # path('se/<str:path>/', views.menu_list, name='menu_list_se'),
-    # path('se/<str:path>/<str:meal>/', views.menu_detail, name='menu_detail_se'),
-    # path('gl/', views.home_gl, name='home_gl'),
-    # path('gl/<str:path>/', views.menu_list, name='menu_list_gl'),
-    # path('gl/<str:path>/<str:meal>/', views.menu_detail, name='menu_detail_gl'),
     # Generic language/campus route - MUST BE LAST to avoid catching other routes
     # path('<str:base>/<str:bases>/', views.home_menu, name='home_menu'),
     # path('<str:base>/<str:bases>/<str:path>/', views.menu_list, name='home_menu'),
