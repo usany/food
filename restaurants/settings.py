@@ -32,7 +32,7 @@ SECRET_KEY = 'django-insecure-h=*wyi-pqo-i2$%15#yx(!1mruj0)5y0m^nj-jve0j*_kk#i@f
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '134.185.111.151,127.0.0.1,localhost,kie.khusan.co.kr').split(',')
+ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '134.185.111.151,127.0.0.1,localhost,kie.khusan.co.kr,cookie.khusan.co.kr').split(',')
 
 # Application definition
 
@@ -176,8 +176,8 @@ STATICFILES_DIRS = [
 LOGOUT_REDIRECT_URL = 'home'
 
 # PWA Settings
-PWA_APP_NAME = 'The Bob App'
-PWA_APP_DESCRIPTION = "My Bob App"
+PWA_APP_NAME = 'KHUKIE'
+PWA_APP_DESCRIPTION = "KHUKIE"
 PWA_APP_THEME_COLOR = '#0A0302'
 PWA_APP_BACKGROUND_COLOR = '#ffffff'
 PWA_APP_DISPLAY = 'standalone'
