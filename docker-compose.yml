@@ -11,3 +11,27 @@ services:
     volumes:
       - ./logs:/app/logs
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+        reservations:
+          memory: 256m
+
+  scheduler:
+    build: .
+    container_name: food-scheduler
+    command: python manage.py run_scheduler
+    environment:
+      - TZ=Asia/Seoul
+    env_file:
+      - .env
+    volumes:
+      - ./logs:/app/logs
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 1g
+        reservations:
+          memory: 512m
