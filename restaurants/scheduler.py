@@ -36,7 +36,7 @@ def start():
         args=['playwright'],
         kwargs={'source': 'khu', 'campus': 'seoul'},
         id='playwright_khu_seoul',
-        hour=3,
+        hour=7,
         minute=13,
         replace_existing=True
     )
@@ -46,8 +46,8 @@ def start():
         args=['playwright'],
         kwargs={'source': 'khu', 'campus': 'global'},
         id='playwright_khu_global',
-        hour=3,
-        minute=13,
+        hour=7,
+        minute=24,
         replace_existing=True
     )
     scheduler.add_job(
@@ -56,8 +56,8 @@ def start():
         args=['playwright'],
         kwargs={'source': 'hufs', 'student': True},
         id='playwright_hufs_student',
-        hour=3,
-        minute=13,
+        hour=7,
+        minute=35,
         replace_existing=True
     )
     scheduler.add_job(
@@ -66,8 +66,8 @@ def start():
         args=['playwright'],
         kwargs={'source': 'hufs', 'student': False},
         id='playwright_hufs_staff',
-        hour=3,
-        minute=13,
+        hour=7,
+        minute=46,
         replace_existing=True
     )
     scheduler.add_job(
@@ -76,8 +76,8 @@ def start():
         args=['playwright'],
         kwargs={'source': 'dorm'},
         id='playwright_dorm',
-        hour=3,
-        minute=13,
+        hour=7,
+        minute=57,
         replace_existing=True
     )
     
