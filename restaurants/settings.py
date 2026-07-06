@@ -209,4 +209,4 @@ PWA_APP_LANG = 'en-US'
 # PWA_SERVICE_WORKER_PATH = BASE_DIR / 'restaurants' / 'serviceworker.js'
 
 # Use signed cookie-based sessions to prevent SessionInterrupted errors on Turso database due to concurrent requests (e.g. django-browser-reload pings during login session rotation).
-SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
+# SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
