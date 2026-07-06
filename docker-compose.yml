@@ -8,8 +8,6 @@ services:
       - TZ=Asia/Seoul
     env_file:
       - .env
-    volumes:
-      - ./logs:/app/logs
     restart: unless-stopped
     deploy:
       resources:
@@ -26,8 +24,6 @@ services:
       - TZ=Asia/Seoul
     env_file:
       - .env
-    volumes:
-      - ./logs:/app/logs
     restart: unless-stopped
     deploy:
       resources:
