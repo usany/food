@@ -1,0 +1,33 @@
+name: Django CI/CD
+
+on:
+  push:
+    branches: [ "bravo" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      # - run: pip install -r requirements.txt
+      # - run: python manage.py test
+            # pip install -r requirements.txt
+            # python manage.py migrate --noinput
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.SERVERIP }}
+          username: ${{ secrets.SERVERUSER }}
+          key: ${{ secrets.SERVERSSHKEY }}
+          script: |
+            cd /home/ubuntu/food
+            git pull origin bravo
+            docker compose up -d --build
