@@ -26,7 +26,6 @@ import uuid
 
 class Command(BaseCommand):
     help = 'Scrape menu data from university websites using Playwright'
-    storage_url = os.getenv('STORAGE_URL', 'https://objectstorage.ap-chuncheon-1.oraclecloud.com/n/ax0ym4amgnfk/b/bucket-20260516-0145/o/')
     
     def add_arguments(self, parser):
         parser.add_argument(
@@ -499,16 +498,16 @@ class Command(BaseCommand):
     def upload_to_storage(self, file_path, object_name):
         """Upload image to storage using PUT with PAR token"""
         load_dotenv()
-        par_token = os.getenv('STORAGE_PAR_TOKEN')
-        namespace = os.getenv('STORAGE_NAMESPACE', 'ax0ym4amgnfk')
-        bucket = os.getenv('STORAGE_BUCKET', 'bucket-20260516-0145')
+        # par_token = os.getenv('STORAGE_PAR_TOKEN')
+        # namespace = os.getenv('STORAGE_NAMESPACE', 'ax0ym4amgnfk')
+        # bucket = os.getenv('STORAGE_BUCKET', 'bucket-20260516-0145')
 
         # if not par_token:
         #     self.stderr.write(self.style.ERROR('Storage PAR token not found in environment variables.'))
         #     return
 
         # url = f"https://objectstorage.ap-chuncheon-1.oraclecloud.com/p/{par_token}/n/{namespace}/b/{bucket}/o/{object_name}"
-        url = f"https://objectstorage.ap-chuncheon-1.oraclecloud.com/p/59C4p0AMvKfRvrQBb7rNihtYDwcP2TCNlf_Hq6pMRPbgcQUV0EZBrCKlsQthjJK5/n/ax0ym4amgnfk/b/bucket-20260516-0145/o/{object_name}"
+        url = f"{os.getenv('ORACLESTORAGE')}{object_name}"
 
         if not os.path.exists(file_path):
             self.stderr.write(self.style.ERROR(f'File not found: {file_path}'))

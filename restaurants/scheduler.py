@@ -12,8 +12,8 @@ def _run_playwright(*args, **kwargs):
         call_command(*args, **kwargs)
 
 # Create scheduler 
-scheduler = BackgroundScheduler()
-# scheduler = BackgroundScheduler(timezone='Asia/Seoul')
+# scheduler = BackgroundScheduler()
+scheduler = BackgroundScheduler(timezone='Asia/Seoul')
 
 def start():
     """Start the scheduler with scheduled jobs"""
@@ -36,7 +36,7 @@ def start():
         args=['playwright'],
         kwargs={'source': 'khu', 'campus': 'seoul'},
         id='playwright_khu_seoul',
-        hour=12,
+        hour=21,
         minute=50,
         replace_existing=True
     )
@@ -47,7 +47,7 @@ def start():
         kwargs={'source': 'khu', 'campus': 'global'},
         id='playwright_khu_global',
         hour=21,
-        minute=30,
+        minute=50,
         replace_existing=True
     )
     scheduler.add_job(
@@ -56,8 +56,8 @@ def start():
         args=['playwright'],
         kwargs={'source': 'hufs', 'student': True},
         id='playwright_hufs_student',
-        hour=16,
-        minute=16,
+        hour=21,
+        minute=50,
         replace_existing=True
     )
     scheduler.add_job(
@@ -66,8 +66,8 @@ def start():
         args=['playwright'],
         kwargs={'source': 'hufs', 'student': False},
         id='playwright_hufs_staff',
-        hour=16,
-        minute=16,
+        hour=21,
+        minute=50,
         replace_existing=True
     )
     scheduler.add_job(
