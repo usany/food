@@ -19,15 +19,15 @@ def start():
     """Start the scheduler with scheduled jobs"""
     
     # Clear expired sessions daily at 3 AM
-    scheduler.add_job(
-        call_command,
-        'cron',
-        args=['clearsessions'],
-        id='clear_sessions',
-        hour=16,
-        minute=16,
-        replace_existing=True
-    )
+    # scheduler.add_job(
+    #     call_command,
+    #     'cron',
+    #     args=['clearsessions'],
+    #     id='clear_sessions',
+    #     hour=3,
+    #     minute=0,
+    #     replace_existing=True
+    # )
     
     # Run playwright scraping for KHU Seoul campus every day at 6:00 AM
     scheduler.add_job(
