@@ -21,6 +21,7 @@ from . import views
 
 urlpatterns = [
     path('', views.root_redirect, name='root'),
+    path('serviceworker.js', views.service_worker, name='serviceworker'),
     path('', include('pwa.urls')),
     path('admin/', admin.site.urls),
     # Generic language/campus route - MUST BE LAST to avoid catching other routes

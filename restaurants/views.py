@@ -5,13 +5,21 @@ from django.http import HttpResponse
 from .models import MenuItem
 from .constants import * 
 import os
+from pathlib import Path
+
+def service_worker(request):
+    path = Path(__file__).resolve().parent / 'static' / 'serviceworker.js'
+    with open(path, 'rb') as f:
+        resp = HttpResponse(f.read(), content_type='application/javascript')
+    resp['Service-Worker-Allowed'] = '/'
+    return resp
 
 def root_redirect(request):
     """Redirect to default locale. Client-side JS on the target page further redirects based on localStorage."""
     from django.shortcuts import redirect
     lang = request.COOKIES.get('base', 'ko')
     loc = request.COOKIES.get('bases', 'se')
-    resp = redirect(f'{lang}/{loc}/')
+    resp = redirect(f'/{lang}/{loc}/')
     resp.set_cookie('base', lang)
     resp.set_cookie('bases', loc)
     return resp
