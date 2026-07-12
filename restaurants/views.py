@@ -7,41 +7,14 @@ from .constants import *
 import os
 
 def root_redirect(request):
-    """Redirect to /gl or /se based on localStorage"""
-    html = """<!DOCTYPE html>
-<html>
-<head><meta charset="utf-8">
-<link rel="manifest" href="/static/manifest.json">
-<meta name="theme-color" content="#000000">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-</head>
-<body>
-<script>
-  const lang = localStorage.getItem('base')
-  const loc = localStorage.getItem('bases');
-  if (lang === 'en') {
-    if (loc === 'gl') {
-        window.location.replace('en/gl/');
-    } else {
-        window.location.replace('en/se/');
-    }
-  } else {
-    if (loc === 'gl') {
-        window.location.replace('ko/gl/');
-    } else {
-        window.location.replace('ko/se/');
-    }
-  }
-  if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => {
-      navigator.serviceWorker.register("/static/serviceworker.js");
-    });
-  }
-</script>
-</body>
-</html>"""
-    return HttpResponse(html)
+    """Redirect to default locale. Client-side JS on the target page further redirects based on localStorage."""
+    from django.shortcuts import redirect
+    lang = request.COOKIES.get('base', 'ko')
+    loc = request.COOKIES.get('bases', 'se')
+    resp = redirect(f'{lang}/{loc}/')
+    resp.set_cookie('base', lang)
+    resp.set_cookie('bases', loc)
+    return resp
 
 
 def home_menu(request, bases):
