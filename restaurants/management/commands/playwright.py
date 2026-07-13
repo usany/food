@@ -451,7 +451,11 @@ class Command(BaseCommand):
                 if is_single:
                     return translations[0] if translations else texts
                 else:
-                    return translations if len(translations) == len(text_list) else text_list
+                    if len(translations) == len(text_list):
+                        return translations
+                    else:
+                        self.stderr.write(self.style.WARNING(f"Model {model} returned {len(translations)} translations for {len(text_list)} texts. Trying next..."))
+                        continue
 
             except Exception as e:
                 self.stderr.write(self.style.ERROR(f"Model {model} failed: {str(e)}. Trying next..."))
