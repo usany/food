@@ -444,6 +444,9 @@ class Command(BaseCommand):
                 )
                 translations = response.choices[0].message.content.strip().split('\n')
 
+                for ko, en in zip(text_list, translations):
+                    self.stdout.write(f'  {ko} -> {en}')
+
                 # Return in the same format as input
                 if is_single:
                     return translations[0] if translations else texts
