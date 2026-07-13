@@ -256,7 +256,7 @@ class Command(BaseCommand):
                 if menu.startswith('등록된') or menu.startswith('방학중에는') or index % 7 < 1 or index % 7 > 5:
                     continue
                 menu_parts = menu.split('\n')
-                main = menu_parts[0].strip() if menu_parts else ''
+                main = menu_parts[0].strip().replace(':', '') if menu_parts else ''
                 side = ' '.join(menu_parts[1:-4]) if len(menu_parts) > 1 else ''
                 if not main:
                     continue
@@ -272,7 +272,7 @@ class Command(BaseCommand):
                 if menu.startswith('등록된') or menu.startswith('방학중에는') or index % 7 < 1 or index % 7 > 5:
                     continue
                 menu_parts = menu.split('\n')
-                main = menu_parts[0].strip() if menu_parts else ''
+                main = menu_parts[0].strip().replace(':', '') if menu_parts else ''
                 side = ' '.join(menu_parts[1:-4]) if len(menu_parts) > 1 else ''
                 if not main:
                     continue
