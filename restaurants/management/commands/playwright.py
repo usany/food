@@ -467,6 +467,7 @@ class Command(BaseCommand):
             self.stderr.write(self.style.ERROR('Cloudflare credentials not found in environment variables.'))
             return
 
+        self.stdout.write(f'{main}\t{enmain}')
         # Step 1: Use the English dish name directly
         translated_text = enmain
 
