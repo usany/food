@@ -443,11 +443,18 @@ class Command(BaseCommand):
                 )
                 translations = response.choices[0].message.content.strip().split('\n')
 
+                for ko, en in zip(text_list, translations):
+                    self.stdout.write(f'  {ko} -> {en}')
+
                 # Return in the same format as input
                 if is_single:
                     return translations[0] if translations else texts
                 else:
-                    return translations if len(translations) == len(text_list) else text_list
+                    if len(translations) == len(text_list):
+                        return translations
+                    else:
+                        self.stderr.write(self.style.WARNING(f"Model {model} returned {len(translations)} translations for {len(text_list)} texts. Trying next..."))
+                        continue
 
             except Exception as e:
                 self.stderr.write(self.style.ERROR(f"Model {model} failed: {str(e)}. Trying next..."))
@@ -503,11 +510,6 @@ class Command(BaseCommand):
         namespace = os.getenv('STORAGE_NAMESPACE', 'ax0ym4amgnfk')
         storage_url = os.getenv('STORAGE_URL')
 
-        # if not par_token:
-        #     self.stderr.write(self.style.ERROR('Storage PAR token not found in environment variables.'))
-        #     return
-
-        # url = f"https://objectstorage.ap-chuncheon-1.oraclecloud.com/p/{par_token}/n/{namespace}/b/{bucket}/o/{object_name}"
         url = f"{storage_url}{object_name}"
 
         if not os.path.exists(file_path):
