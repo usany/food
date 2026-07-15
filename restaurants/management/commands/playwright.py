@@ -507,7 +507,7 @@ class Command(BaseCommand):
         #     return
 
         # url = f"https://objectstorage.ap-chuncheon-1.oraclecloud.com/p/{par_token}/n/{namespace}/b/{bucket}/o/{object_name}"
-        url = f"{os.getenv('ORACLESTORAGE')}{object_name}"
+        url = f"{os.getenv('STORAGE_URL')}{object_name}"
 
         if not os.path.exists(file_path):
             self.stderr.write(self.style.ERROR(f'File not found: {file_path}'))
