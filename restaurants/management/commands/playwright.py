@@ -255,7 +255,7 @@ class Command(BaseCommand):
                 if menu.startswith('등록된') or menu.startswith('방학중에는') or index % 7 < 1 or index % 7 > 5:
                     continue
                 menu_parts = menu.split('\n')
-                main = menu_parts[0].strip() if menu_parts else ''
+                main = menu_parts[0].strip().replace(':', '') if menu_parts else ''
                 side = ' '.join(menu_parts[1:-4]) if len(menu_parts) > 1 else ''
                 if not main:
                     continue
@@ -271,7 +271,7 @@ class Command(BaseCommand):
                 if menu.startswith('등록된') or menu.startswith('방학중에는') or index % 7 < 1 or index % 7 > 5:
                     continue
                 menu_parts = menu.split('\n')
-                main = menu_parts[0].strip() if menu_parts else ''
+                main = menu_parts[0].strip().replace(':', '') if menu_parts else ''
                 side = ' '.join(menu_parts[1:-4]) if len(menu_parts) > 1 else ''
                 if not main:
                     continue
@@ -463,6 +463,7 @@ class Command(BaseCommand):
             self.stderr.write(self.style.ERROR('Cloudflare credentials not found in environment variables.'))
             return
 
+        self.stdout.write(f'{main}\t{enmain}')
         # Step 1: Use the English dish name directly
         translated_text = enmain
 
@@ -498,16 +499,16 @@ class Command(BaseCommand):
     def upload_to_storage(self, file_path, object_name):
         """Upload image to storage using PUT with PAR token"""
         load_dotenv()
-        # par_token = os.getenv('STORAGE_PAR_TOKEN')
-        # namespace = os.getenv('STORAGE_NAMESPACE', 'ax0ym4amgnfk')
-        # bucket = os.getenv('STORAGE_BUCKET', 'bucket-20260516-0145')
+        par_token = os.getenv('STORAGE_PAR_TOKEN')
+        namespace = os.getenv('STORAGE_NAMESPACE', 'ax0ym4amgnfk')
+        storage_url = os.getenv('STORAGE_URL')
 
         # if not par_token:
         #     self.stderr.write(self.style.ERROR('Storage PAR token not found in environment variables.'))
         #     return
 
         # url = f"https://objectstorage.ap-chuncheon-1.oraclecloud.com/p/{par_token}/n/{namespace}/b/{bucket}/o/{object_name}"
-        url = f"{os.getenv('STORAGE_URL')}{object_name}"
+        url = f"{storage_url}{object_name}"
 
         if not os.path.exists(file_path):
             self.stderr.write(self.style.ERROR(f'File not found: {file_path}'))
