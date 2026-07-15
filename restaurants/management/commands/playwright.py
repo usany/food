@@ -101,23 +101,22 @@ class Command(BaseCommand):
                     main = first_menu[0].strip() if first_menu else ''
                     side = first_menu[1].split('B코너 : ', 1)[0].strip() if len(first_menu) > 1 else ''
                     all_texts.append(main)
-                    all_texts.append(side)
-                    # if len(first_menu) > 1:
-                    #     self.stdout.write(f"DEBUG entry: {repr(menu)}")
-                    #     self.stdout.write(f"DEBUG first_menu[1]: {repr(first_menu[1])}")
-                    #     self.stdout.write(f"DEBUG split result: {repr(first_menu[1].split('B코너 : ', 1))}")
+                    if side:
+                        all_texts.append(side)
                     second_part = menu.split('B코너 : ', 1)[1].strip()
                     second_menu = second_part.split(',', 1)
                     main2 = second_menu[0].strip() if second_menu else ''
                     side2 = second_menu[1].strip() if len(second_menu) > 1 else ''
                     all_texts.append(main2)
-                    all_texts.append(side2)
+                    if side2:
+                        all_texts.append(side2)
                 else:
                     menu_parts = menu.split(',', 1)
                     main = menu_parts[0].strip() if menu_parts else ''
                     side = menu_parts[1].strip() if len(menu_parts) > 1 else ''
                     all_texts.append(main)
-                    all_texts.append(side)
+                    if side:
+                        all_texts.append(side)
 
             # Batch translate all texts at once
             translated = self.translate_text(all_texts) if all_texts else []
@@ -260,7 +259,8 @@ class Command(BaseCommand):
                 if not main:
                     continue
                 all_texts.append(main)
-                all_texts.append(side)
+                if side:
+                    all_texts.append(side)
 
             # Batch translate all texts at once
             translated = self.translate_text(all_texts) if all_texts else []
