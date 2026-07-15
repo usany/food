@@ -584,7 +584,7 @@ class Command(BaseCommand):
                     self.stderr.write(self.style.ERROR(f"Model {model} failed: {str(model_err)}. Trying next..."))
                     continue
 
-                self.stdout.write(f'Gemini response: {response.choices[0].message.content}')
+                self.stdout.write(f'Gemini response: {model} {response.choices[0].message.content}')
 
                 # Strip markdown code fences if present, then parse into a list
                 raw = response.choices[0].message.content.strip()
