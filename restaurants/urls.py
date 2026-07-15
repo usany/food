@@ -14,21 +14,20 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.i18n import i18n_patterns
+from django.conf import settings
 from . import views
 
 urlpatterns = [
     path('', views.root_redirect, name='root'),
     path('', include('pwa.urls')),
-    path('admin/', admin.site.urls),
     path("__reload__/", include("django_browser_reload.urls")),
-    # Generic language/campus route - MUST BE LAST to avoid catching other routes
-    # path('<str:base>/<str:bases>/', views.home_menu, name='home_menu'),
-    # path('<str:base>/<str:bases>/<str:path>/', views.menu_list, name='home_menu'),
-    # path('<str:base>/<str:bases>/<str:path>/<str:meal>/', views.menu_detail, name='home_menu'),
 ]
+
+if settings.DEBUG:
+    from django.contrib import admin
+    urlpatterns.insert(2, path('admin/', admin.site.urls))
 urlpatterns += i18n_patterns(
     path('<str:bases>/', views.home_menu, name='home_menu'),
     path('<str:bases>/<str:path>/', views.menu_list, name='menu_list'),

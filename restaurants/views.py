@@ -129,10 +129,3 @@ def menu_detail(request, path, meal, bases):
     meal = next((m['name'] for m in MEALS if m['time'] == menu_item.meal), None) if fixed_menu is None else ", ".join(m['name'] for tc in fixed_menu.get('time_category', []) for m in MEALS if m['time'] == tc)
     item_main = menu_item.safe_main if fixed_menu is None else menu_item['main']
     return render(request, 'pages/menu_detail.html', {'title': title, 'day': day, 'meal': meal, 'menu_item': menu_item, 'image_url': os.getenv('STORAGE_URL')+item_main, 'time': time, 'bases': bases, 'path': path})
-
-
-# @staff_member_required
-def admin_view(request):
-    """Custom admin view for managing menu items"""
-    items = MenuItem.objects.all()
-    return render(request, 'pages/admin_view.html', {'items': items})

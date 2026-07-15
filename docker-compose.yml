@@ -6,6 +6,7 @@ services:
       - "8000:8000"
     environment:
       - TZ=Asia/Seoul
+      - DJANGO_DEBUG=False
     env_file:
       - .env
     restart: unless-stopped
@@ -22,6 +23,7 @@ services:
     command: python manage.py run_scheduler
     environment:
       - TZ=Asia/Seoul
+      - DJANGO_DEBUG=False
     env_file:
       - .env
     restart: unless-stopped

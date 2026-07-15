@@ -37,11 +37,8 @@ ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '134.185.111.151,127.0.0.
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_browser_reload',
     'restaurants.apps.RestaurantsConfig',
@@ -49,17 +46,28 @@ INSTALLED_APPS = [
     # 'pages'
 ]
 
+if DEBUG:
+    INSTALLED_APPS += [
+        'django.contrib.admin',
+        'django.contrib.auth',
+        'django.contrib.messages',
+    ]
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_browser_reload.middleware.BrowserReloadMiddleware',
 ]
+
+if DEBUG:
+    MIDDLEWARE += [
+        'django.contrib.auth.middleware.AuthenticationMiddleware',
+        'django.contrib.messages.middleware.MessageMiddleware',
+    ]
 
 ROOT_URLCONF = 'restaurants.urls'
 
@@ -72,9 +80,12 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.request',
                 'django.template.context_processors.i18n',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
+            ] + (
+                [
+                    'django.contrib.auth.context_processors.auth',
+                    'django.contrib.messages.context_processors.messages',
+                ] if DEBUG else []
+            ),
         },
     },
 ]
@@ -124,21 +135,6 @@ DEFAULT_FILE_STORAGE = 'restaurants.oracle_storage.OracleObjectStorage'
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
 
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
@@ -172,8 +168,6 @@ STATICFILES_DIRS = [
     BASE_DIR / 'restaurants' / 'static',
 ]
 
-# LOGIN_URL = '/django-admin/login/'
-LOGOUT_REDIRECT_URL = 'home'
 
 # PWA Settings
 PWA_APP_NAME = 'KHUKIE'
