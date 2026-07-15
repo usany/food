@@ -422,7 +422,7 @@ class Command(BaseCommand):
         
         # Handle single string input
         is_single = isinstance(texts, str)
-        text_list = [texts] if is_single else texts
+        text_list = [texts] if is_single else [t for t in texts if t]
         
         # Create prompt for batch translation
         text_items = '\n'.join([f'{i+1}. {text}' for i, text in enumerate(text_list)])
@@ -453,7 +453,11 @@ class Command(BaseCommand):
                     if len(translations) == len(text_list):
                         return translations
                     else:
+                        # self.stdout.write(translations)
+                        # self.stdout.write(text_list)
                         self.stderr.write(self.style.WARNING(f"Model {model} returned {len(translations)} translations for {len(text_list)} texts. Trying next..."))
+                        self.stderr.write(self.style.WARNING(f"translations: {translations}"))
+                        self.stderr.write(self.style.WARNING(f"text_list: {text_list}"))
                         continue
 
             except Exception as e:
