@@ -548,7 +548,7 @@ class Command(BaseCommand):
             if '청운관' in title:
                 place_instruction = "place는 학생식당은 ch, 교직원식당은 cg입니다. 단품, 든든, 우아, 푸짐은 모두 lunch입니다. 간편식, 간식은 정리하지 않고 넘어가주세요."
             elif '푸른솔' in title:
-                place_instruction = "place는 학생식당은 ph, 교직원식당은 pg입니다. 조식은 morning입니다. OneDishSETSelf-Bar, 한소반SETSelf-Bar, 면가득은 모두 lunch입니다. dinner는 없습니다. TO-GO가 포함된 메뉴는 정리하지 않고 넘어가주세요."
+                place_instruction = "place는 학생식당은 ph, 교직원식당은 pg입니다. 조식은 breakfast입니다. OneDishSETSelf-Bar, 한소반SETSelf-Bar, 면가득은 모두 lunch입니다. dinner는 없습니다. TO-GO가 포함된 메뉴는 정리하지 않고 넘어가주세요."
             elif '학생회관' in title:
                 place_instruction = "place는 학생식당은 hh, 교직원식당은 hg입니다. 포케, 컵밥은 서로 다른 breakfast 메뉴입니다. 단품, 든든, 우아, 푸짐은 모두 lunch입니다. dinner 메뉴는 학생식당과 교직원식당이 같은 메뉴입니다."
             else:
