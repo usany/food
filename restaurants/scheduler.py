@@ -29,13 +29,14 @@ def start():
     #     replace_existing=True
     # )
     
-    # Run playwright scraping for KHU Seoul campus every day at 6:00 AM
+    # Run playwright scraping for KHU Seoul campus every Tuesday at 7:13 AM
     scheduler.add_job(
         _run_playwright,
         'cron',
         args=['playwright'],
         kwargs={'source': 'khu', 'campus': 'seoul'},
         id='playwright_khu_seoul',
+        day_of_week='tue',
         hour=7,
         minute=13,
         replace_existing=True
@@ -46,6 +47,7 @@ def start():
         args=['playwright'],
         kwargs={'source': 'khu', 'campus': 'global'},
         id='playwright_khu_global',
+        day_of_week='tue',
         hour=7,
         minute=24,
         replace_existing=True
@@ -56,6 +58,7 @@ def start():
         args=['playwright'],
         kwargs={'source': 'hufs', 'student': True},
         id='playwright_hufs_student',
+        day_of_week='tue',
         hour=7,
         minute=35,
         replace_existing=True
@@ -66,6 +69,7 @@ def start():
         args=['playwright'],
         kwargs={'source': 'hufs', 'student': False},
         id='playwright_hufs_staff',
+        day_of_week='tue',
         hour=7,
         minute=46,
         replace_existing=True
@@ -76,6 +80,7 @@ def start():
         args=['playwright'],
         kwargs={'source': 'dorm'},
         id='playwright_dorm',
+        day_of_week='tue',
         hour=7,
         minute=57,
         replace_existing=True
