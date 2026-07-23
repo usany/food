@@ -1,7 +1,6 @@
 from apscheduler.schedulers.background import BackgroundScheduler
 from django.core.management import call_command
 import threading
-# import os
 
 # Shared lock — ensures playwright jobs run one at a time even if cron fires them simultaneously
 _playwright_lock = threading.Lock()
