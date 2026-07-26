@@ -1,17 +1,20 @@
 {% load i18n %}
 {% if tabs %}
-<div class="tab-bar--border-bottom" data-selected-meal="{{ selected_meal }}">
+<div class="tab-bar--border-bottom" id="day-tabs">
     <div class="tab-bar">
         {% for tab in tabs %}
-        <a id="daytab-{{ tab.day }}"
-            href="#"
-            data-day="{{ tab.day }}"
-            data-tab="{{ tab.day }}"
+        <button type="button"
+            id="daytab-{{ tab.day }}"
+            hx-get="{% url 'menu_list' bases path %}?day={{ tab.day }}&meal={{ selected_meal }}&previous={{ previous }}"
+            hx-target="#menu-view"
+            hx-select="#menu-view"
+            hx-swap="outerHTML"
+            hx-push-url="true"
             class="tab {% if selected_day == tab.day %}tab--active{% endif %}">
             {% trans tab.name %}
             <br />
             {{ tab.date }}
-        </a>
+        </button>
         {% endfor %}
     </div>
 </div>

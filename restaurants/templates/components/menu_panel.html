@@ -1,21 +1,24 @@
 {% load i18n %}
-{% if meal_tabs %}
 <div id="menu-panel">
+    {% if meal_tabs %}
     <nav>
         <div class="meal-tab-bar">
             {% for tab in meal_tabs %}
-            <a id="tab-{{ tab.id }}" hx-get="{% url 'menu_panel' bases=bases path=path %}?meal={{ tab.id }}&day={{ selected_day }}&previous=0"
-                hx-target="#menu-panel"
+            <button type="button"
+                id="tab-{{ tab.id }}"
+                hx-get="{% url 'menu_list' bases path %}?meal={{ tab.id }}&day={{ selected_day }}&previous={{ previous }}"
+                hx-target="#menu-view"
+                hx-select="#menu-view"
+                hx-swap="outerHTML"
+                hx-push-url="true"
                 class="tab {% if selected_meal == tab.id %}tab--active{% endif %}">
                 {% trans tab.label %}
                 <span class="tab-subtitle">{% trans tab.meal_time %}</span>
-            </a>
+            </button>
             {% endfor %}
         </div>
     </nav>
+    {% endif %}
 
-    <section id="menu-items" hx-swap="innerHTML">
-        {% include 'components/menu_items.html' %}
-    </section>
+    {% include 'components/menu_items.html' %}
 </div>
-{% endif %}

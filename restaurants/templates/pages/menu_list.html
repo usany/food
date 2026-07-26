@@ -5,41 +5,6 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'menu-list.css' %}">
-<script>
-    document.addEventListener('htmx:afterSwap', function(event) {
-        if (window.lucide) {
-            lucide.createIcons();
-        }
-    });
-
-    document.addEventListener('DOMContentLoaded', function() {
-        document.addEventListener('click', function(e) {
-            const dayTab = e.target.closest('#day-tabs .tab');
-            if (dayTab) {
-                e.preventDefault();
-                const day = dayTab.getAttribute('data-day');
-                const meal = document.querySelector('.meal-tab-bar .tab--active')?.id.replace('tab-', '') || 'breakfast';
-                const url = '{{ request.path }}?day=' + day + '&meal=' + meal + '&previous=0';
-
-                fetch(url).then(r => r.text()).then(html => {
-                    const parser = new DOMParser();
-                    const doc = parser.parseFromString(html, 'text/html');
-                    const newPanel = doc.querySelector('#menu-panel');
-                    if (newPanel) {
-                        document.querySelector('#menu-panel').outerHTML = newPanel.outerHTML;
-                        if (window.htmx) {
-                            htmx.process(document.querySelector('#menu-panel'));
-                        }
-                        if (window.lucide) lucide.createIcons();
-                    }
-                });
-
-                document.querySelectorAll('#day-tabs .tab').forEach(t => t.classList.remove('tab--active'));
-                dayTab.classList.add('tab--active');
-            }
-        });
-    });
-</script>
 {% endblock %}
 
 {% block content %}
@@ -49,14 +14,10 @@
         <h1 class="list-title">{% trans title %}</h1>
         <h1 class="campus-heading">{% if bases == 'gl' %}global{% else %}seoul{% endif %}</h1>
     </div>
-    <div id="week-nav" hx-swap="innerHTML">
-        {% include 'components/week_nav.html' %}
-    </div>
-    <div id="day-tabs" hx-swap="innerHTML">
-        {% include 'components/day_tabs.html' %}
-    </div>
-    <div id="menu-content">
-        {% include 'components/menu_panel.html' %}
+    <div id="menu-view">
+        {% include 'components/week_nav.html' with bases=bases path=path selected_day=selected_day selected_meal=selected_meal previous=previous %}
+        {% include 'components/day_tabs.html' with bases=bases path=path tabs=tabs selected_day=selected_day selected_meal=selected_meal previous=previous %}
+        {% include 'components/menu_panel.html' with bases=bases path=path meal_tabs=meal_tabs selected_meal=selected_meal selected_day=selected_day previous=previous %}
     </div>
 </div>
 {% endblock %}

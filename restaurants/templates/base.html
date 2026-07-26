@@ -27,9 +27,6 @@
         {% block content %}{% endblock %}
     </main>
     <nav class="bottom-nav">
-        <div hx-post="/mouse_entered" hx-trigger="mouseenter">
-    [Here Mouse, Mouse!]
-</div>
         <!-- Top Buttons Wrapper (Dark Mode + Language) -->
         <div class="top-buttons-row">
             <button class="nav-item" id="nav-toggle-expanded" onclick="toggleNavExpanded()">
@@ -166,7 +163,10 @@
         });
     </script>
     <script src="https://unpkg.com/lucide@0.344.0"></script>
-    <script>lucide.createIcons()</script>
+    <script>
+        lucide.createIcons();
+        document.body.addEventListener('htmx:afterSwap', () => lucide.createIcons());
+    </script>
 </body>
 
 </html>
