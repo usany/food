@@ -1,0 +1,19 @@
+{% load i18n %}
+{% if tabs %}
+<div class="tab-bar--border-bottom">
+    <div class="tab-bar">
+        {% for tab in tabs %}
+        <a id="daytab-{{ tab.day }}"
+            hx-get="{% url 'menu_panel' bases=bases path=path %}?day={{ tab.day }}&meal={{ selected_meal }}&previous={{ previous }}"
+            hx-target="#menu-panel"
+            hx-push-url="?day={{ tab.day }}&meal={{ selected_meal }}&previous={{ previous }}"
+            data-tab="{{ tab.day }}"
+            class="tab {% if selected_day == tab.day %}tab--active{% endif %}">
+            {% trans tab.name %}
+            <br />
+            {{ tab.date }}
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}

@@ -1,0 +1,42 @@
+{% load i18n %}
+{% if meal_tabs %}
+<nav>
+    <div class="meal-tab-bar">
+        {% for tab in meal_tabs %}
+        <a id="tab-{{ tab.id }}" hx-get="{% url 'menu_panel' bases=bases path=path %}?meal={{ tab.id }}&day={{ selected_day }}&previous=0"
+            hx-target="#menu-panel"
+            hx-push-url="?meal={{ tab.id }}&day={{ selected_day }}&previous=0"
+            class="tab {% if selected_meal == tab.id %}tab--active{% endif %}">
+            {% trans tab.label %}
+            <span class="tab-subtitle">{% trans tab.meal_time %}</span>
+        </a>
+        {% endfor %}
+    </div>
+</nav>
+
+<section id="menu-panel" hx-swap="innerHTML">
+    <ul class="dish-list">
+        {% for dish in menu %}
+        <li class="dish-item {% if dish.non_pork %}dish-item--pork-free{% endif %}">
+            <a href="{% url 'menu_detail' bases=bases path=path meal=dish.id %}" class="dish-link">
+                <img src="{{ storage_url }}{{ dish.safe_main|cut:' ' }}" alt="{{ dish.main }}" class="dish-image"/>
+                <div class="dish-info">
+                    <span class="dish-name">{% if LANGUAGE_CODE == 'en' %}{{ dish.enmain }} {% else %}{{ dish.main }}{% endif %}</span>
+                    {% if dish.stamp %}
+                    <span class="dish-stamp">🌿 {% trans "No pork" %}</span>
+                    {% endif %}
+                </div>
+                <div class="dish-price">
+                    <span class="dish-price-value">₩{{ dish.price }}</span>
+                    {% if dish.extra %}
+                    <span class="dish-price-extra">+{% if LANGUAGE_CODE == 'en' %}{{ dish.enextra }} {% else %}{{ dish.extra }}{% endif %}</span>
+                    {% endif %}
+                </div>
+            </a>
+        </li>
+        {% empty %}
+        <li class="dish-empty">{% trans "No menu available for this time." %}</li>
+        {% endfor %}
+    </ul>
+</section>
+{% endif %}

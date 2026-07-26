@@ -31,6 +31,9 @@ if settings.DEBUG:
 urlpatterns += i18n_patterns(
     path('<str:bases>/', views.home_menu, name='home_menu'),
     path('<str:bases>/<str:path>/', views.menu_list, name='menu_list'),
+    path('<str:bases>/<str:path>/api/menu-panel/', views.menu_panel_fragment, name='menu_panel'),
+    path('<str:bases>/<str:path>/api/week-nav/', views.week_nav_fragment, name='week_nav'),
+    path('<str:bases>/<str:path>/api/day-tabs/', views.day_tabs_fragment, name='day_tabs'),
     path('<str:bases>/<str:path>/<str:meal>/', views.menu_detail, name='menu_detail'),
     prefix_default_language=True,
 )

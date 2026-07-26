@@ -1,0 +1,18 @@
+{% load i18n %}
+<div class="week-nav">
+    <a hx-get="?day={{ selected_day }}&meal={{ selected_meal }}&previous={{ previous|add:1 }}"
+        hx-target="#week-nav, #day-tabs, #menu-panel"
+        hx-swap="innerHTML"
+        class="week-nav-link" aria-label="Previous week">
+        <i data-lucide="chevron-left" class="week-nav-icon"></i>
+    </a>
+    <span class="week-nav-label">{{week|slice:"0:1"|first|slice:"0:4"}}.{{week|slice:"0:1"|first|slice:"4:6"}}.{{week|slice:"0:1"|first|slice:"6:8"}}~{{week|slice:"4:5"|first|slice:"0:4"}}.{{week|slice:"4:5"|first|slice:"4:6"}}.{{week|slice:"4:5"|first|slice:"6:8"}}</span>
+    {% if previous != '0' %}
+    <a hx-get="?day={{ selected_day }}&meal={{ selected_meal }}&previous={{ previous|add:'-1' }}"
+        hx-target="#week-nav, #day-tabs, #menu-panel"
+        hx-swap="innerHTML"
+        class="week-nav-link" aria-label="Next week">
+        <i data-lucide="chevron-right" class="week-nav-icon"></i>
+    </a>
+    {% endif %}
+</div>

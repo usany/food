@@ -1,9 +1,9 @@
 import re
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from .models import MenuItem
-from .constants import * 
+from .constants import *
 import os
 
 def root_redirect(request):
@@ -129,3 +129,112 @@ def menu_detail(request, path, meal, bases):
     meal = next((m['name'] for m in MEALS if m['time'] == menu_item.meal), None) if fixed_menu is None else ", ".join(m['name'] for tc in fixed_menu.get('time_category', []) for m in MEALS if m['time'] == tc)
     item_main = menu_item.safe_main if fixed_menu is None else menu_item['main']
     return render(request, 'pages/menu_detail.html', {'title': title, 'day': day, 'meal': meal, 'menu_item': menu_item, 'image_url': os.getenv('STORAGE_URL')+item_main, 'time': time, 'bases': bases, 'path': path})
+
+
+def menu_panel_fragment(request, path, bases):
+    """HTMX endpoint: returns just the menu panel (day/meal tabs + menu items)"""
+    r = next((r for r in RESTAURANTS if r['path'] == path), None)
+    if not r:
+        from django.http import Http404
+        raise Http404("Restaurant not found")
+
+    title = r['title']
+    weekday_names = ['mon', 'tue', 'wed', 'thu', 'fri']
+    today = datetime.today()
+    hour = datetime.now().hour
+    today_idx = datetime.today().weekday()
+    current_idx = today_idx + 1 if hour > 18 else today_idx
+    default_day = request.GET.get('day', weekday_names[current_idx] if current_idx < 5 else 'mon')
+    previous = request.GET.get('previous', 0)
+
+    start_of_week = today - timedelta(days=today_idx) - timedelta(weeks=int(previous)) if today_idx < 5 else today + timedelta(days=7-today_idx)
+    week = [(start_of_week + timedelta(days=i)).strftime('%Y%m%d') for i in range(5)]
+    selected_date = week[weekday_names.index(default_day)]
+
+    issemester = MenuItem.objects.filter(place='his', meal='breakfast', date=selected_date).exists() if path in ['his', 'hgs'] else MenuItem.objects.filter(place='ch', meal='dinner', date=selected_date).exists()
+    all_meals = r['mealsSemester'] if issemester else r['mealsVacation']
+
+    time_to_meal = {'breakfast': [8, 9, 10], 'lunch': [11, 12, 13, 14], 'snack': [15, 16], 'dinner': [17, 18, 19], 'onedish': [8, 9, 10, 11, 12, 13, 14, 15, 16], 'unmanned': [14, 15, 16]}
+    default_meal_name = next((m for m, hours in time_to_meal.items() if hour in hours and m in [meal['time'] for meal in MEALS if meal['name'] in all_meals]), 'breakfast' if '아침' in all_meals else 'lunch')
+    default_meal = request.GET.get('meal', default_meal_name)
+    selected_meal = default_meal
+
+    meal_tabs = [
+        {
+            'id': next((meal['time'] for meal in MEALS if meal['name'] == m), None),
+            'label': m,
+            'meal_time': r['mealsSemesterTime'][r['mealsSemester'].index(m)] if issemester else r['mealsVacationTime'][r['mealsVacation'].index(m)]
+        }
+        for m in all_meals
+    ]
+
+    all_dishes = FIXED_MENU.get(path, [])
+    filtered_dishes = [
+        d for d in all_dishes
+        if selected_meal in d.get('time_category', [])
+    ] if selected_meal else all_dishes
+    db_qs = MenuItem.objects.filter(place=path, meal=selected_meal, day=default_day, date=selected_date)
+    filtered_dishes = list(db_qs) + filtered_dishes
+    filtered_dishes = [
+        {**d, 'safe_main': re.sub(r'[\\/*?:"<>|]', '+', d.get('main', '') or '')}
+        if isinstance(d, dict) else d
+        for d in filtered_dishes
+    ]
+
+    return render(request, 'components/menu_panel.html', {
+        'meal_tabs': meal_tabs,
+        'selected_meal': selected_meal,
+        'selected_day': default_day,
+        'menu': filtered_dishes,
+        'bases': bases,
+        'path': path,
+        'previous': previous,
+        'storage_url': os.getenv('STORAGE_URL')
+    })
+
+
+def week_nav_fragment(request, path, bases):
+    """HTMX endpoint: returns just the week navigation"""
+    weekday_names = ['mon', 'tue', 'wed', 'thu', 'fri']
+    today = datetime.today()
+    today_idx = datetime.today().weekday()
+    previous = request.GET.get('previous', 0)
+    selected_day = request.GET.get('day', weekday_names[today_idx] if today_idx < 5 else 'mon')
+    selected_meal = request.GET.get('meal', 'breakfast')
+
+    start_of_week = today - timedelta(days=today_idx) - timedelta(weeks=int(previous)) if today_idx < 5 else today + timedelta(days=7-today_idx)
+    week = [(start_of_week + timedelta(days=i)).strftime('%Y%m%d') for i in range(5)]
+
+    return render(request, 'components/week_nav.html', {
+        'week': week,
+        'selected_day': selected_day,
+        'selected_meal': selected_meal,
+        'previous': previous
+    })
+
+
+def day_tabs_fragment(request, path, bases):
+    """HTMX endpoint: returns just the day tabs"""
+    weekday_names = ['mon', 'tue', 'wed', 'thu', 'fri']
+    today = datetime.today()
+    today_idx = datetime.today().weekday()
+    previous = request.GET.get('previous', 0)
+    selected_day = request.GET.get('day', weekday_names[today_idx] if today_idx < 5 else 'mon')
+    selected_meal = request.GET.get('meal', 'breakfast')
+
+    start_of_week = today - timedelta(days=today_idx) - timedelta(weeks=int(previous)) if today_idx < 5 else today + timedelta(days=7-today_idx)
+    week = [(start_of_week + timedelta(days=i)).strftime('%Y%m%d') for i in range(5)]
+    week_without_year = [(start_of_week + timedelta(days=i)).strftime('%m.%d') for i in range(5)]
+
+    tabs = []
+    for i, w in enumerate(WEEKDAYS):
+        t = dict(w)
+        t['date'] = week_without_year[i]
+        tabs.append(t)
+
+    return render(request, 'components/day_tabs.html', {
+        'tabs': tabs,
+        'selected_day': selected_day,
+        'selected_meal': selected_meal,
+        'previous': previous
+    })
