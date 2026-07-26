@@ -11,6 +11,34 @@
             lucide.createIcons();
         }
     });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('click', function(e) {
+            const dayTab = e.target.closest('#day-tabs .tab');
+            if (dayTab) {
+                e.preventDefault();
+                const day = dayTab.getAttribute('data-day');
+                const meal = document.querySelector('.meal-tab-bar .tab--active')?.id.replace('tab-', '') || 'breakfast';
+                const url = '{{ request.path }}?day=' + day + '&meal=' + meal + '&previous=0';
+
+                fetch(url).then(r => r.text()).then(html => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    const newPanel = doc.querySelector('#menu-panel');
+                    if (newPanel) {
+                        document.querySelector('#menu-panel').outerHTML = newPanel.outerHTML;
+                        if (window.htmx) {
+                            htmx.process(document.querySelector('#menu-panel'));
+                        }
+                        if (window.lucide) lucide.createIcons();
+                    }
+                });
+
+                document.querySelectorAll('#day-tabs .tab').forEach(t => t.classList.remove('tab--active'));
+                dayTab.classList.add('tab--active');
+            }
+        });
+    });
 </script>
 {% endblock %}
 

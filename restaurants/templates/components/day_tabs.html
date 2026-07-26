@@ -1,13 +1,11 @@
 {% load i18n %}
 {% if tabs %}
-<div class="tab-bar--border-bottom">
+<div class="tab-bar--border-bottom" data-selected-meal="{{ selected_meal }}">
     <div class="tab-bar">
         {% for tab in tabs %}
         <a id="daytab-{{ tab.day }}"
-            hx-get="{% url 'menu_panel' bases=bases path=path %}?day={{ tab.day }}&meal={{ selected_meal }}&previous={{ previous }}"
-            hx-target="#menu-panel"
-            hx-select="#menu-panel"
-            hx-on="click: document.querySelectorAll('#day-tabs .tab').forEach(t => t.classList.remove('tab--active')); this.classList.add('tab--active')"
+            href="#"
+            data-day="{{ tab.day }}"
             data-tab="{{ tab.day }}"
             class="tab {% if selected_day == tab.day %}tab--active{% endif %}">
             {% trans tab.name %}
