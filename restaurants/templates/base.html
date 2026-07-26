@@ -26,8 +26,15 @@
     <main>
         {% block content %}{% endblock %}
     </main>
-
+    <div hx-post="/clicked"
+    hx-trigger="click"
+    hx-target="#parent-div"
+    hx-swap="outerHTML">
+    Click Me!</div>
     <nav class="bottom-nav">
+        <div hx-post="/mouse_entered" hx-trigger="mouseenter">
+    [Here Mouse, Mouse!]
+</div>
         <!-- Top Buttons Wrapper (Dark Mode + Language) -->
         <div class="top-buttons-row">
             <button class="nav-item" id="nav-toggle-expanded" onclick="toggleNavExpanded()">
