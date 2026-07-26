@@ -200,6 +200,5 @@ PWA_APP_ICONS_APPLE = [
 ]
 PWA_APP_DIR = 'ltr'
 PWA_APP_LANG = 'en-US'
-# PWA_SERVICE_WORKER_PATH = BASE_DIR / 'restaurants' / 'serviceworker.js'
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
