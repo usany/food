@@ -5,8 +5,9 @@
         {% for tab in tabs %}
         <a id="daytab-{{ tab.day }}"
             hx-get="{% url 'menu_panel' bases=bases path=path %}?day={{ tab.day }}&meal={{ selected_meal }}&previous={{ previous }}"
-            hx-target="#menu-content"
-            hx-push-url="?day={{ tab.day }}&meal={{ selected_meal }}&previous={{ previous }}"
+            hx-target="#menu-panel"
+            hx-select="#menu-panel"
+            hx-on="click: document.querySelectorAll('#day-tabs .tab').forEach(t => t.classList.remove('tab--active')); this.classList.add('tab--active')"
             data-tab="{{ tab.day }}"
             class="tab {% if selected_day == tab.day %}tab--active{% endif %}">
             {% trans tab.name %}
