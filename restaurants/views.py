@@ -181,7 +181,7 @@ def menu_panel_fragment(request, path, bases):
         for d in filtered_dishes
     ]
 
-    return render(request, 'components/menu_panel.html', {
+    context = {
         'meal_tabs': meal_tabs,
         'selected_meal': selected_meal,
         'selected_day': default_day,
@@ -190,7 +190,9 @@ def menu_panel_fragment(request, path, bases):
         'path': path,
         'previous': previous,
         'storage_url': os.getenv('STORAGE_URL')
-    })
+    }
+
+    return render(request, 'components/menu_panel.html', context)
 
 
 def week_nav_fragment(request, path, bases):

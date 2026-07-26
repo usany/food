@@ -5,7 +5,7 @@
         {% for tab in tabs %}
         <a id="daytab-{{ tab.day }}"
             hx-get="{% url 'menu_panel' bases=bases path=path %}?day={{ tab.day }}&meal={{ selected_meal }}&previous={{ previous }}"
-            hx-target="#menu-panel"
+            hx-target="#menu-content"
             hx-push-url="?day={{ tab.day }}&meal={{ selected_meal }}&previous={{ previous }}"
             data-tab="{{ tab.day }}"
             class="tab {% if selected_day == tab.day %}tab--active{% endif %}">
