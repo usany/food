@@ -35,9 +35,9 @@ def start():
         args=['playwright'],
         kwargs={'source': 'khu', 'campus': 'seoul'},
         id='playwright_khu_seoul',
-        day_of_week='tue',
-        hour=7,
-        minute=13,
+        day_of_week='thu',
+        hour=1,
+        minute=31,
         replace_existing=True
     )
     scheduler.add_job(
@@ -46,9 +46,9 @@ def start():
         args=['playwright'],
         kwargs={'source': 'khu', 'campus': 'global'},
         id='playwright_khu_global',
-        day_of_week='sat',
-        hour=7,
-        minute=24,
+        day_of_week='thu',
+        hour=1,
+        minute=33,
         replace_existing=True
     )
     scheduler.add_job(
@@ -57,8 +57,8 @@ def start():
         args=['playwright'],
         kwargs={'source': 'hufs', 'student': True},
         id='playwright_hufs_student',
-        day_of_week='sat',
-        hour=7,
+        day_of_week='thu',
+        hour=1,
         minute=35,
         replace_existing=True
     )
@@ -68,9 +68,9 @@ def start():
         args=['playwright'],
         kwargs={'source': 'hufs', 'student': False},
         id='playwright_hufs_staff',
-        day_of_week='sat',
-        hour=7,
-        minute=46,
+        day_of_week='thu',
+        hour=1,
+        minute=38,
         replace_existing=True
     )
     scheduler.add_job(
@@ -79,9 +79,9 @@ def start():
         args=['playwright'],
         kwargs={'source': 'dorm'},
         id='playwright_dorm',
-        day_of_week='sat',
-        hour=7,
-        minute=57,
+        day_of_week='thu',
+        hour=1,
+        minute=39,
         replace_existing=True
     )
     
