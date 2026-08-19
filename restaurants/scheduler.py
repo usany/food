@@ -46,7 +46,7 @@ def start():
         args=['playwright'],
         kwargs={'source': 'khu', 'campus': 'global'},
         id='playwright_khu_global',
-        day_of_week='tue',
+        day_of_week='sat',
         hour=7,
         minute=24,
         replace_existing=True
@@ -57,7 +57,7 @@ def start():
         args=['playwright'],
         kwargs={'source': 'hufs', 'student': True},
         id='playwright_hufs_student',
-        day_of_week='tue',
+        day_of_week='sat',
         hour=7,
         minute=35,
         replace_existing=True
@@ -68,7 +68,7 @@ def start():
         args=['playwright'],
         kwargs={'source': 'hufs', 'student': False},
         id='playwright_hufs_staff',
-        day_of_week='tue',
+        day_of_week='sat',
         hour=7,
         minute=46,
         replace_existing=True
@@ -79,7 +79,7 @@ def start():
         args=['playwright'],
         kwargs={'source': 'dorm'},
         id='playwright_dorm',
-        day_of_week='tue',
+        day_of_week='sat',
         hour=7,
         minute=57,
         replace_existing=True
