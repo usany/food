@@ -30,7 +30,7 @@ RUN pip install --no-cache-dir \
     requests \
     playwright \
     openai \
-    django-cf \
+    django-cf==0.2.10 \
     django-browser-reload \
     django-pwa \
     gunicorn
@@ -39,8 +39,6 @@ RUN python -m playwright install chromium \
     && python -m playwright install-deps chromium
 
 COPY . .
-
-RUN python manage.py collectstatic --noinput
 
 EXPOSE 8000
 CMD ["gunicorn", "restaurants.wsgi:application", "-b", "0.0.0.0:8000"]

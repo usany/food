@@ -130,7 +130,7 @@ ORACLE_MEDIA_LOCATION = 'media'
 # ORACLE_CONFIG_PROFILE = 'DEFAULT'
 
 # Django media file storage backend
-DEFAULT_FILE_STORAGE = 'restaurants.oracle_storage.OracleObjectStorage'
+# DEFAULT_FILE_STORAGE = 'restaurants.oracle_storage.OracleObjectStorage'
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators

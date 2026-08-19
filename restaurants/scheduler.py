@@ -37,7 +37,7 @@ def start():
         id='playwright_khu_seoul',
         day_of_week='thu',
         hour=1,
-        minute=31,
+        minute=32,
         replace_existing=True
     )
     scheduler.add_job(
