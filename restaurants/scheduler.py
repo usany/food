@@ -13,7 +13,7 @@ def _run_playwright(*args, **kwargs):
 # Create scheduler 
 # scheduler = BackgroundScheduler()
 scheduler = BackgroundScheduler(timezone='Asia/Seoul')
-
+min = 1
 def start():
     """Start the scheduler with scheduled jobs"""
     
@@ -35,9 +35,9 @@ def start():
         args=['playwright'],
         kwargs={'source': 'khu', 'campus': 'seoul'},
         id='playwright_khu_seoul',
-        day_of_week='thu',
-        hour=1,
-        minute=32,
+        day_of_week='fri',
+        hour=22,
+        minute=min,
         replace_existing=True
     )
     scheduler.add_job(
@@ -46,9 +46,9 @@ def start():
         args=['playwright'],
         kwargs={'source': 'khu', 'campus': 'global'},
         id='playwright_khu_global',
-        day_of_week='thu',
-        hour=1,
-        minute=33,
+        day_of_week='fri',
+        hour=22,
+        minute=min + 10,
         replace_existing=True
     )
     scheduler.add_job(
@@ -57,9 +57,9 @@ def start():
         args=['playwright'],
         kwargs={'source': 'hufs', 'student': True},
         id='playwright_hufs_student',
-        day_of_week='thu',
-        hour=1,
-        minute=35,
+        day_of_week='fri',
+        hour=22,
+        minute=min + 20,
         replace_existing=True
     )
     scheduler.add_job(
@@ -68,9 +68,9 @@ def start():
         args=['playwright'],
         kwargs={'source': 'hufs', 'student': False},
         id='playwright_hufs_staff',
-        day_of_week='thu',
-        hour=1,
-        minute=38,
+        day_of_week='fri',
+        hour=22,
+        minute=min + 30,
         replace_existing=True
     )
     scheduler.add_job(
@@ -79,9 +79,9 @@ def start():
         args=['playwright'],
         kwargs={'source': 'dorm'},
         id='playwright_dorm',
-        day_of_week='thu',
-        hour=1,
-        minute=39,
+        day_of_week='fri',
+        hour=22,
+        minute=min + 40,
         replace_existing=True
     )
     
