@@ -13,7 +13,7 @@ def _run_playwright(*args, **kwargs):
 # Create scheduler 
 # scheduler = BackgroundScheduler()
 scheduler = BackgroundScheduler(timezone='Asia/Seoul')
-min = 30
+min = 5
 def start():
     """Start the scheduler with scheduled jobs"""
     
@@ -36,7 +36,7 @@ def start():
         kwargs={'source': 'khu', 'campus': 'seoul'},
         id='playwright_khu_seoul',
         day_of_week='fri',
-        hour=22,
+        hour=23,
         minute=min,
         replace_existing=True
     )
@@ -47,7 +47,7 @@ def start():
         kwargs={'source': 'khu', 'campus': 'global'},
         id='playwright_khu_global',
         day_of_week='fri',
-        hour=22,
+        hour=23,
         minute=min + 5,
         replace_existing=True
     )
@@ -58,7 +58,7 @@ def start():
         kwargs={'source': 'hufs', 'student': True},
         id='playwright_hufs_student',
         day_of_week='fri',
-        hour=22,
+        hour=23,
         minute=min + 10,
         replace_existing=True
     )
@@ -69,7 +69,7 @@ def start():
         kwargs={'source': 'hufs', 'student': False},
         id='playwright_hufs_staff',
         day_of_week='fri',
-        hour=22,
+        hour=23,
         minute=min + 15,
         replace_existing=True
     )
@@ -80,7 +80,7 @@ def start():
         kwargs={'source': 'dorm'},
         id='playwright_dorm',
         day_of_week='fri',
-        hour=22,
+        hour=23,
         minute=min + 20,
         replace_existing=True
     )
