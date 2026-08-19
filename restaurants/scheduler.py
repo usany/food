@@ -13,7 +13,7 @@ def _run_playwright(*args, **kwargs):
 # Create scheduler 
 # scheduler = BackgroundScheduler()
 scheduler = BackgroundScheduler(timezone='Asia/Seoul')
-min = 5
+min = 30
 def start():
     """Start the scheduler with scheduled jobs"""
     
