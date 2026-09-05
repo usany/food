@@ -17,19 +17,22 @@ services:
         reservations:
           memory: 256m
 
-  scheduler:
+  # One-off weekly scrape: runs scrape_weekly.sh and exits (no restart, no
+  # resident process). Trigger from host cron instead of the old scheduler:
+  #   05 23 * * 5  cd /home/ubuntu/food && docker compose run --rm --no-deps scraper
+  scraper:
     build: .
-    container_name: food-scheduler
-    command: python manage.py run_scheduler
+    command: bash /app/scrape_weekly.sh
     environment:
+      - APP_DIR=/app
+      - PYTHON=python
       - TZ=Asia/Seoul
       - DJANGO_DEBUG=False
     env_file:
       - .env
-    restart: unless-stopped
     deploy:
       resources:
         limits:
           memory: 1g
         reservations:
-          memory: 512m
+          memory: 256m

@@ -1,0 +1,17 @@
+[Unit]
+Description=Weekly menu scrape (Playwright oneshot)
+After=network.target
+
+[Service]
+Type=oneshot
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/home/ubuntu/food
+EnvironmentFile=/home/ubuntu/food/.env
+Environment=DJANGO_DEBUG=False
+Environment=TZ=Asia/Seoul
+ExecStart=/home/ubuntu/food/scrape_weekly.sh
+MemoryMax=1G
+
+[Install]
+WantedBy=multi-user.target

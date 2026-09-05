@@ -1,0 +1,5 @@
+# Weekly menu scrape — Friday 23:05 KST. Replaces the old always-on APScheduler.
+# Install with:  crontab deploy/crontab
+# (logs/ must exist:  mkdir -p /home/ubuntu/food/logs)
+CRON_TZ=Asia/Seoul
+05 23 * * 5  /home/ubuntu/food/scrape_weekly.sh >> /home/ubuntu/food/logs/scrape.log 2>&1

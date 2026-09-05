@@ -1,0 +1,9 @@
+[Unit]
+Description=Run weekly menu scrape every Friday 23:05 KST
+
+[Timer]
+OnCalendar=Fri *-*-* 23:05:00 Asia/Seoul
+Persistent=true
+
+[Install]
+WantedBy=timers.target
